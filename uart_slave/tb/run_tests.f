@@ -1,0 +1,4 @@
++UVM_TESTNAME=base_test
++UVM_TESTNAME=uart_slave_tx_test
++UVM_TESTNAME=uart_slave_rx_test
++UVM_TESTNAME=uart_slave_parity_test

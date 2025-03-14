@@ -1,0 +1,4 @@
++UVM_TESTNAME=base_test
++UVM_TESTNAME=full_uart_system_test
++UVM_TESTNAME=error_handling_test
++UVM_TESTNAME=performance_test
