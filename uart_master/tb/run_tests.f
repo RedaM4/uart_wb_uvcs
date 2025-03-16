@@ -1,4 +1,0 @@
-+UVM_TESTNAME=base_test
-+UVM_TESTNAME=uart_master_tx_test
-+UVM_TESTNAME=uart_master_rx_test
-+UVM_TESTNAME=uart_master_parity_test

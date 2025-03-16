@@ -1,100 +1,85 @@
 # Compiler options
-VCS = vcs -full64 -ntb_opts uvm -sverilog -debug_all -kdb -cm line+cond+fsm+branch -timescale=1ns/1ns
-SIMV = simv
+VCS = vcs -full64 -ntb_opts uvm -sverilog -debug_all -kdb -timescale=1ns/1ns
 
-# Default test and verbosity (can be overridden)
+# Simulation binary names
+UART_SIM = ./uart_simv
+WB_SIM = ./wb_simv
+SYSTEM_SIM = ./system_simv
+
+# Filelists
+UART_FILELIST = uart_uvc/tb/run.f
+WB_FILELIST = wb_uvc/tb/run.f
+SYSTEM_FILELIST = uart_wb_system/tb/run_tests.f
+
+# Default test and verbosity
 TEST ?= base_test
-VER ?= UVM_HIGH  
+VER ?= UVM_HIGH
 
-# Filelists for Compilation
-SLAVE_FILELIST  = ../uart_slave/tb/uart_slave_filelist.f
-MASTER_FILELIST = ../uart_master/tb/uart_master_filelist.f
-SYSTEM_FILELIST = ../uart_system/tb/uart_integ_filelist.f
+# Compilation targets
+compile_uart:
+	@echo "🔧 Compiling UART UVC..."
+	$(VCS) -f $(UART_FILELIST) -o $(UART_SIM)
 
-# Simulation Binaries
-SLAVE_SIM  = simv_slave
-MASTER_SIM = simv_master
-SYSTEM_SIM = simv_system
+compile_wb:
+	@echo "🔧 Compiling Wishbone UVC..."
+	$(VCS) -f $(WB_FILELIST) -o $(WB_SIM)
 
-# Ensure logs directory exists
-logs:
-	@mkdir -p ../logs
-
-# Compilation Targets
-compile_slave cs:
-	@echo "🔧 Compiling UART Slave UVC..."
-	$(VCS) -f $(SLAVE_FILELIST) -o $(SLAVE_SIM)
-
-compile_master cm:
-	@echo "🔧 Compiling UART Master UVC..."
-	$(VCS) -f $(MASTER_FILELIST) -o $(MASTER_SIM)
-
-compile_system css:
-	@echo "🔧 Compiling UART System UVC with DUT..."
+compile_system:
+	@echo "🔧 Compiling System Integration..."
 	$(VCS) -f $(SYSTEM_FILELIST) -o $(SYSTEM_SIM)
 
-# Run Individual Tests
-run_slave rs: logs
-	@echo "🚀 Running UART Slave Test: $(TEST)"
-	./$(SLAVE_SIM) +UVM_TESTNAME=$(TEST) +UVM_VERBOSITY=$(VER) +ntb_random_seed_automatic -l ../logs/run_slave_$(TEST).log
+# Running targets
+run_uart:
+	@echo "🚀 Running UART Simulation with TEST=$(TEST)"
+	$(UART_SIM) +UVM_TESTNAME=$(TEST) +UVM_VERBOSITY=$(VER) +ntb_random_seed_automatic | tee logs/uart.log
 
-run_master rm: logs
-	@echo "🚀 Running UART Master Test: $(TEST)"
-	./$(MASTER_SIM) +UVM_TESTNAME=$(TEST) +UVM_VERBOSITY=$(VER) +ntb_random_seed_automatic -l ../logs/run_master_$(TEST).log
+run_wb:
+	@echo "🚀 Running WB Simulation with TEST=$(TEST)"
+	$(WB_SIM) +UVM_TESTNAME=$(TEST) +UVM_VERBOSITY=$(VER) +ntb_random_seed_automatic | tee logs/wb.log
 
-run_system rss: logs
-	@echo "🚀 Running UART System Test: $(TEST)"
-	./$(SYSTEM_SIM) +UVM_TESTNAME=$(TEST) +UVM_VERBOSITY=$(VER) +ntb_random_seed_automatic -l ../logs/run_system_$(TEST).log
+run_system:
+	@echo "🚀 Running System Simulation with TEST=$(TEST)"
+	$(SYSTEM_SIM) +UVM_TESTNAME=$(TEST) +UVM_VERBOSITY=$(VER) +ntb_random_seed_automatic | tee logs/system.log
 
-# Run Regression Tests
-regress_slave res:
-	@echo "🚀 Running Regression for UART Slave"
-	./$(SLAVE_SIM) -f ../uart_slave/tb/run_tests.f -l ../logs/regression_slave.log
+# Regression targets
+regress_uart:
+	@echo "🧪 Running Regression for UART..."
+	$(UART_SIM) +UVM_TESTNAME=all | tee logs/uart_regression.log
 
-regress_master rem:
-	@echo "🚀 Running Regression for UART Master"
-	./$(MASTER_SIM) -f ../uart_master/tb/run_tests.f -l ../logs/regression_master.log
+regress_wb:
+	@echo "🧪 Running Regression for WB..."
+	$(WB_SIM) +UVM_TESTNAME=all | tee logs/wb_regression.log
 
-regress_system ress:
-	@echo "🚀 Running Regression for UART System"
-	./$(SYSTEM_SIM) -f ../uart_system/tb/run_tests.f -l ../logs/regression_system.log
+regress_system:
+	@echo "🧪 Running Regression for System..."
+	$(SYSTEM_SIM) +UVM_TESTNAME=all | tee logs/system_regression.log
 
-# Run All Regression Tests
-regress_all ra:
-	@echo "🚀 Running Full Regression for All UVCs"
-	make res && make rem && make ress
+# Shortcuts
+cu: compile_uart
+cw: compile_wb
+cs: compile_system
+ru: run_uart
+rw: run_wb
+rs: run_system
+rua: regress_uart
+rwa: regress_wb
+rsa: regress_system
 
-# Collect Coverage
-coverage:
-	@echo "📊 Generating Coverage Report..."
-	urg -dir simv.vdb -report ../logs/coverage_report
-
-# Clean Simulation Binaries
+# Cleanup
 clean:
-	@echo "🧹 Cleaning up compiled files..."
-	rm -rf $(SLAVE_SIM) $(MASTER_SIM) $(SYSTEM_SIM) csrc DVEfiles ucli.key *.vpd *.daidir
+	@echo "🗑 Cleaning up generated files..."
+	rm -rf csrc simv simv.daidir ucli.key *.log *.vpd *.vdb DVEfiles
 
-# Clean Logs
-clean_logs:
-	@echo "🧹 Cleaning all logs..."
-	rm -rf ../logs/*.log
-
-# Help Command
+# Help command
 help:
-	@echo "Usage: make [target]"
-	@echo ""
-	@echo "Targets:"
-	@echo "  compile_slave (cs)  Compile only the UART Slave UVC"
-	@echo "  compile_master (cm) Compile only the UART Master UVC"
-	@echo "  compile_system (css) Compile the entire UART system (includes DUT)"
-	@echo "  run_slave (rs)      Run a single UART Slave test"
-	@echo "  run_master (rm)     Run a single UART Master test"
-	@echo "  run_system (rss)    Run a single UART System test"
-	@echo "  regress_slave (res) Run Regression Tests for UART Slave"
-	@echo "  regress_master (rem) Run Regression Tests for UART Master"
-	@echo "  regress_system (ress) Run Regression Tests for UART System"
-	@echo "  regress_all (ra)    Run All Regression Tests (Slave, Master, System)"
-	@echo "  coverage            Generate Coverage Report"
-	@echo "  clean               Remove compiled files"
-	@echo "  clean_logs          Remove all logs"
-	@echo "  help                Show this help message"
+	@echo "Available Commands:"
+	@echo "  compile_uart (cu)   - Compile UART UVC"
+	@echo "  compile_wb (cw)     - Compile WB UVC"
+	@echo "  compile_system (cs) - Compile System"
+	@echo "  run_uart (ru)       - Run UART simulation"
+	@echo "  run_wb (rw)         - Run WB simulation"
+	@echo "  run_system (rs)     - Run System simulation"
+	@echo "  regress_uart (rua)  - Run UART regression"
+	@echo "  regress_wb (rwa)    - Run WB regression"
+	@echo "  regress_system (rsa) - Run System regression"
+	@echo "  clean               - Remove compiled files"
