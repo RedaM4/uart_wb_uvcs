@@ -7,7 +7,7 @@ WB_SIM = ./wb_simv
 SYSTEM_SIM = ./system_simv
 
 # Filelists
-UART_FILELIST = uart_uvc/tb/run.f
+UART_FILELIST = uart_uvc/tb/filelist.f
 WB_FILELIST = wb_uvc/tb/run.f
 SYSTEM_FILELIST = uart_wb_system/tb/run_tests.f
 
