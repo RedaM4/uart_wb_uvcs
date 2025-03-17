@@ -22,11 +22,11 @@ class uart_packet extends uvm_sequence_item;
     super.new(name);
   endfunction
 
-  function void calc_parity();
+ function void calc_parity();
     parity_bit = ^data; 
-    if (parity_type == ODD_PARITY) 
-  endfunction
-
+    if (parity_type == EVEN_PARITY)
+      parity_bit = ~parity_bit; 
+  endfunctio
   function void set_parity(bit [7:0] data_val, parity_type parity_val);
     data = data_val;
     parity_type = parity_val;
