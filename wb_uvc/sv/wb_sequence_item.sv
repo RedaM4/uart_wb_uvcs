@@ -26,6 +26,4 @@ endfunction
 `uvm_object_utils_end
 
 
-
-
-endclass: yapp_packet
+endclass: n_cpu_transaction
