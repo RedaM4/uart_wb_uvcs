@@ -8,9 +8,12 @@ SYSTEM_SIM = ./system_simv
 
 # Filelists
 UART_FILELIST = uart_uvc/tb/filelist.f
-WB_FILELIST = wb_uvc/tb/run.f
+WB_FILELIST = wb_uvc/tb/filelist.f
 SYSTEM_FILELIST = uart_wb_system/tb/run_tests.f
 
+uart_runf = uart_uvc/tb/run.f
+wb_runf = wb_uvc/tb/run.f
+system_runf = uart_wb_system/tb/run.f
 # Default test and verbosity
 TEST ?= base_test
 VER ?= UVM_HIGH
@@ -30,29 +33,29 @@ compile_system:
 
 # Running targets
 run_uart:
-	@echo "🚀 Running UART Simulation with TEST=$(TEST)"
-	$(UART_SIM) +UVM_TESTNAME=$(TEST) +UVM_VERBOSITY=$(VER) +ntb_random_seed_automatic | tee logs/uart.log
+	@echo "🚀 Running UART Simulation"
+	$(UART_SIM) -f $(uart_runf)
 
 run_wb:
-	@echo "🚀 Running WB Simulation with TEST=$(TEST)"
-	$(WB_SIM) +UVM_TESTNAME=$(TEST) +UVM_VERBOSITY=$(VER) +ntb_random_seed_automatic | tee logs/wb.log
+	@echo "🚀 Running WB Simulation"
+	$(WB_SIM)  -f $(wb_runf) 
 
 run_system:
-	@echo "🚀 Running System Simulation with TEST=$(TEST)"
-	$(SYSTEM_SIM) +UVM_TESTNAME=$(TEST) +UVM_VERBOSITY=$(VER) +ntb_random_seed_automatic | tee logs/system.log
+	@echo "🚀 Running System Simulation"
+	$(SYSTEM_SIM) -f  $(system_runf)
 
 # Regression targets
 regress_uart:
 	@echo "🧪 Running Regression for UART..."
-	$(UART_SIM) +UVM_TESTNAME=all | tee logs/uart_regression.log
+	$(UART_SIM) +UVM_TESTNAME=all  +UVM_VERBOSITY=$(VER) +ntb_random_seed_automatic  | tee logs/uart_regression.log
 
 regress_wb:
 	@echo "🧪 Running Regression for WB..."
-	$(WB_SIM) +UVM_TESTNAME=all | tee logs/wb_regression.log
+	$(WB_SIM) +UVM_TESTNAME=all +UVM_VERBOSITY=$(VER) +ntb_random_seed_automatic | tee logs/wb_regression.log
 
 regress_system:
 	@echo "🧪 Running Regression for System..."
-	$(SYSTEM_SIM) +UVM_TESTNAME=all | tee logs/system_regression.log
+	$(SYSTEM_SIM) +UVM_TESTNAME=all +UVM_VERBOSITY=$(VER) +ntb_random_seed_automatic | tee logs/system_regression.log
 
 # Shortcuts
 cu: compile_uart
