@@ -1,3 +1,5 @@
+//Done
+
 typedef enum bit [1:0] {WRITE, READ, IDLE, NULL} m_state_t;
 
 class n_cpu_transaction #(int WIDTH = 8) extends uvm_sequence_item;

@@ -6,7 +6,7 @@ wb_env env;
 
 //make scoreboard handle;
 
-//clock_and_reset_env clk_n_rst;
+clock_and_reset_env clk_n_rst;
 
 
 function new(string name = "wb_tb", uvm_component parent);
@@ -25,7 +25,7 @@ super.build_phase(phase);
 `uvm_info("--TESTBENCH_CLASS--","INSIDE BUILD PHASE",UVM_HIGH);
 env = wb_env::type_id::create("env",this); 
 
-//clk_n_rst = clock_and_reset_env::type_id::create("clk_n_rst",this);
+clk_n_rst = clock_and_reset_env::type_id::create("clk_n_rst",this);
 
 //scoreboard= scoreboard::type_id::create("scoreboard",this);
 endfunction

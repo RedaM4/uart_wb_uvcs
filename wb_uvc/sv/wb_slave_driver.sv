@@ -1,3 +1,6 @@
+//requires craaaazy revision
+
+
 class wb_slave_driver extends uvm_driver #(n_cpu_transaction);
 
 `uvm_component_utils(n_cpu_transaction);
@@ -5,6 +8,11 @@ class wb_slave_driver extends uvm_driver #(n_cpu_transaction);
 n_cpu_transaction item;
 
 virtual interface wb_if vif;
+
+logic [31:0] data_read = 32'haaaaaaaa;
+
+int UART_RANGE_LOW  = 32;
+int UART_RANGE_HIGH = 63;
 
 
 function new(string name="wb_slave_driver", uvm_component parent);
@@ -33,64 +41,49 @@ super.connect_phase(phase);
 `uvm_info("--DRIVER_CLASS--","INSIDE CONNECT PHASE",UVM_HIGH);
 endfunction
 
-/*
-task run_phase(uvm_phase phase);
 
+task run_phase(uvm_phase phase);
 `uvm_info("--DRIVER_CLASS--","INSIDE RUN PHASE",UVM_HIGH);
 
 
     fork
-      get_and_drive();
+      drive();
       reset_signals();
     join
   endtask : run_phase
 
-  // Gets packets from the sequencer and passes them to the driver. 
-  task get_and_drive();
-    @(posedge vif.reset);
+  task drive();
+    //@(posedge vif.reset);
     @(negedge vif.reset);
     `uvm_info(get_type_name(), "Reset dropped", UVM_MEDIUM)
-    forever begin
-      // Get new item from the sequencer
-      seq_item_port.get_next_item(req);
-
-      `uvm_info(get_type_name(), $sformatf("Sending Packet :\n%s", req.sprint()), UVM_HIGH)
-       
-      // concurrent blocks for packet driving and transaction recording
-      fork
-        // send packet
+    forever 
         begin
-          // for acceleration efficiency, write unsynthesizable dynamic payload array directly into 
-          // interface static payload array
-          foreach (req.payload[i])
-            vif.payload_mem[i] = req.payload[i];
-          // send rest of YAPP packet via individual arguments
-          vif.send_to_dut(req.lenght, req.addr, req.parity, req.packet_delay);
+          if(vif.STB_O)
+            begin
+                if(vif.ADR_O>UART_RANGE_LOW && vif.ADR_O<UART_RANGE_HIGH)
+                    begin
+                        if(vif.WE_O==0)
+                            begin
+                                vif.slave_write(data_read);
+                                vif.send_ack();
+                            end
+                        else if(vif.WE_O==1)
+                            begin
+                                data_read<=vif.DAT_O;
+                                vif.send_ack();
+                            end
+                    end
+            end
         end
-        // trigger transaction at start of packet (trigger signal from interface)
-        @(posedge vif.drvstart) void'(begin_tr(req, "Driver_YAPP_Packet"));
-      join
 
-      // End transaction recording
-      end_tr(req);
-      num_sent++;
-      // Communicate item done to the sequencer
-      seq_item_port.item_done();
-    end
-  endtask : get_and_drive
+
+  endtask : drive
 
   // Reset all TX signals
   task reset_signals();
     forever 
-     vif.yapp_reset();
+     vif.wb_reset();
   endtask : reset_signals
 
-  // UVM report_phase
-  function void report_phase(uvm_phase phase);
-    `uvm_info(get_type_name(), $sformatf("Report: YAPP TX driver sent %0d packets", num_sent), UVM_LOW)
-  endfunction : report_phase
-
-
-*/
 endclass: wb_slave_driver
 

@@ -1,3 +1,5 @@
+//need to figure out the sequences to be generated
+
 
 class wb_master_sequence extends uvm_sequence #(n_cpu_transaction));
   

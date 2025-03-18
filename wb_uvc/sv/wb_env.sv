@@ -1,3 +1,7 @@
+//needs only scoreboard data 
+
+
+
 class wb_env extends uvm_env;
 
 `uvm_component_utils(wb_env);
@@ -44,3 +48,4 @@ super.run_phase(phase);
 endtask
 
 endclass: wb_env
+
