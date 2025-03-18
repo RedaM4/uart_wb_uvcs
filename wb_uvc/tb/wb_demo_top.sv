@@ -9,18 +9,16 @@ import clock_and_reset_pkg::*;
 
 module tb_top;
     
-//    logic clk=0;
 
 
+//instintiate interface for wb
+//instintiate interface for clock and reset
 
-//always #2 clk = ~clk; 
+
 
 initial begin
-yapp_vif_config::set(null,"uvm_test_top.testBench.yapp_tx.*","vif",hw_top.in0);
-channel_vif_config::set(null,"uvm_test_top.testBench.ch0.*","vif",hw_top.ch_if0);
-channel_vif_config::set(null,"uvm_test_top.testBench.ch1.*","vif",hw_top.ch_if1);
-channel_vif_config::set(null,"uvm_test_top.testBench.ch2.*","vif",hw_top.ch_if2);
-hbus_vif_config::set(null,"uvm_test_top.testBench.hbus.*","vif",hw_top.hbus_if0);
+wb_vif_config::set(null,"uvm_test_top.testBench.env.*","vif",wb_vif);
+
 clock_and_reset_vif_config::set(null,"uvm_test_top.testBench.clk_n_rst.*","vif",hw_top.clk_n_rst_if);
 
 
