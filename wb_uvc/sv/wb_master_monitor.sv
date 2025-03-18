@@ -2,43 +2,56 @@
 
 
 ///////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////
-//Abdulmalik please do this
+
+//Abdulmalik please did this
 
 //////////////////////////////////////////////////////////
-class wb_master_monitor extends uvm_monitor;
+cclass wb_master_monitor extends uvm_monitor;
 
-`uvm_component_utils(wb_master_monitor); 
+  `uvm_component_utils(wb_master_monitor);
 
-function new(string name = "wb_master_monitor", uvm_component parent);
-super.new(name,parent); 
-`uvm_info("--MONITOR_CLASS--","INSIDE CONSTRUCTOR",UVM_HIGH);
-endfunction
+  wb_transaction trans;
 
-function void start_of_simulation_phase(uvm_phase phase);
-super.start_of_simulation_phase(phase);
-`uvm_info("--MONITOR_CLASS--","START OF SIMULATION PHASE",UVM_HIGH);
-endfunction
+  uvm_analysis_port#(wb_transaction) analysis_port;
 
-function void build_phase(uvm_phase phase);
-super.build_phase(phase);
-`uvm_info("--MONITOR_CLASS--","INSIDE BUILD PHASE",UVM_HIGH);
-endfunction
+  virtual wb_if vif;
 
+  function new(string name = "wb_master_monitor", uvm_component parent);
+    super.new(name, parent);
+    `uvm_info("--MONITOR_CLASS--", "INSIDE CONSTRUCTOR", UVM_HIGH);
+  endfunction
 
-function void connect_phase(uvm_phase phase);
-super.connect_phase(phase);
-`uvm_info("--MONITOR_CLASS--","INSIDE CONNECT PHASE",UVM_HIGH);
-endfunction
+  function void build_phase(uvm_phase phase);
+    super.build_phase(phase);
+    `uvm_info("--MONITOR_CLASS--", "INSIDE BUILD PHASE", UVM_HIGH);
 
+    analysis_port = new("analysis_port", this);
 
-task run_phase(uvm_phase phase);
-super.run_phase(phase);
-`uvm_info("--MONITOR_CLASS--","INSIDE RUN PHASE",UVM_HIGH);
+    if (!uvm_config_db#(virtual wb_if)::get(this, "", "vif", vif)) begin
+      `uvm_error("--MONITOR_CLASS--", "Virtual interface not found!")
+    end
+  endfunction
 
-endtask
+  task run_phase(uvm_phase phase);
+    super.run_phase(phase);
+    `uvm_info("--MONITOR_CLASS--", "INSIDE RUN PHASE", UVM_HIGH);
+
+    forever begin
+      @(posedge vif.clk iff vif.STB_O);
+
+      trans = wb_transaction::type_id::create("trans");
+
+      trans.address = vif.ADR_O;
+      trans.data    = vif.WE_O ? vif.DAT_O : vif.DAT_I; 
+      trans.M_STATE = vif.WE_O ? WRITE : READ;
+
+      @(posedge vif.clk iff vif.ACK_I);
+
+      analysis_port.write(trans);
+
+      `uvm_info("--MONITOR_CLASS--", $sformatf("Captured Transaction: Address=0x%h, Data=0x%h, M_STATE=%s", 
+                                               trans.address, trans.data, trans.M_STATE.name()), UVM_HIGH);
+    end
+  endtask
 
 endclass: wb_master_monitor
