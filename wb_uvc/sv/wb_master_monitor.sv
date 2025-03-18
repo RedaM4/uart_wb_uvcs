@@ -9,7 +9,7 @@
 //Abdulmalik please do this
 
 //////////////////////////////////////////////////////////
-class wb_master_monitor extends uvm_agent;
+class wb_master_monitor extends uvm_monitor;
 
 `uvm_component_utils(wb_master_monitor); 
 

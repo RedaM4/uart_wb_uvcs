@@ -9,7 +9,7 @@
 //Abdulmalik please do this
 
 //////////////////////////////////////////////////////////
-class wb_slave_monitor extends uvm_agent;
+class wb_slave_monitor extends uvm_monitor;
 
 `uvm_component_utils(wb_slave_monitor); 
 

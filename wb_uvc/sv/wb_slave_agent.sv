@@ -3,7 +3,7 @@ class wb_slave_agent extends uvm_agent;
 //`uvm_component_utils(yapp_tx_agent); //mentioned down so we don't need to mention it again
 
 wb_slave_driver driver;
-//need to create a handle for slave driver
+wb_slave_monitor monitor;
 wb_slave_sequencer sequencer;
 
 function new(string name = "wb_slave_agent", uvm_component parent);
@@ -24,7 +24,7 @@ begin
 driver = wb_slave_driver::type_id::create("driver",this);
 sequencer=wb_slave_sequencer::type_id::create("sequencer",this);
 end
-//monitor= yapp_tx_monitor::type_id::create("monitor",this); //need to create monitor
+monitor= wb_slave_monitor::type_id::create("monitor",this); //need to create monitor
 endfunction
 
 
