@@ -6,15 +6,13 @@
 //Abdulmalik please did this
 
 //////////////////////////////////////////////////////////
-cclass wb_master_monitor extends uvm_monitor;
+class wb_master_monitor extends uvm_monitor;
 
   `uvm_component_utils(wb_master_monitor);
 
-  wb_transaction trans;
-
-  uvm_analysis_port#(wb_transaction) analysis_port;
-
-  virtual wb_if vif;
+  n_cpu_transaction trans; 
+  uvm_analysis_port#(n_cpu_transaction) analysis_port; 
+  virtual interface wb_master_if vif; 
 
   function new(string name = "wb_master_monitor", uvm_component parent);
     super.new(name, parent);
@@ -27,8 +25,8 @@ cclass wb_master_monitor extends uvm_monitor;
 
     analysis_port = new("analysis_port", this);
 
-    if (!uvm_config_db#(virtual wb_if)::get(this, "", "vif", vif)) begin
-      `uvm_error("--MONITOR_CLASS--", "Virtual interface not found!")
+    if(!(wb_vif_config::get(this,"","vif",vif)))begin
+        `uvm_error("DRIVER CLASS", "Failed to get vif from config db");
     end
   endfunction
 
@@ -37,20 +35,29 @@ cclass wb_master_monitor extends uvm_monitor;
     `uvm_info("--MONITOR_CLASS--", "INSIDE RUN PHASE", UVM_HIGH);
 
     forever begin
-      @(posedge vif.clk iff vif.STB_O);
+      @(posedge vif.clk);
 
-      trans = wb_transaction::type_id::create("trans");
+      trans = n_cpu_transaction::type_id::create("trans");
 
-      trans.address = vif.ADR_O;
-      trans.data    = vif.WE_O ? vif.DAT_O : vif.DAT_I; 
-      trans.M_STATE = vif.WE_O ? WRITE : READ;
+      if (vif.STB_O) begin
+        trans.address = vif.ADR_O;
+        trans.data    = vif.WE_O ? vif.DAT_O : vif.DAT_I; 
+        trans.M_STATE = vif.WE_O ? WRITE : READ;
 
-      @(posedge vif.clk iff vif.ACK_I);
+        while (!vif.ACK_I) begin
+          @(posedge vif.clk);
+        end
+      end else begin
+        trans.address = vif.ADR_O; 
+        trans.data    = 0;         
+        trans.M_STATE = IDLE;      
+      end
 
-      analysis_port.write(trans);
-
-      `uvm_info("--MONITOR_CLASS--", $sformatf("Captured Transaction: Address=0x%h, Data=0x%h, M_STATE=%s", 
-                                               trans.address, trans.data, trans.M_STATE.name()), UVM_HIGH);
+      if (trans != null) begin
+        analysis_port.write(trans);
+        `uvm_info("--MONITOR_CLASS--", $sformatf("Captured Transaction: Address=0x%h, Data=0x%h, M_STATE=%s",
+                                                 trans.address, trans.data, trans.M_STATE.name()), UVM_HIGH);
+      end
     end
   endtask
 
