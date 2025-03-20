@@ -20,5 +20,11 @@ class uart_packet extends uvm_sequence_item;
     super.new(name);
     baud_rate = 9600; 
   endfunction
-
+    // function void print();
+    //     $display("------------------------- Packet Details -----------------------");
+    //     $display("Data: %h", data);
+    //     $display("Parity Mode: %b", parity_mode);
+    //     $display("Baud Rate: %0d", baud_rate);
+    //     $display("---------------------------------------------------------------");
+    // endfunction
 endclass
