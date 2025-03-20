@@ -51,9 +51,12 @@ class uart_1_seq extends uart_tx_seqs;
     // Body task
     task body();
         `uvm_info(get_type_name(), "Executing uart_1_seq sequence", UVM_LOW)
-        repeat(10) begin
-         `uvm_do(req)       
-        end
+        for (int i =0 ;i<4 ;i++ ) begin
+      `uvm_do_with(req, { req.data == i; });
+          
+        end 
+        // #2360;
+        // #3000;
     endtask
 endclass
 

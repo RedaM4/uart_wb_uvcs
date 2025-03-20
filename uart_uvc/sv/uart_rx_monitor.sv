@@ -1,6 +1,8 @@
 class uart_rx_monitor extends uvm_monitor;
   `uvm_component_utils(uart_rx_monitor)
    virtual uart_if vif;
+     uart_packet pkt;
+
 //   uvm_analysis_port#(uart_packet) mon_ap;
 
 //Constructor
@@ -26,14 +28,17 @@ class uart_rx_monitor extends uvm_monitor;
   endfunction: connect_phase
   
 //run_phase
-  task run_phase(uvm_phase phase);
-    forever begin
-    // Monitor TX signal and convert to packet
-    //   uart_packet packet;
-    //   // Logic to sample TX signal and create packet
-    //   mon_ap.write(packet);
-    end
-  endtask
+task run_phase(uvm_phase phase);
+    pkt = uart_packet::type_id::create("pkt");
+       
+       forever begin
+          @(posedge vif.clk);
+        vif.rx_2_data(pkt.data);
+        `uvm_info("z Recived FROM RX MON RECEIVED", $sformatf("Received packet:\n%s", pkt.sprint()), UVM_HIGH)
+       
+       end
+
+endtask
 
     function void start_of_simulation_phase(uvm_phase phase);
             `uvm_info(get_type_name(), "start of simulation phase", UVM_HIGH)

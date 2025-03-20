@@ -33,10 +33,10 @@ task run_phase(uvm_phase phase);
         seq_item_port.get_next_item(req);
 
         req.baud_rate = 9600; 
-        $display("Driver: Sending packet with data = %h at time %0t", req.data, $time);
+        req.parity_mode = 0 ; 
         vif.tx_2_rx(req);
-        `uvm_info("zSENT", $sformatf("sent packet:\n%s", req.sprint()), UVM_HIGH)
-
+        `uvm_info("z FROM TX DRV SENT", $sformatf("sent packet:\n%s", req.sprint()), UVM_HIGH)
+       #10;
         seq_item_port.item_done();
         `uvm_info(get_type_name(), "Item done", UVM_HIGH)
     end
