@@ -22,7 +22,10 @@ class base_test extends uvm_test;
     `uvm_info("BASE_TEST", "\nEnvironment created", UVM_HIGH)
 
      //uvm_config_wrapper::set(this,"tb.env.tx_agent.seqr.run_phase", "default_sequence", uart_1_seq::get_type());
-    // uvm_config_wrapper::set(this, "tb.env.tx_agent.seqr.run_phase", "default_sequence", uart_2_seq::get_type());
+    
+    uvm_config_wrapper::set(this, "tb.env.tx_agent.seqr.run_phase", "default_sequence", uart_1_seq::get_type());
+    uvm_config_wrapper::set(this, "tb.env.rx_agent.seqr.run_phase", "default_sequence", uart_1_seq::get_type());
+
     // uvm_config_wrapper::set(this, "","default_sequence",::get_type());
     `uvm_info("BASE_TEST", "\nDefault sequence configured", UVM_HIGH)
     endfunction
@@ -31,11 +34,10 @@ class base_test extends uvm_test;
      super.run_phase(phase);
         `uvm_info("BASE_TEST", "\nStarting sequence", UVM_MEDIUM)
         seq = uart_1_seq::type_id::create("seq");
-        phase.raise_objection(this);
-        // obj = phase.get_objection();
-        // obj.set_drain_time(this, 200ns);
-        seq.start(tb.env.tx_agent.seqr);
-        phase.drop_objection(this);
+        // phase.raise_objection(this);
+
+        // seq.start(tb.env.tx_agent.seqr);
+        // phase.drop_objection(this);
         
     endtask
 
