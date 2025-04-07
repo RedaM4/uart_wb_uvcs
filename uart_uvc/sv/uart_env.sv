@@ -16,7 +16,7 @@ function void build_phase(uvm_phase phase);
     `uvm_info(get_type_name(), "Inside Build Phase!", UVM_HIGH)
     
    tx_agent = uart_tx_agent::type_id::create("tx_agent", this);
-  rx_agent = uart_rx_agent::type_id::create("rx_agent", this);
+   rx_agent = uart_rx_agent::type_id::create("rx_agent", this);
 endfunction
 
 

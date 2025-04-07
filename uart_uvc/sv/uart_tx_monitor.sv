@@ -52,8 +52,8 @@ task run_phase(uvm_phase phase);
        forever begin
           @(posedge vif.clk);
         vif.tx_2_data(pkt.data);
-        `uvm_info("y FROM TX MON RECEIVED", $sformatf("Received packet:\n%s", pkt.sprint()), UVM_HIGH)
-       
+//        ----------------IMPORTANT
+       `uvm_info("y FROM TX MON RECEIVED", $sformatf("Received packet:\n%s", pkt.sprint()), UVM_HIGH)
        end
 
 endtask

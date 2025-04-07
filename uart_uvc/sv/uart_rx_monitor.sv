@@ -27,15 +27,15 @@ class uart_rx_monitor extends uvm_monitor;
     `uvm_info(get_type_name(), "Connect Phase!", UVM_HIGH)
   endfunction: connect_phase
   
-//run_phase
+//rx monitor
 task run_phase(uvm_phase phase);
-    pkt = uart_packet::type_id::create("pkt");
-       
+      // @(posedge vif.rx); 
        forever begin
-          @(posedge vif.clk);
+    pkt = uart_packet::type_id::create("pkt");
+        //  @(posedge vif.clk);
         vif.rx_2_data(pkt.data);
         `uvm_info("z Recived FROM RX MON RECEIVED", $sformatf("Received packet:\n%s", pkt.sprint()), UVM_HIGH)
-       
+   
        end
 
 endtask

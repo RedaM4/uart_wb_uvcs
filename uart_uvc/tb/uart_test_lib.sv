@@ -24,7 +24,13 @@ class base_test extends uvm_test;
      //uvm_config_wrapper::set(this,"tb.env.tx_agent.seqr.run_phase", "default_sequence", uart_1_seq::get_type());
     
     uvm_config_wrapper::set(this, "tb.env.tx_agent.seqr.run_phase", "default_sequence", uart_1_seq::get_type());
-    uvm_config_wrapper::set(this, "tb.env.rx_agent.seqr.run_phase", "default_sequence", uart_1_seq::get_type());
+
+
+    //------------IMPORTANT
+   uvm_config_wrapper::set(this, "tb.env.rx_agent.seqr.run_phase", "default_sequence", uart_1_seq::get_type()); 
+//----------------------------
+
+
 
     // uvm_config_wrapper::set(this, "","default_sequence",::get_type());
     `uvm_info("BASE_TEST", "\nDefault sequence configured", UVM_HIGH)

@@ -1,6 +1,6 @@
 psSimBaseName                      	simv
 psLogFileName                      	NULL
-psDaiDir                           	/home/Ahmad_Alroqi/VCD/UART/uart_wb_uvcs/uart_uvc/tb/simv.daidir
+psDaiDir                           	simv.daidir
 destPath                           	csrc/
 fSharedMasterElab                  	0
 fHsimPCSharedLibSpecified          	0
@@ -272,7 +272,7 @@ fHsimNewEvcdMultiDrvFmt            	1
 fHsimRelPath                       	0
 fHsimDumpElabData                  	1
 fHsimNoDeposit                     	0
-fHsimDumpOffsetData                	0
+fHsimDumpOffsetData                	1
 fNoOfsOpt                          	0
 fFlopGlitchDetect                  	0
 fHsimClkGlitch                     	0
@@ -399,7 +399,7 @@ fVpdRtlForPartCompDiag             	0
 fVpdRtlForPCIncrFix                	0
 fConstInExprofVpdTable             	0
 fHsimVpdOptGateMustDisable         	0
-fHsimVpdOptGate                    	0
+fHsimVpdOptGate                    	1
 fHsimVpdOptDelay                   	0
 fHsimVpdOptMPDelay                 	0
 fHsimVpdOptDiag                    	0
@@ -898,7 +898,7 @@ fHsimNewDebugOptMemDiag            	0
 hsGlobalVerboseLevel               	0
 fHsimTestPxpcode                   	0
 fHsimMdbVectorConstProp            	1
-fHsimEnableSeqUdpWrite             	0
+fHsimEnableSeqUdpWrite             	1
 fHsimDisableSeqUdpWriteForce       	0
 fHsimDumpMDBOnlyForSeqUdp          	0
 fHsimInitRegRandom                 	0
@@ -988,7 +988,7 @@ fHsimDumpMdbPruneVpdGates          	0
 fHsimGates1209                     	0
 fHsimCgRtlNoShareSmd               	0
 fHsimGenForErSum                   	0
-fVpdOpt                            	0
+fVpdOpt                            	1
 fFsdbGateFeature                   	1
 fHsimMdbCell                       	0
 fHsimMdbCellOnHeur                 	0
@@ -1033,9 +1033,9 @@ fHsimVpdGateOnlyFlag               	1
 fHsimMxConnFrc                     	0
 fHsimNewForceCbkVec                	0
 fHsimNewForceCbkVecDiag            	0
-fHsimMdbReplaceVpdHighConn         	0
+fHsimMdbReplaceVpdHighConn         	1
 fHsimVpdHighConnReplaced           	0
-fHsimVpdOptSVTypes                 	0
+fHsimVpdOptSVTypes                 	1
 fHsimDlyInitFrc                    	0
 fHsimPIP                           	0
 fHsimRTLoopDectOrgName             	0
@@ -1071,7 +1071,7 @@ fHsimVpdOptMdbCell                 	0
 fHsimVpdOptPartialMdb              	1
 fHsimVpdOptPartitionGate           	1
 fHsimVpdOptPartitionGateCompress   	1
-fHsimVpdOptXmr                     	0
+fHsimVpdOptXmr                     	1
 fHsimVpdOptConst                   	1
 fHsimVpdOptMoreLevels              	1
 fHsimSWave                         	0
@@ -1154,7 +1154,7 @@ fHsimSortLayout                    	0
 fHsimIslandLayout                  	0
 fHsimConfigSched0                  	0
 fHsimSelectFuseAfterDfuse          	0
-vcsNettypeDbgOpt                   	0
+vcsNettypeDbgOpt                   	4
 fHsimFoldedCell                    	0
 fHsimSimon2Mdb                     	0
 fHsimSWaveEmul                     	0
@@ -1378,7 +1378,7 @@ fFsimNativeFaultFlow               	0
 fFsimSerialFaultFlow               	0
 fFsimCompiled                      	0
 fFsimOptCapsFlow                   	0
-fFsimUserEnabledForceCaps          	0
+fFsimUserEnabledForceCaps          	1
 fEnableForceSelectorOptimization   	0
 fFsimPortFaults                    	0
 fFsimPortFaultsOpt                 	0
@@ -1584,8 +1584,8 @@ fHsimDefRtvsViewHasSpice           	0
 fLicUseAarchOnly                   	0
 fFgpJaguarLevelization             	0
 fHsimGatesUsed                     	0
-fHsimDebugAccessUsed               	0
-fHsimDebugRegionUsed               	0
+fHsimDebugAccessUsed               	1
+fHsimDebugRegionUsed               	1
 fHsimUpgradeWarnToErrForICPSD_W    	0
 fHsimUpgradeWarnToErrForICPD_PCA_W 	0
 fHsimUpgradeWarnToErrForICPD_W     	0

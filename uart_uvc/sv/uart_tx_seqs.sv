@@ -49,69 +49,24 @@ class uart_1_seq extends uart_tx_seqs;
     endfunction
 
     // Body task
+    
+    //sequence
     task body();
         `uvm_info(get_type_name(), "Executing uart_1_seq sequence", UVM_LOW)
-        for (int i =0 ;i<4 ;i++ ) begin
+        for (bit [7:0] i =0 ;i<8 ;i++ ) begin
       `uvm_do_with(req, { req.data == i; });
           
         end 
+        // `uvm_do_with(req, { req.data == 8'b00000001; });
+        // `uvm_do_with(req, { req.data == 8'b11110000; });
+        // `uvm_do_with(req, { req.data == 8'b00011011; });
+        // `uvm_do_with(req, { req.data == 8'b00000000; });
+        // `uvm_do_with(req, { req.data == 8'b01111100; });
+        // `uvm_do_with(req, { req.data == 8'b01111101; });
+        // `uvm_do_with(req, { req.data == 8'b00101100; });
+        // `uvm_do_with(req, { req.data == 8'b00001100; });
+
         // #2360;
-        // #3000;
+       #5000;
     endtask
 endclass
-
-
-// class uart_1_seq extends uvm_sequence #(uart_packet);
-//     `uvm_object_utils(uart_1_seq)
-
-//     // Constructor
-//     function new(string name = "uart_1_seq");
-//         super.new(name);
-//         `uvm_info(get_type_name(), "Executing uart_1_seq sequence", UVM_LOW)
-
-//     endfunction
-
-//     // Body task
-//     task body();
-//         `uvm_info(get_type_name(), "Executing uart_1_seq sequence", UVM_LOW)
-//         repeat(10) begin
-//             `uvm_create(req)
-//             req.data = 8'hFF;       // Example data
-//             req.parity_mode = 0;    // Example parity mode
-//             req.baud_rate = 9600;   // Example baud rate
-
-//             `uvm_send(req)
-//             // `uvm_info(get_type_name(), $sformatf("Packet sent:\n%s", req.sprint()), UVM_HIGH)
-//         end
-//         `uvm_info(get_type_name(), "Sequence completed", UVM_HIGH)
-//     endtask
-
-
-//     // function print();
-//     //   $display("\n-------------------------here at seq----------------------\n");
-      
-//     // endfunction
-// endclass
-
-
-
-
-// class uart_2_seq extends uvm_sequence #(uart_packet);
-//     `uvm_object_utils(uart_2_seq)
-
-//     function new(string name = "uart_2_seq");
-//         super.new(name);
-//     endfunction
-
-//     task body();
-//         `uvm_info(get_type_name(), "Executing uart_1_seq sequence", UVM_LOW)
-//         repeat (10) begin
-//             uart_packet pkt = uart_packet::type_id::create("pkt");
-//             start_item(pkt);
-//             assert(pkt.randomize());
-//             finish_item(pkt);
-//             `uvm_info(get_type_name(), $sformatf("Packet sent:\n%s", pkt.sprint()), UVM_HIGH)
-//         end
-//         `uvm_info(get_type_name(), "Sequence completed", UVM_HIGH)
-//     endtask
-// endclass
