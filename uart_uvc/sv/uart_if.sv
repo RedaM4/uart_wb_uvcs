@@ -55,6 +55,8 @@ endtask
     int baud_counter = 0;
  logic expected_parity ;
     logic received_parity ;
+        int rxerror_counter=0 ; 
+
     baud_limit = (CLOCK_FREQ / baud_rate) - 1;
 
 
@@ -82,10 +84,14 @@ endtask
   expected_parity = parity_calc(data, parity_mode);
      received_parity = shift_reg[9];
 
-    if (expected_parity !== received_parity)
-        $display("❌ Parity mismatch: expected %b, received %b", expected_parity, received_parity);
-    else
-        $display("✅ Parity OK");
+     if (expected_parity !== received_parity)begin
+        rxerror_counter++ ; 
+        $display("❌RX Parity mismatch: expected %b, received %b, errors: %2d", expected_parity, received_parity,rxerror_counter );
+    end else begin 
+        $display("✅RX Parity OK, errors: %2d",rxerror_counter );
+
+    end
+
 
        // Display the entire received packet (including start, data, and stop bits)
     $display("\n\nRXReceived Packet (stop bit +Parity bit  +Data bits  + Start bit):");
@@ -159,6 +165,7 @@ endtask
     int baud_counter = 0;
  logic expected_parity ;
     logic received_parity ;
+    int txerror_counter=0 ; 
     baud_limit = (CLOCK_FREQ / baud_rate) - 1;
 
 
@@ -186,10 +193,13 @@ endtask
   expected_parity = parity_calc(data, parity_mode);
      received_parity = shift_reg[9];
 
-    if (expected_parity !== received_parity)
-        $display("❌ Parity mismatch: expected %b, received %b", expected_parity, received_parity);
-    else
-        $display("✅ Parity OK");
+    if (expected_parity !== received_parity)begin
+        txerror_counter++ ; 
+        $display("❌TX Parity mismatch: expected %b, received %b, errors: %2d", expected_parity, received_parity,txerror_counter );
+    end else begin 
+        $display("✅TX Parity OK, errors: %2d",txerror_counter );
+
+    end
 
        // Display the entire received packet (including start, data, and stop bits)
     $display("\n\nTX Received Packet (stop bit +Parity bit  +Data bits  + Start bit):");
