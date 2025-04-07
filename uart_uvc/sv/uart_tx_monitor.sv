@@ -27,24 +27,6 @@ class uart_tx_monitor extends uvm_monitor;
     `uvm_info(get_type_name(), "Connect Phase!", UVM_HIGH)
   endfunction: connect_phase
   
-//run_phase
-  // task run_phase(uvm_phase phase);
-  // pkt=uart_packet::type_id::create("pkt");
-  //  // @(negedge vif.clk)
-  //       @(negedge vif.clk)
-  //      // @(posedge vif.clk)
-
-  //   forever begin
-
-  //    // wait (vif.rx == 0); 
-  //   //@(negedge vif.clk)
-  //   // pkt.baud_rate = vif.baud_rate;
-  //    vif.rx_2_data(pkt.data) ; 
-  //     `uvm_info("zRECEIVED", $sformatf("Received packet:\n%s", pkt.sprint()), UVM_HIGH)
-
-  //       end
-  // endtask
-
 
 task run_phase(uvm_phase phase);
     pkt = uart_packet::type_id::create("pkt");
@@ -52,7 +34,6 @@ task run_phase(uvm_phase phase);
        forever begin
           @(posedge vif.clk);
         vif.tx_2_data(pkt.data);
-//        ----------------IMPORTANT
        `uvm_info("y FROM TX MON RECEIVED", $sformatf("Received packet:\n%s", pkt.sprint()), UVM_HIGH)
        end
 

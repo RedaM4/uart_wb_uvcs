@@ -5,6 +5,7 @@ interface uart_if #(parameter CLOCK_FREQ = 192000) (input clk);
 
     bit tx=1, rx=1;
     int baud_rate = 9600;
+   bit txparity_mode;
    bit parity_mode;
 
  task tx_2_rx(input uart_packet packet);
@@ -17,7 +18,7 @@ interface uart_if #(parameter CLOCK_FREQ = 192000) (input clk);
 
 parity_bit = parity_calc(packet.data[7:0], packet.parity_mode) ; 
 
-parity_mode = packet.parity_mode;
+txparity_mode = packet.parity_mode;
 
     shift_reg = {1'b1, parity_bit, packet.data[7:0], 1'b0};
 
@@ -80,8 +81,8 @@ endtask
     // Reversed order (LSB first)
     
     data = shift_reg[8:1];  // Extract the 8 data bits, LSB first
-
-  expected_parity = parity_calc(data, parity_mode);
+//packet.parity_mode = txparity_mode ; 
+  expected_parity = parity_calc(data, txparity_mode);
      received_parity = shift_reg[9];
 
      if (expected_parity !== received_parity)begin
@@ -99,6 +100,11 @@ endtask
     $display("Data Bits: %b", shift_reg[8:1]);  // Data bits (8 bits)
     $display("Parity Bit: %b", shift_reg[9]);  // Parity bit (you can add parity check logic here)
     $display("Stop Bit: %b", shift_reg[10]);  // Stop bit (should be 1)
+if (txparity_mode) begin
+$display("parity is even");
+    
+end else
+$display("parity is odd");
 
     // Display the extracted data
     $display("Extracted shift_reg: %b", shift_reg);  // Show the 8 bits of data
@@ -207,7 +213,11 @@ endtask
     $display("Data Bits: %b", shift_reg[8:1]);  // Data bits (8 bits)
     $display("Parity Bit: %b", shift_reg[9]);  // Parity bit (you can add parity check logic here)
     $display("Stop Bit: %b", shift_reg[10]);  // Stop bit (should be 1)
-
+if (parity_mode) begin
+$display("parity is even");
+    
+end else
+$display("parity is odd");
     // Display the extracted data
     $display("Extracted shift_reg: %b", shift_reg);  // Show the 8 bits of data
 

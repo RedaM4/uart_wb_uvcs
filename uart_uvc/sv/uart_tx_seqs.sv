@@ -54,19 +54,67 @@ class uart_1_seq extends uart_tx_seqs;
     task body();
         `uvm_info(get_type_name(), "Executing uart_1_seq sequence", UVM_LOW)
         for (bit [7:0] i =0 ;i<250 ;i++ ) begin
-      `uvm_do_with(req, { req.data == i; });
+      `uvm_do_with(req, { req.data == i; req.parity_mode == 0; });
           
         end 
-        // `uvm_do_with(req, { req.data == 8'b00000001; });
-        // `uvm_do_with(req, { req.data == 8'b11110000; });
-        // `uvm_do_with(req, { req.data == 8'b00011011; });
-        // `uvm_do_with(req, { req.data == 8'b00000000; });
-        // `uvm_do_with(req, { req.data == 8'b01111100; });
-        // `uvm_do_with(req, { req.data == 8'b01111101; });
-        // `uvm_do_with(req, { req.data == 8'b00101100; });
-        // `uvm_do_with(req, { req.data == 8'b00001100; });
 
-        // #2360;
        #5000;
+    endtask
+endclass
+
+class uart_base_test extends uart_tx_seqs;
+  `uvm_object_utils(uart_base_test)
+  function new(string name = "uart_base_test");
+    super.new(name);
+  endfunction
+
+  task body();
+    `uvm_info(get_type_name(), "Sending 0xFF", UVM_LOW)
+    `uvm_do_with(req, { req.data == 8'hFF; })
+    #1000;
+  endtask
+endclass
+
+
+
+class uart_parity_seqs extends uart_tx_seqs;
+  `uvm_object_utils(uart_parity_seqs)
+  function new(string name = "uart_parity_seqs");
+    super.new(name);
+  endfunction
+
+  task body();
+    `uvm_info(get_type_name(), "Sending correct and incorrect parity", UVM_LOW)
+    // Correct parity
+    `uvm_do_with(req, { req.data == 8'h44; req.parity_mode == 1; })//mode =1 =>even
+       #5000;
+
+    // Incorrect parity
+    `uvm_do_with(req, { req.data == 8'h55; req.parity_mode == 0; })//mode =0 =>odd
+       #5000;
+  endtask
+endclass
+
+
+
+class uart_rand_dual_send_seqs extends uart_tx_seqs;
+    `uvm_object_utils(uart_rand_dual_send_seqs)
+    // Constructor
+    function new(string name = "uart_rand_dual_send_seqs");
+        super.new(name);
+    endfunction
+
+    task body();
+    bit temp ; 
+        `uvm_info(get_type_name(), "Executing uart_rand_dual_send_seqs sequence", UVM_LOW)
+        
+        `uvm_do(req);
+        temp = req.parity_mode  ;
+        for (bit [7:0] i =0 ;i<10 ;i++ ) begin
+      `uvm_do_with(req,{ req.parity_mode == temp; })
+               #5000;
+  
+        end 
+
     endtask
 endclass

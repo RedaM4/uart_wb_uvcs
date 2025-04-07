@@ -7,7 +7,4 @@ class uart_tx_sequencer extends uvm_sequencer #(uart_packet);
 
   endfunction
 
-  // function void start_of_simulation_phase(uvm_phase phase);
-  //    `uvm_info("SEQR_CLASS", "start of simulation phase", UVM_HIGH)
-  // endfunction
 endclass

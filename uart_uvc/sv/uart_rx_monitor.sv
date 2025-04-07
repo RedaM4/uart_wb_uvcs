@@ -10,7 +10,7 @@ class uart_rx_monitor extends uvm_monitor;
          super.new(name, parent);
  `uvm_info(get_type_name(), "Inside Constructor!", UVM_HIGH)
 
-    // mon_ap = new("mon_ap", this);
+  // mon_ap = new("mon_ap", this);
   endfunction
 //build_phase
   function void build_phase(uvm_phase phase);
