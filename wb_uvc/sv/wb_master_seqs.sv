@@ -41,26 +41,27 @@ endclass : wb_master_sequence
 
 
 
-/*
-class yapp_5_packets extends yapp_base_seq;
+
+class five_uart_random extends yapp_base_seq;
   
   // Required macro for sequences automation
-  `uvm_object_utils(yapp_5_packets)
+  `uvm_object_utils(five_uart_random)
 
   // Constructor
-  function new(string name="yapp_5_packets");
+  function new(string name="five_uart_random");
     super.new(name);
   endfunction
 
   // Sequence body definition
   virtual task body();
-    `uvm_info(get_type_name(), "Executing yapp_5_packets sequence", UVM_LOW)
+    `uvm_info(get_type_name(), "Executing 5 random uart calls", UVM_LOW)
      repeat(5)
       `uvm_do(req)
   endtask
   
-endclass : yapp_5_packets
+endclass : five_uart_random
 
+/*
 class yapp_012_seq extends yapp_base_seq;
   
   // Required macro for sequences automation
