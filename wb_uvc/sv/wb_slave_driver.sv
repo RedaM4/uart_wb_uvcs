@@ -9,7 +9,7 @@ n_cpu_transaction item;
 
 virtual interface wb_if vif;
 
-logic [31:0] data_read = 32'haaaaaaaa;
+//logic [31:0] data_read = 32'haaaaaaaa;
 
 int UART_RANGE_LOW  = 32;
 int UART_RANGE_HIGH = 63;
@@ -58,19 +58,22 @@ task run_phase(uvm_phase phase);
     `uvm_info(get_type_name(), "Reset dropped", UVM_MEDIUM)
     forever 
         begin
-          if(vif.STB_O)
+          if(vif.STB_O && vif.CYC_O)
             begin
                 if(vif.ADR_O>UART_RANGE_LOW && vif.ADR_O<UART_RANGE_HIGH)
                     begin
                         if(vif.WE_O==0)
                             begin
-                                vif.slave_write(data_read);
-                                vif.send_ack();
+                                repeat(3)
+                                  (@negedge vif.clock);
+                                vif.ACK_O<=1'b1;
                             end
                         else if(vif.WE_O==1)
                             begin
-                                data_read<=vif.DAT_O;
-                                vif.send_ack();
+  //                              data_read<=vif.DAT_O;
+                                repeat(3)
+                                  (@negedge vif.clock);
+                                vif.ACK_O<=1'b1;
                             end
                     end
             end

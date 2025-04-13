@@ -9,7 +9,7 @@ n_cpu_transaction item;
 
 virtual interface wb_master_if vif;
 
-logic [7:0] data_read;
+//logic [7:0] data_read;
 
 function new(string name="wb_master_driver", uvm_component parent);
 super.new(name,parent);
@@ -46,7 +46,7 @@ task run_phase(uvm_phase phase);
       drive();
      vif.wb_reset();
     join
-    
+
   endtask : run_phase
 
   task drive();
@@ -61,6 +61,8 @@ task run_phase(uvm_phase phase);
         begin
           vif.send_to_dut(req.address, req.data);
           vif.STB_O<=1;
+          vif.CYC_O<=1;
+
           if(req.M_STATE==WRITE)
             vif.WE_O<= 1'b1;
           else if(req.M_STATE==READ)
@@ -71,8 +73,9 @@ task run_phase(uvm_phase phase);
 
         wait(vif.ACK_I)
           begin
-            STB_O<=1'b0;
-            ACK_I<=1'b0;
+            vif.STB_O<=1'b0;
+            vif.CYC_O<=1'b0;
+            vif.ACK_I<=1'b0;
             seq_item_port.item_done;
           end
 

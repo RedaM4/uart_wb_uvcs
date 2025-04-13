@@ -1,7 +1,7 @@
 //need to figure out the sequences to be generated
 
 
-class wb_master_sequence extends uvm_sequence #(n_cpu_transaction));
+class wb_master_sequence extends uvm_sequence #(n_cpu_transaction);
   
   `uvm_object_utils(wb_master_sequence)
 
@@ -42,7 +42,7 @@ endclass : wb_master_sequence
 
 
 
-class five_uart_random extends yapp_base_seq;
+class five_uart_random extends wb_master_sequence;
   
   // Required macro for sequences automation
   `uvm_object_utils(five_uart_random)
