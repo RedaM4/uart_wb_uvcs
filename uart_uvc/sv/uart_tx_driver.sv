@@ -37,7 +37,7 @@ task run_phase(uvm_phase phase);
 
         req.baud_rate = 9600; 
     //    req.parity_mode = 0 ; 
-        vif.tx_2_rx(req);
+        vif.rx_2_DUT(req);
         `uvm_info("z FROM TX DRV SENT", $sformatf("sent packet:\n%s", req.sprint()), UVM_HIGH)
     //   #10;
         seq_item_port.item_done();
