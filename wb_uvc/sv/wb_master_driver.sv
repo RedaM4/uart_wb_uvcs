@@ -44,8 +44,9 @@ task run_phase(uvm_phase phase);
 
     fork
       drive();
-      reset_signals();
+     vif.wb_reset();
     join
+    
   endtask : run_phase
 
   task drive();
@@ -58,35 +59,27 @@ task run_phase(uvm_phase phase);
       `uvm_info(get_type_name(), $sformatf("sending these information :\n%s", req.sprint()), UVM_HIGH)
        
         begin
-          vif.send_to_dut(req.address, req.data, req.M_STATE);
+          vif.send_to_dut(req.address, req.data);
+          vif.STB_O<=1;
+          if(req.M_STATE==WRITE)
+            vif.WE_O<= 1'b1;
+          else if(req.M_STATE==READ)
+            vif.WE_O<= 1'b0;
+          else
+            `uvm_error("--INTERFACE--", "WB INTERFACE RECIEVED NULL MASTER STATE");
         end
 
-        if(req.M_STATE==WRITE)
-        begin
         wait(vif.ACK_I)
-            vif.end_master();
-      seq_item_port.item_done();
-        end
+          begin
+            STB_O<=1'b0;
+            ACK_I<=1'b0;
+            seq_item_port.item_done;
+          end
 
-        else if(req.M_STATE==READ)
-        begin
-        wait(vif.ACK_I)
-            data_read<=vif.DAT_I;
-            vif.end_master();
-      seq_item_port.item_done();
-        end
-
-        else
-                  seq_item_port.item_done();
     end
-  endtask : get_and_drive
+  endtask : drive
 
-  // Reset all TX signals
-  task reset_signals();
-    forever 
-     vif.wb_reset();
-  endtask : reset_signals
-
+ 
   // UVM report_phase
   //function void report_phase(uvm_phase phase);
   //  `uvm_info(get_type_name(), $sformatf("Report: MASTER driver sent ADDRESS and DATA on ", num_sent), UVM_LOW)

@@ -2,7 +2,7 @@
 
 
 typedef enum bit [1:0] {WRITE, READ, IDLE, NULL} m_state_t;
-interface wb_master_if (input clock, input reset );
+interface wb_master_if (input clock, input reset);
 timeunit 1ns;
 timeprecision 100ps;
 
@@ -17,7 +17,7 @@ import wb_pkg::*;
   logic                 WE_O;
   logic                 STB_O;
   logic                 ACK_I;
-
+  logic                 CYC_O;
 
 
   task wb_reset();
@@ -30,56 +30,18 @@ import wb_pkg::*;
     disable send_to_dut;
   endtask
   
+
+  
   task send_to_dut(input bit [31:0]  address,
-                         bit [7:0]  data,
-                        m_state_t m_state,
+                         bit [7:0]  data
                         );
 
-  case (m_state)
-    WRITE:
-    begin
-      if(STB_O==0)
-      begin
-    @(negedge clock)
     DAT_O <= data;
     ADR_O <= address;
-    WE_O  <= 1'b1;
-    //STB_O <= 1'b1;
-
-    @(negedge clock) 
-    start_master();
-      end
-    end
-
-
-    READ:
-    begin
-      if(STB_O==0)
-        begin
-    @(negedge clock)
-    ADR_O <= address;
-    WE_O  <= 1'b0;
-    //STB_O <= 1'b1;
-
-    @(negedge clock) 
-    start_master();
-        end
-    end
-
-    IDLE:
-        begin
-      if(STB_O==0)
-        begin
-        //DO NOTHING
-        end
-    end
-
-    NULL:
-`uvm_error("--INTERFACE--", "WB INTERFACE RECIEVED NULL MASTER STATE");
-
-  endcase
 
   endtask : send_to_dut
+
+
 
 /*
   // Collect Packets
@@ -112,22 +74,24 @@ import wb_pkg::*;
   endtask : collect_packet
 
 */
-task send_ack()
-ACK_I = 1'b1;
-endtask
+//////to control this from the slave task send_ack()
+//ACK_I = 1'b1;
+//endtask
 
-task start_master()
-STB_O = 1'b1;
-endtask
 
-task end_master()
-STB_O <= 1'b0;
-ACK_I <= 1'b0;
-endtask
+/////to control this in the driver
+//task start_master()
+//STB_O = 1'b1;
+//endtask
 
-task slave_write(input [7:0] data)
-DAT_I = data;
-endtask
+//////to control this in the driver task end_master()
+//STB_O <= 1'b0;
+//ACK_I <= 1'b0;
+//endtask
+
+//task slave_write(input [7:0] data)
+//DAT_I = data;
+//endtask
 
 
 
