@@ -1,64 +1,56 @@
-
-
-
-///////////////////////////////////////////////////////////
-
-//Abdulmalik please did this
-
-//////////////////////////////////////////////////////////
 class wb_master_monitor extends uvm_monitor;
+  `uvm_component_utils(wb_master_monitor)
 
-  `uvm_component_utils(wb_master_monitor);
-
-  n_cpu_transaction trans; 
-  uvm_analysis_port#(n_cpu_transaction) analysis_port; 
-  virtual interface wb_master_if vif; 
-
+  uvm_analysis_port #(n_cpu_transaction) mon_ap;
+  virtual wb_if vif;
+  
   function new(string name = "wb_master_monitor", uvm_component parent);
     super.new(name, parent);
-    `uvm_info("--MONITOR_CLASS--", "INSIDE CONSTRUCTOR", UVM_HIGH);
   endfunction
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    `uvm_info("--MONITOR_CLASS--", "INSIDE BUILD PHASE", UVM_HIGH);
-
-    analysis_port = new("analysis_port", this);
-
-    if(!(wb_vif_config::get(this,"","vif",vif)))begin
-        `uvm_error("DRIVER CLASS", "Failed to get vif from config db");
-    end
+    mon_ap = new("mon_ap", this);
+    if(!uvm_config_db#(virtual wb_if)::get(this, "", "vif", vif))
+      `uvm_error("DRIVER CLASS", "Failed to get vif from config db");
   endfunction
 
   task run_phase(uvm_phase phase);
-    super.run_phase(phase);
-    `uvm_info("--MONITOR_CLASS--", "INSIDE RUN PHASE", UVM_HIGH);
+    fork
+      monitor_reset();
+      monitor_transactions();
+    join
+  endtask
 
+  task monitor_reset();
     forever begin
-      @(posedge vif.clk);
-
-      trans = n_cpu_transaction::type_id::create("trans");
-
-      if (vif.STB_O) begin
-        trans.address = vif.ADR_O;
-        trans.data    = vif.WE_O ? vif.DAT_O : vif.DAT_I; 
-        trans.M_STATE = vif.WE_O ? WRITE : READ;
-
-        while (!vif.ACK_I) begin
-          @(posedge vif.clk);
-        end
-      end else begin
-        trans.address = vif.ADR_O; 
-        trans.data    = 0;         
-        trans.M_STATE = IDLE;      
-      end
-
-      if (trans != null) begin
-        analysis_port.write(trans);
-        `uvm_info("--MONITOR_CLASS--", $sformatf("Captured Transaction: Address=0x%h, Data=0x%h, M_STATE=%s",
-                                                 trans.address, trans.data, trans.M_STATE.name()), UVM_HIGH);
-      end
+      @(negedge vif.reset);
+      `uvm_info("MONITOR", "Reset detected", UVM_MEDIUM)
     end
   endtask
 
-endclass: wb_master_monitor
+  task monitor_transactions();
+    forever begin
+      
+      @(posedge vif.clock);
+      if (!(vif.STB_O && vif.CYC_O)) continue;
+        
+      n_cpu_transaction trans = n_cpu_transaction::type_id::create("trans");
+      trans.address = vif.ADR_O;
+      trans.M_STATE = vif.WE_O ? WRITE : READ;
+      
+      if (vif.WE_O) begin
+        trans.data = vif.DAT_O;
+        `uvm_info("MONITOR", $sformatf("Write: Addr=0x%0h Data=0x%0h", 
+                                      trans.address, trans.data), UVM_HIGH)
+      end
+      else begin
+        wait(vif.ACK_I);
+        trans.data = vif.DAT_I;
+        `uvm_info("MONITOR", $sformatf("Read: Addr=0x%0h Data=0x%0h", 
+                                      trans.address, trans.data), UVM_HIGH)
+      end
+      mon_ap.write(trans);
+    end
+  endtask
+endclass
