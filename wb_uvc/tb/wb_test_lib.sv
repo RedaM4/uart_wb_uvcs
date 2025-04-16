@@ -69,7 +69,7 @@ super.build_phase(phase);
 //set_type_override_by_type(wb_sequence_item::get_type(),uart_ten_random_test::get_type());
 
 
-uvm_config_wrapper::set(this, "testBench.env.rmaster_agent.sequencer.run_phase",
+uvm_config_wrapper::set(this, "testBench.env.master_agent.sequencer.run_phase",
                                 "default_sequence",
                                 uart_ten_random::get_type());       
 
@@ -99,7 +99,7 @@ super.build_phase(phase);
 //set_type_override_by_type(wb_sequence_item::get_type(),uart_ten_random_test::get_type());
 
 
-uvm_config_wrapper::set(this, "testBench.env.rmaster_agent.sequencer.run_phase",
+uvm_config_wrapper::set(this, "testBench.env.master_agent.sequencer.run_phase",
                                 "default_sequence",
                                 uart_five_write_five_read::get_type());       
 
@@ -130,7 +130,7 @@ super.build_phase(phase);
 //set_type_override_by_type(wb_sequence_item::get_type(),uart_ten_random_test::get_type());
 
 
-uvm_config_wrapper::set(this, "testBench.env.rmaster_agent.sequencer.run_phase",
+uvm_config_wrapper::set(this, "testBench.env.master_agent.sequencer.run_phase",
                                 "default_sequence",
                                 uart_write_to_all_addresses::get_type());       
 
@@ -159,7 +159,7 @@ super.build_phase(phase);
 //set_type_override_by_type(wb_sequence_item::get_type(),uart_ten_random_test::get_type());
 
 
-uvm_config_wrapper::set(this, "testBench.env.rmaster_agent.sequencer.run_phase",
+uvm_config_wrapper::set(this, "testBench.env.master_agent.sequencer.run_phase",
                                 "default_sequence",
                                 uart_read_from_all_addresses::get_type());       
 
@@ -188,7 +188,7 @@ super.build_phase(phase);
 //set_type_override_by_type(wb_sequence_item::get_type(),uart_ten_random_test::get_type());
 
 
-uvm_config_wrapper::set(this, "testBench.env.rmaster_agent.sequencer.run_phase",
+uvm_config_wrapper::set(this, "testBench.env.master_agent.sequencer.run_phase",
                                 "default_sequence",
                                 uart_sit_idle_for_10::get_type());       
 
@@ -198,13 +198,13 @@ endfunction
 
 endclass: uart_sit_idle_for_10_test
 
-/*
-//test case 6: WOP
-class uart_ten_random_test extends wb_test;
 
-`uvm_component_utils(uart_ten_random_test);
+//test case 6: run all test cases in one run
+class uart_complete_test extends wb_test;
 
-function new(string name = "uart_ten_random_test", uvm_component parent);
+`uvm_component_utils(uart_complete_test);
+
+function new(string name = "uart_complete_test", uvm_component parent);
 super.new(name,parent);
 `uvm_info("--TEST_CLASS--","INSIDE CONSTRUCTOR",UVM_HIGH);
 endfunction
@@ -217,7 +217,7 @@ super.build_phase(phase);
 //set_type_override_by_type(wb_sequence_item::get_type(),uart_ten_random_test::get_type());
 
 
-uvm_config_wrapper::set(this, "testBench.env.rmaster_agent.sequencer.run_phase",
+uvm_config_wrapper::set(this, "testBench.env.master_agent.sequencer.run_phase",
                                 "default_sequence",
                                 uart_ten_random::get_type());       
 
@@ -225,7 +225,7 @@ uvm_config_wrapper::set(this, "testBench.env.rmaster_agent.sequencer.run_phase",
 
 endfunction
 
-endclass: uart_ten_random_test
+endclass: uart_complete_test
 
 
 
