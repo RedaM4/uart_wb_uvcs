@@ -219,8 +219,25 @@ super.build_phase(phase);
 
 uvm_config_wrapper::set(this, "testBench.env.master_agent.sequencer.run_phase",
                                 "default_sequence",
-                                uart_ten_random::get_type());       
+                                uart_ten_random::get_type()); 
 
+uvm_config_wrapper::set(this, "testBench.env.master_agent.sequencer.run_phase",
+                                "default_sequence",
+                                uart_five_write_five_read::get_type());    
+
+
+uvm_config_wrapper::set(this, "testBench.env.master_agent.sequencer.run_phase",
+                                "default_sequence",
+                                uart_write_to_all_addresses::get_type());  
+
+
+uvm_config_wrapper::set(this, "testBench.env.master_agent.sequencer.run_phase",
+                                "default_sequence",
+                                uart_read_from_all_addresses::get_type()); 
+
+uvm_config_wrapper::set(this, "testBench.env.master_agent.sequencer.run_phase",
+                                "default_sequence",
+                                uart_sit_idle_for_10::get_type());   
 
 
 endfunction
