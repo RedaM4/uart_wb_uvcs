@@ -23,7 +23,7 @@ clock_and_reset_vif_config::set(null,"uvm_test_top.testBench.clk_n_rst.*","vif",
 
 
 
-    run_test();
+    run_test(##put test name here##);
 // force hw_top.in0_clk = 0;
 // release hw_top.in0_clk;
 end
