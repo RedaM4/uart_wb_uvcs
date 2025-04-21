@@ -116,7 +116,7 @@ function new(string name="config_uart");
 endfunction
 
 virtual task body();
-  'uvm_info(get_type_name(), "Sequence to Configure UART",UVM_LOW)
+  uvm_info(get_type_name(), "Sequence to Configure UART",UVM_LOW)
 `uvm_do_with(wb_write, {wb_write.addr == addr_reciever_buff; wb_write.data==reciever_buff;}) //clear reciever buff
 `uvm_do_with(wb_write, {wb_write.addr == addr_int_ie       ; wb_write.data==int_ie;})        //clear Interrupt Enable
 `uvm_do_with(wb_write, {wb_write.addr == addr_fifo_ctrl    ; wb_write.data==fifo_ctrl;}) //configure FIFO Control
