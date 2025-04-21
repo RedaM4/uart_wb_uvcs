@@ -50,8 +50,8 @@ class wb_write_seq extends wb_master_sequence;
     super.new(name);
   endfunction
 
-  rand [31:0] addr;
-  rand [31:0] data;
+  rand bit [31:0] addr;
+  rand bit [31:0] data;
 
   // Sequence body definition
   virtual task body();
