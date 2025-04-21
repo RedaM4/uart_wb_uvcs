@@ -65,14 +65,14 @@ task run_phase(uvm_phase phase);
                         if(vif.WE_O==0)
                             begin
                                 repeat(3)
-                                  (@negedge vif.clock);
+                                  @(negedge vif.clock);
                                 vif.ACK_O<=1'b1;
                             end
                         else if(vif.WE_O==1)
                             begin
   //                              data_read<=vif.DAT_O;
                                 repeat(3)
-                                  (@negedge vif.clock);
+                                  @(negedge vif.clock);
                                 vif.ACK_O<=1'b1;
                             end
                     end
