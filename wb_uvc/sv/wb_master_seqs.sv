@@ -91,14 +91,14 @@ class config_uart extends wb_master_sequence;
 wb_write_seq wb_write;
 
 
-byte reciever_buff =      8b00000000; //Reciever Buffer
-byte int_ie =             8b00000000; //Interrupt Enable
-byte fifo_ctrl =          8b00000000; //FIFO Control
-byte lcr =                8b00001011;//Line Control Register
-byte modem_ctrl =         8b00000000; //Modem Control
+byte reciever_buff =      8'b00000000; //Reciever Buffer
+byte int_ie =             8'b00000000; //Interrupt Enable
+byte fifo_ctrl =          8'b00000000; //FIFO Control
+byte lcr =                8'b00001011;//Line Control Register
+byte modem_ctrl =         8'b00000000; //Modem Control
 
-byte DL_B1 = 8b01000101; //Divisor Latch 1
-byte DL_B2 = 8b00000001; //Divisor Latch 2
+byte DL_B1 = 8'b01000101; //Divisor Latch 1
+byte DL_B2 = 8'b00000001; //Divisor Latch 2
 
 int addr_reciever_buff =  8x00000020; //Reciever Buffer
 int addr_int_ie =         8x00000021; //Interrupt Enable
@@ -124,7 +124,7 @@ virtual task body();
 `uvm_do_with(wb_write, {wb_write.addr == addr_modem_ctrl   ; wb_write.data==modem_ctrl;}) //configure modem control
 
 
-`uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.data== 8b10001011;}) //enable DIVISOR 
+`uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.data== 8'b10001011;}) //enable DIVISOR 
 `uvm_do_with(wb_write, {wb_write.addr == addr_DL_B2        ; wb_write.data==DL_B2;}) //enable DIVISOR 
 `uvm_do_with(wb_write, {wb_write.addr == addr_DL_B1        ; wb_write.data==DL_B1;}) //enable DIVISOR 
 
