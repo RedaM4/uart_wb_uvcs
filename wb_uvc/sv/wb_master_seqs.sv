@@ -78,7 +78,7 @@ class wb_read_seq extends wb_master_sequence;
   // Sequence body definition
   virtual task body();
     `uvm_info(get_type_name(), "Reading from wishbone on an address", UVM_LOW)
-      `uvm_do_with(req, req.address == this.addr; req.data==this.data; req.M_STATE==READ;)
+      `uvm_do_with(req, {req.address == this.addr; req.data==this.data; req.M_STATE==READ;})
   endtask
   
 endclass : wb_read_seq
@@ -117,16 +117,16 @@ endfunction
 
 virtual task body();
   'uvm_info(get_type_name(), "Sequence to Configure UART",UVM_LOW)
-`uvm_do_with(wb_write, wb_write.addr == addr_reciever_buff; wb_write.data==reciever_buff;) //clear reciever buff
-`uvm_do_with(wb_write, wb_write.addr == addr_int_ie       ; wb_write.data==int_ie;)        //clear Interrupt Enable
-`uvm_do_with(wb_write, wb_write.addr == addr_fifo_ctrl    ; wb_write.data==fifo_ctrl;) //configure FIFO Control
-`uvm_do_with(wb_write, wb_write.addr == addr_lcr          ; wb_write.data==lcd;) //configure Line Control Register
-`uvm_do_with(wb_write, wb_write.addr == addr_modem_ctrl   ; wb_write.data==modem_ctrl;) //configure modem control
+`uvm_do_with(wb_write, {wb_write.addr == addr_reciever_buff; wb_write.data==reciever_buff;}) //clear reciever buff
+`uvm_do_with(wb_write, {wb_write.addr == addr_int_ie       ; wb_write.data==int_ie;})        //clear Interrupt Enable
+`uvm_do_with(wb_write, {wb_write.addr == addr_fifo_ctrl    ; wb_write.data==fifo_ctrl;}) //configure FIFO Control
+`uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.data==lcd;}) //configure Line Control Register
+`uvm_do_with(wb_write, {wb_write.addr == addr_modem_ctrl   ; wb_write.data==modem_ctrl;}) //configure modem control
 
 
-`uvm_do_with(wb_write, wb_write.addr == addr_lcr          ; wb_write.data== 0b10001011;) //enable DIVISOR 
-`uvm_do_with(wb_write, wb_write.addr == addr_DL_B2        ; wb_write.data==DL_B2;) //enable DIVISOR 
-`uvm_do_with(wb_write, wb_write.addr == addr_DL_B1        ; wb_write.data==DL_B1;) //enable DIVISOR 
+`uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.data== 0b10001011;}) //enable DIVISOR 
+`uvm_do_with(wb_write, {wb_write.addr == addr_DL_B2        ; wb_write.data==DL_B2;}) //enable DIVISOR 
+`uvm_do_with(wb_write, {wb_write.addr == addr_DL_B1        ; wb_write.data==DL_B1;}) //enable DIVISOR 
 
 
 endtask
