@@ -3,13 +3,15 @@ class wb_master_monitor extends uvm_monitor;
 
   uvm_analysis_port #(n_cpu_transaction) mon_ap;
   virtual wb_if vif;
-  
+  n_cpu_transaction trans; 
+
   function new(string name = "wb_master_monitor", uvm_component parent);
     super.new(name, parent);
   endfunction
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
+    trans = n_cpu_transaction::type_id::create("trans");
     mon_ap = new("mon_ap", this);
     if(!uvm_config_db#(virtual wb_if)::get(this, "", "vif", vif))
       `uvm_error("DRIVER CLASS", "Failed to get vif from config db");
@@ -35,7 +37,6 @@ class wb_master_monitor extends uvm_monitor;
       @(posedge vif.clock);
       if (!(vif.STB_O && vif.CYC_O)) continue;
         
-      n_cpu_transaction trans = n_cpu_transaction::type_id::create("trans");
       trans.address = vif.ADR_O;
       trans.M_STATE = vif.WE_O ? WRITE : READ;
       
