@@ -1,7 +1,7 @@
 //DONE!
 
 
-class slave_sequence extends uvm_sequence #(n_cpu_transaction));
+class slave_sequence extends uvm_sequence #(n_cpu_transaction);
   
   `uvm_object_utils(slave_sequence)
 
