@@ -2,7 +2,7 @@
 
 package wb_pkg;
 
-import uvm_pkg::*
+import uvm_pkg::*;
 
 typedef uvm_config_db#(virtual wb_if) wb_vif_config;
 
