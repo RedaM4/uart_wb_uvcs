@@ -86,7 +86,7 @@ endclass : wb_read_seq
 
 class config_uart extends wb_master_sequence;
 
-'uvm_object_utils(config_uart)
+`uvm_object_utils(config_uart)
 
 wb_write_seq wb_write;
 
