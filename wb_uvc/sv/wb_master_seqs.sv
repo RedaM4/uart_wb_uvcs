@@ -91,23 +91,23 @@ class config_uart extends wb_master_sequence;
 wb_write_seq wb_write;
 
 
-byte reciever_buff =      0b00000000; //Reciever Buffer
-byte int_ie =             0b00000000; //Interrupt Enable
-byte fifo_ctrl =          0b00000000; //FIFO Control
-byte lcr =                0b00001011;//Line Control Register
-byte modem_ctrl =         0b00000000; //Modem Control
+byte reciever_buff =      8b00000000; //Reciever Buffer
+byte int_ie =             8b00000000; //Interrupt Enable
+byte fifo_ctrl =          8b00000000; //FIFO Control
+byte lcr =                8b00001011;//Line Control Register
+byte modem_ctrl =         8b00000000; //Modem Control
 
-byte DL_B1 = 0b01000101; //Divisor Latch 1
-byte DL_B2 = 0b00000001; //Divisor Latch 2
+byte DL_B1 = 8b01000101; //Divisor Latch 1
+byte DL_B2 = 8b00000001; //Divisor Latch 2
 
-int addr_reciever_buff =  0x00000020; //Reciever Buffer
-int addr_int_ie =         0x00000021; //Interrupt Enable
-int addr_fifo_ctrl =      0x00000022; //FIFO Control
-int addr_lcr =            0x00000023;//Line Control Register
-int addr_modem_ctrl =     0x00000024; //Modem Control
+int addr_reciever_buff =  8x00000020; //Reciever Buffer
+int addr_int_ie =         8x00000021; //Interrupt Enable
+int addr_fifo_ctrl =      8x00000022; //FIFO Control
+int addr_lcr =            8x00000023;//Line Control Register
+int addr_modem_ctrl =     8x00000024; //Modem Control
 
-int addr_DL_B1 = 0x00000020; //Divisor Latch 1
-int addr_DL_B2 = 0x00000021; //Divisor Latch 2
+int addr_DL_B1 = 8x00000020; //Divisor Latch 1
+int addr_DL_B2 = 8x00000021; //Divisor Latch 2
 
 function new(string name="config_uart");
   super.new(name);
@@ -124,7 +124,7 @@ virtual task body();
 `uvm_do_with(wb_write, {wb_write.addr == addr_modem_ctrl   ; wb_write.data==modem_ctrl;}) //configure modem control
 
 
-`uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.data== 0b10001011;}) //enable DIVISOR 
+`uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.data== 8b10001011;}) //enable DIVISOR 
 `uvm_do_with(wb_write, {wb_write.addr == addr_DL_B2        ; wb_write.data==DL_B2;}) //enable DIVISOR 
 `uvm_do_with(wb_write, {wb_write.addr == addr_DL_B1        ; wb_write.data==DL_B1;}) //enable DIVISOR 
 
