@@ -2,7 +2,7 @@ class uart_tx_monitor extends uvm_monitor;
   `uvm_component_utils(uart_tx_monitor)
   
   virtual uart_if vif;
-  // uvm_analysis_port#(uart_packet) mon_ap;
+  uvm_analysis_port#(uart_packet) mon_port_tx;
   uart_packet pkt;
 
 //Constructor
@@ -10,7 +10,7 @@ class uart_tx_monitor extends uvm_monitor;
          super.new(name, parent);
  `uvm_info(get_type_name(), "Inside Constructor!", UVM_HIGH)
 
-    // mon_ap = new("mon_ap", this);
+    mon_port_tx = new("mon_port_tx", this);
   endfunction
 //build_phase
   function void build_phase(uvm_phase phase);
@@ -33,7 +33,7 @@ task run_phase(uvm_phase phase);
        
        forever begin
           @(posedge vif.clk);
-        vif.tx_2_data(pkt.data);
+        vif.rx_2_data(pkt.data);
        `uvm_info("y FROM TX MON RECEIVED", $sformatf("Received packet:\n%s", pkt.sprint()), UVM_HIGH)
        end
 

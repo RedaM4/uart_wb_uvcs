@@ -16,8 +16,9 @@ class uart_rx_agent extends uvm_agent;
       `uvm_info(get_type_name(), "Build Phase!", UVM_HIGH)
 
     drv = uart_rx_driver::type_id::create("drv", this);
-    mon = uart_rx_monitor::type_id::create("mon", this);
     seqr = uart_rx_sequencer::type_id::create("seqr", this);
+// We only need a mon here 
+    mon = uart_rx_monitor::type_id::create("mon", this);
   endfunction
 
   function void connect_phase(uvm_phase phase);

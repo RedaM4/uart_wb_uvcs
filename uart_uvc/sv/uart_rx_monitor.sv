@@ -33,7 +33,7 @@ task run_phase(uvm_phase phase);
        forever begin
     pkt = uart_packet::type_id::create("pkt");
         //  @(posedge vif.clk);
-        vif.rx_2_data(pkt.data);
+        vif.tx_2_data(pkt.data);//reads tx
         `uvm_info("z Recived FROM RX MON RECEIVED", $sformatf("Received packet:\n%s", pkt.sprint()), UVM_HIGH)
    
        end

@@ -11,7 +11,8 @@ class wb_master_monitor extends uvm_monitor;
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    trans = n_cpu_transaction::type_id::create("trans");
+  trans = n_cpu_transaction::type_id::create("trans");
+    // n_cpu_transaction#()::type_id::create("trans", this);
     mon_ap = new("mon_ap", this);
     if(!uvm_config_db#(virtual wb_if)::get(this, "", "vif", vif))
       `uvm_error("DRIVER CLASS", "Failed to get vif from config db");

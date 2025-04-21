@@ -2,13 +2,15 @@ interface uart_if #(parameter CLOCK_FREQ = 192000) (input clk);
     `include "uvm_macros.svh"
     import uvm_pkg::*;
     import uart_pkg::*;
-
-    bit tx=1, rx=1;
+//********************************
+ //     CHANGED tc=1 -> tx
+//********************************
+    bit tx, rx;
     int baud_rate = 9600;
    bit txparity_mode;
    bit parity_mode;
 
- task tx_2_rx(input uart_packet packet);
+ task tx_2_DUT(input uart_packet packet);
     int baud_counter = 0;
     int baud_limit = 0;
     logic parity_bit = 0;
@@ -35,10 +37,7 @@ for (int i = 0; i < 11; i++) begin
             @(negedge clk);  // Wait for next clock edge
             baud_counter++;
         end
-        if (baud_counter == baud_limit) begin
-            rx <= tx;
-        end
-
+      
 
     end
 
@@ -123,7 +122,7 @@ endfunction
 //-----------------------------rx 2 tx ----------------------------------------
 
 
- task rx_2_tx(input uart_packet packet);
+ task rx_2_DUT(input uart_packet packet);
     int baud_counter = 0;
     int baud_limit = 0;
     logic parity_bit = 0;
@@ -150,9 +149,7 @@ for (int i = 0; i < 11; i++) begin
             @(negedge clk);  // Wait for next clock edge
             baud_counter++;
         end
-        if (baud_counter == baud_limit) begin
-            tx <= rx;
-        end
+  
 
 
     end

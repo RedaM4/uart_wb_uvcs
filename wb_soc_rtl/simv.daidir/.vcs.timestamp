@@ -1,0 +1,184 @@
+0
+42
+-Mamsrun=
+-Masflags=
+-Mcc=gcc
+-Mcfl= -pipe -fPIC -O -I/mnt/NVME2/synopsys/vcs/W-2024.09-SP1/include
+-Mcplusplus=g++
+-Mcrt0=
+-Mcrtn=
+-Mcsrc=
+-Mexternalobj=
+-Mldflags= -rdynamic
+-Mobjects= /mnt/NVME2/synopsys/vcs/W-2024.09-SP1/linux64/lib/libvirsim.so /mnt/NVME2/synopsys/vcs/W-2024.09-SP1/linux64/lib/liberrorinf.so /mnt/NVME2/synopsys/vcs/W-2024.09-SP1/linux64/lib/libsnpsmalloc.so /mnt/NVME2/synopsys/vcs/W-2024.09-SP1/linux64/lib/libvfs.so
+-Mout=simv
+-Msaverestoreobj=/mnt/NVME2/synopsys/vcs/W-2024.09-SP1/linux64/lib/vcs_save_restore_new.o
+-Msyslibs=-ldl
+-Mvcsaceobjs=
+-Mxcflags= -pipe -fPIC -I/mnt/NVME2/synopsys/vcs/W-2024.09-SP1/include
+-Mxllcflags=
+-Xfile_begin_f=filelist.f
+-Xfile_end
+-full64
+-gen_obj
+-o simv
+-picarchive
+-sverilog
+-timescale=1ns/10ps
+/mnt/NVME2/synopsys/vcs/W-2024.09-SP1/linux64/bin/vcs1
+simv
+spi/fifo4.v
+spi/simple_spi_top.v
+uart/raminfr.v
+uart/uart_defines.v
+uart/uart_sync_flops.v
+uart/uart_rfifo.v
+uart/uart_tfifo.v
+uart/uart_receiver.v
+uart/uart_transmitter.v
+uart/uart_regs.v
+uart/uart_wb.v
+uart/uart_top.v
+WishboneInterconnect/wb_mux.v
+WishboneInterconnect/wb_intercon.sv
+wb_soc_top.sv
+113
+which_declare=declare -f
+XRDP_SOCKET_PATH=/run/xrdp/1052
+XRDP_SESSION=303667
+XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_48
+XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_48
+XDG_SESSION_ID=c222
+XDG_RUNTIME_DIR=/run/user/1052
+XDG_MENU_PREFIX=xfce-
+XDG_DATA_DIRS=/home/qamar/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/usr/share
+XDG_CURRENT_DESKTOP=XFCE
+XDG_CONFIG_DIRS=/etc/xdg
+XA_HOME=/mnt/NVME2/synopsys/xa/W-2024.09-SP1
+VUI_HOME=/mnt/NVME2/synopsys/vui/W-2024.09-SP2
+VTRAN_HOME=/mnt/NVME2/synopsys/vtran/W-2024.09-SP2
+VTE_VERSION=5204
+VMR_MODE_FLAG=64
+VGEN_HOME=/mnt/NVME2/synopsys/vgen/W-2024.09-SP2
+VERDI_HOME=/mnt/NVME2/synopsys/verdi/W-2024.09
+VC_STATIC_HOME=/mnt/NVME2/synopsys/vc_static
+VC_ML_PLATFORM_HOME=/mnt/NVME2/synopsys/vc_ml_platform
+VC_FORMAL_HOME=/mnt/NVME2/synopsys/vc_formal
+VCS_PYTHON3=/mnt/NVME2/synopsys/vcs/W-2024.09-SP1/linux64/bin/Python3/bin/python3
+VCS_PATHMAP_PRELOAD_DONE=1
+VCS_MX_HOME_INTERNAL=1
+VCS_MODE_FLAG=64
+VCS_INTERNAL_CONVERTEDLIBS=
+VCS_HOME=/mnt/NVME2/synopsys/vcs/W-2024.09-SP1
+VCS_EXEC_DONE=1
+VCS_DEPTH=0
+VCS_ARG_ADDED_FOR_TMP=1
+VCS_ARCH=linux64
+VCAP_HOME=/mnt/NVME2/synopsys/vcap
+UVM_HOME=/mnt/NVME2/synopsys/vcs/V-2023.12-SP2-1-T-20240806/etc/uvm-1.2
+UNAME=/bin/uname
+UFE_OPTIONAL_SPYGLASS_VCS_HOME=/mnt/NVME2/synopsys/ufe_optional_spyglass-vcs
+TXS_HOME=/mnt/NVME2/synopsys/txs
+TWEAKER_HOME=/mnt/NVME2/synopsys/tweaker
+TOOL_HOME=/mnt/NVME2/synopsys/vcs/W-2024.09-SP1/linux64
+TESTMAX_HOME=/mnt/NVME2/synopsys/testmax
+TCM_HOME=/mnt/NVME2/synopsys/tcm
+SYN_HOME=/mnt/NVME2/synopsys/syn
+STARRC_HOME=/mnt/NVME2/synopsys/starrc
+SSH_AUTH_SOCK=/tmp/ssh-gtIrIYTweGDG/agent.303678
+SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass
+SSH_AGENT_PID=303773
+SPYGLASS_HOME=/mnt/NVME2/synopsys/spyglass
+SPIKE_PATH=/usr/bin
+SNPS_VCS_PYTHON3=/mnt/NVME2/synopsys/vcs/W-2024.09-SP1/linux64/bin/Python3/bin/python3
+SNPS_VCS_CLANG_PATH=/mnt/NVME2/synopsys/vcs/W-2024.09-SP1/linux64/clang
+SNPS_INTERNAL_VCS_LINUX_OS=linux
+SNPS_CONTAINER_HOME=/mnt/NVME2/synopsys/snps_container
+SILICONSMART_HOME=/mnt/NVME2/synopsys/siliconsmart
+SESSION_MANAGER=local/unix:@/tmp/.ICE-unix/303774,unix/unix:/tmp/.ICE-unix/303774
+SCRNAME=vcs
+SCRIPT_NAME=vcs
+SCL_HOME=/mnt/NVME2/synopsys/scl
+SCL_ENABLE_BRIDGE=1
+RTLA_HOME=/mnt/NVME2/synopsys/rtla
+RISC_V_OBJCOPY=/mnt/SATA2/riscv32gcc/bin/riscv32-unknown-elf-objcopy
+RISC_V_GCC=/mnt/SATA2/riscv32gcc/bin/riscv32-unknown-elf-gcc
+RISCV_TOOLCHAIN=/mnt/SATA2/riscv32gcc
+RISCV_OBJCOPY=/mnt/SATA2/riscv32gcc/bin/riscv32-unknown-elf-objcopy
+RISCV_GCC=/mnt/SATA2/riscv32gcc/bin/riscv32-unknown-elf-gcc
+RISCV_DV_ROOT=/home/qamar/Documents/verif/riscv-dv
+RHSC_ELECTROTHERMAL_ANALYSIS_FUSION_HOME=/mnt/NVME2/synopsys/rhsc_electrothermal_analysis_fusion
+RHSC_ANALYSIS_FUSION_HOME=/mnt/NVME2/synopsys/rhsc_analysis_fusion
+PULSE_SCRIPT=/etc/xrdp/pulse/default.pa
+PRIME_HOME=/mnt/NVME2/synopsys/prime
+PRIMEWAVE_HOME=/mnt/NVME2/synopsys/primewave
+PRIMEWAVERELIABILITY_HOME=/mnt/NVME2/synopsys/primewavereliability
+PRIMESIM_HOME=/mnt/NVME2/synopsys/primesim
+PRIMESIM_EMIR_HOME=/mnt/NVME2/synopsys/primesim_emir
+PRIMESIM_DR_HOME=/mnt/NVME2/synopsys/primesim_dr
+PRIMESIM_DI_HOME=/mnt/NVME2/synopsys/primesim_di
+PRIMELIB_HOME=/mnt/NVME2/synopsys/primelib
+PRIMECLOSURE_HOME=/mnt/NVME2/synopsys/primeclosure
+PPRTL_HOME=/mnt/NVME2/synopsys/pprtl
+OVA_UUM=0
+NT_HOME=/mnt/NVME2/synopsys/nt
+MW_HOME=/mnt/NVME2/synopsys/mw
+MECHANICAL_ENGINE_ANALYSIS_FUSION_HOME=/mnt/NVME2/synopsys/mechanical_engine_analysis_fusion
+LESSOPEN=||/usr/bin/lesspipe.sh %s
+LC_HOME=/mnt/NVME2/synopsys/lc
+LC_ALL=C
+LAKER_HOME=/mnt/NVME2/synopsys/laker
+IDQ_HOME=/mnt/NVME2/synopsys/idq
+IDENTIFY_HOME=/mnt/NVME2/synopsys/identify
+ICV_WORKBENCH_HOME=/mnt/NVME2/synopsys/icv_workbench
+ICVALIDATOR_HOME=/mnt/NVME2/synopsys/icvalidator
+ICC_HOME=/mnt/NVME2/synopsys/icc
+ICC2_HOME=/mnt/NVME2/synopsys/icc2/W-2024.09-SP2/
+HSPICE_HOME=/mnt/NVME2/synopsys/hspice
+HSIM_HOME=/mnt/NVME2/synopsys/hsim
+HISTCONTROL=ignoredups
+FUSIONCOMPILER_HOME=/mnt/NVME2/synopsys/fusioncompiler
+FPGA_HOME=/mnt/NVME2/synopsys/fpga
+FM_HOME=/mnt/NVME2/synopsys/fm
+FINESIM_HOME=/mnt/NVME2/synopsys/finesim
+EXECMAN_HOME=/mnt/NVME2/synopsys/execman
+ESP_HOME=/mnt/NVME2/synopsys/esp
+EMBEDIT_HOME=/mnt/NVME2/synopsys/embedit
+DFTVIEW_HOME=/mnt/NVME2/synopsys/dftview
+DESKTOP_SESSION=xfce
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1052/bus
+CUSTOMINFRASTRUCTURE_HOME=/mnt/NVME2/synopsys/custominfrastructure
+CUSTOMCOMPILER_HOME=/mnt/NVME2/synopsys/customcompiler
+COLORTERM=truecolor
+CMLP_HOME=/mnt/NVME2/synopsys/cmlp
+CF_HOME=/mnt/NVME2/synopsys/cf
+CERTITUDE_HOME=/mnt/NVME2/synopsys/certitude
+CCK_HOME=/mnt/NVME2/synopsys/cck
+BASH_FUNC_which%%=() {  ( alias;_ eval ${which_declare} ) | /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot $@_}
+ALE_HOME=/mnt/NVME2/synopsys/ale
+0
+0
+16
+1744107630 wb_soc_top.sv
+1744107394 WishboneInterconnect/wb_intercon.sv
+1744104670 WishboneInterconnect/wb_mux.v
+1744104686 uart/uart_top.v
+1744104686 uart/uart_wb.v
+1744104686 uart/uart_regs.v
+1744104686 uart/uart_transmitter.v
+1744104686 uart/uart_receiver.v
+1744104686 uart/uart_tfifo.v
+1744104686 uart/uart_rfifo.v
+1744104686 uart/uart_sync_flops.v
+1744104686 uart/uart_defines.v
+1744104686 uart/raminfr.v
+1744104690 spi/simple_spi_top.v
+1744104690 spi/fifo4.v
+1744107182 filelist.f
+4
+1733288192 /mnt/NVME2/synopsys/vcs/W-2024.09-SP1/linux64/lib/libvirsim.so
+1733286010 /mnt/NVME2/synopsys/vcs/W-2024.09-SP1/linux64/lib/liberrorinf.so
+1733286000 /mnt/NVME2/synopsys/vcs/W-2024.09-SP1/linux64/lib/libsnpsmalloc.so
+1733285992 /mnt/NVME2/synopsys/vcs/W-2024.09-SP1/linux64/lib/libvfs.so
+1744107653 simv.daidir
+-1 partitionlib

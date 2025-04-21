@@ -62,6 +62,33 @@ class uart_1_seq extends uart_tx_seqs;
     endtask
 endclass
 
+class uart_5_seq extends uart_tx_seqs;
+    `uvm_object_utils(uart_5_seq)
+    // Constructor
+    function new(string name = "uart_5_seq");
+        super.new(name);
+    endfunction
+
+    // Body task
+    
+    //sequence
+    task body();
+        `uvm_info(get_type_name(), "Executing uart_5_seq sequence", UVM_LOW)
+        for (bit [7:0] i =0 ;i<6 ;i++ ) begin
+      `uvm_do_with(req, { req.data == i; req.parity_mode == 0; });
+          
+        end 
+
+       #5000;
+    endtask
+endclass
+
+
+
+
+
+
+
 class uart_base_test extends uart_tx_seqs;
   `uvm_object_utils(uart_base_test)
   function new(string name = "uart_base_test");
