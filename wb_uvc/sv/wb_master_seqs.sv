@@ -73,7 +73,7 @@ class wb_read_seq extends wb_master_sequence;
     super.new(name);
   endfunction
 
-  rand [31:0] addr;
+  rand bit [31:0] addr;
 
   // Sequence body definition
   virtual task body();
