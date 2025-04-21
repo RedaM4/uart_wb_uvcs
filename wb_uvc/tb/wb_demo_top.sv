@@ -10,20 +10,33 @@ import clock_and_reset_pkg::*;
 module tb_top;
     
 
+logic clk;
+logic reset;
 
-//instintiate interface for wb
-//instintiate interface for clock and reset
+clkgen clkgen (
+    .clock(clk),
+    .run_clock(1'b1),
+    .clock_period(32'10)
+)
 
+  initial begin
+    reset <= 1'b0;
+    @(negedge clk)
+      #1 reset <= 1'b0;
+    @(negedge clk)
+      #1 reset <= 1'b1;
+  end
 
+wb_if wb_intif(clk, reset);
 
 initial begin
-wb_vif_config::set(null,"uvm_test_top.testBench.env.*","vif",wb_vif);
+wb_vif_config::set(null,"uvm_test_top.testBench.env.*","vif",wb_intif);
 
-clock_and_reset_vif_config::set(null,"uvm_test_top.testBench.clk_n_rst.*","vif",hw_top.clk_n_rst_if);
+//clock_and_reset_vif_config::set(null,"uvm_test_top.testBench.clk_n_rst.*","vif",hw_top.clk_n_rst_if);
 
 
 
-    run_test(##put test name here##);
+    run_test(random_wb_packet);
 // force hw_top.in0_clk = 0;
 // release hw_top.in0_clk;
 end

@@ -49,8 +49,55 @@ endtask
 
 endclass: wb_test
 
+///////////////////////////////Configure UART to run on BUADRATE 9600
+class configure_uart extends wb_test;
+
+`uvm_component_utils(configure_uart);
+
+function new(string name = "configure_uart", uvm_component parent);
+super.new(name,parent);
+`uvm_info("--TEST_CLASS--","INSIDE CONSTRUCTOR",UVM_HIGH);
+endfunction
+
+function void build_phase(uvm_phase phase);
+super.build_phase(phase);
+`uvm_info("--TEST_CLASS--","INSIDE BUILD PHASE",UVM_HIGH);
+endfunction
+
+//set_type_override_by_type(wb_sequence_item::get_type(),uart_ten_random_test::get_type());
+
+uvm_config_wrapper::set(this, "testBench.env.master_agent.sequencer.run_phase",
+                                "default_sequence",
+                                config_uart::get_type());   
+
+endclass : configure_uart
 
 
+////////////////////send random packet through wishbone
+class random_wb_packet extends wb_test;
+
+`uvm_component_utils(configure_uart);
+
+function new(string name = "random_wb_packet", uvm_component parent);
+super.new(name,parent);
+`uvm_info("--TEST_CLASS--","INSIDE CONSTRUCTOR",UVM_HIGH);
+endfunction
+
+function void build_phase(uvm_phase phase);
+super.build_phase(phase);
+`uvm_info("--TEST_CLASS--","INSIDE BUILD PHASE",UVM_HIGH);
+endfunction
+
+uvm_config_wrapper::set(this, "testBench.env.master_agent.sequencer.run_phase",
+                                "default_sequence",
+                                wb_write_seq::get_type());  
+                                
+
+endclass : random_wb_packet
+
+
+
+/*
 //test case 1: 10 random master operations, read write or idle on random addresses
 class uart_ten_random_test extends wb_test;
 
