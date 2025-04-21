@@ -100,14 +100,14 @@ byte modem_ctrl =         8'b00000000; //Modem Control
 byte DL_B1 = 8'b01000101; //Divisor Latch 1
 byte DL_B2 = 8'b00000001; //Divisor Latch 2
 
-int addr_reciever_buff =  0x20; //Reciever Buffer
-int addr_int_ie =         0x21; //Interrupt Enable
-int addr_fifo_ctrl =      8'h00000022; //FIFO Control
-int addr_lcr =            8'h00000023;//Line Control Register
-int addr_modem_ctrl =     8'h00000024; //Modem Control
+int addr_reciever_buff =  32'h00000020; //Reciever Buffer
+int addr_int_ie =         32'h00000021; //Interrupt Enable
+int addr_fifo_ctrl =      32'h00000022; //FIFO Control
+int addr_lcr =            32'h00000023;//Line Control Register
+int addr_modem_ctrl =     32'h00000024; //Modem Control
 
-int addr_DL_B1 = 8'h00000020; //Divisor Latch 1
-int addr_DL_B2 = 8'h00000021; //Divisor Latch 2
+int addr_DL_B1 = 32'h00000020; //Divisor Latch 1
+int addr_DL_B2 = 32'h00000021; //Divisor Latch 2
 
 function new(string name="config_uart");
   super.new(name);
