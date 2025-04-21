@@ -1,0 +1,500 @@
+python3 /home/Nouf_Alsufyani/Core/riscv-dv/scripts/spike_log_to_trace_csv.py --log /home/Nouf_Alsufyani/Core/riscv-dv/out_2025-04-21/spike_sim/riscv_rand_instr_test_0.log --csv /home/Nouf_Alsufyani/Core/riscv-dv/out_2025-04-21/spike.csv
+cd /home/Nouf_Alsufyani/Core/riscv-dv/soc-rtl/src && \
+vcs -full64 -f filelist.f -o simv
+                         Chronologic VCS (TM)
+       Version W-2024.09-SP1_Full64 -- Mon Apr 21 10:45:58 2025
+
+                    Copyright (c) 1991 - 2024 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+Parsing design file 'soc/core/lib.sv'
+Parsing design file 'soc/debug/debug_pkg.sv'
+Parsing design file 'soc/core/alignment_units.sv'
+Parsing design file 'soc/core/alu_control.sv'
+Parsing design file 'soc/core/alu.sv'
+
+Note-[SV-LCM-PPWI] Package previously wildcard imported
+soc/core/alu.sv, 1
+$unit
+  Package 'riscv_types' already wildcard imported. 
+  Ignoring riscv_types::*
+  See the SystemVerilog LRM(1800-2005), section 19.2.1.
+
+Parsing design file 'soc/core/branch_controller.sv'
+Parsing design file 'soc/core/csr_file.sv'
+Parsing design file 'soc/core/imm_gen.sv'
+Parsing design file 'soc/core/main_control.sv'
+Parsing design file 'soc/core/reg_file.sv'
+Parsing design file 'soc/core/rom.sv'
+Parsing design file 'soc/core/forwarding_unit.sv'
+Parsing design file 'soc/core/hazard_controller.sv'
+Parsing design file 'soc/core/pipeline_controller.sv'
+Parsing design file 'soc/core/decompressor.sv'
+Parsing design file 'soc/core/iadu.sv'
+Parsing design file 'soc/core/atomic_extension.sv'
+Parsing design file 'soc/core/data_path.sv'
+
+Note-[SV-LCM-PPWI] Package previously wildcard imported
+soc/core/data_path.sv, 1
+$unit
+  Package 'riscv_types' already wildcard imported. 
+  Ignoring riscv_types::*
+  See the SystemVerilog LRM(1800-2005), section 19.2.1.
+
+Parsing design file 'soc/core/control_unit.sv'
+Parsing design file 'soc/core/core_dbg_fsm.sv'
+Parsing design file 'soc/core/rv32i_top.sv'
+Parsing design file 'soc/WishboneInterconnect/wb_intercon_1.2.2-r1/wb_mux.v'
+Parsing design file 'soc/WishboneInterconnect/wb_intercon.sv'
+Parsing design file 'soc/WishboneInterconnect/wb_intercon.svh'
+Parsing design file 'soc/WishboneInterconnect/wishbone_controller.sv'
+
+Note-[SV-LCM-PPWI] Package previously wildcard imported
+soc/WishboneInterconnect/wishbone_controller.sv, 1
+$unit
+  Package 'riscv_types' already wildcard imported. 
+  Ignoring riscv_types::*
+  See the SystemVerilog LRM(1800-2005), section 19.2.1.
+
+Parsing design file 'soc/uncore/gpio/gpio_defines.v'
+Parsing design file 'soc/uncore/gpio/bidirec.sv'
+Parsing design file 'soc/uncore/gpio/gpio_top.sv'
+Parsing design file 'soc/uncore/spi/fifo4.v'
+Parsing design file 'soc/uncore/spi/simple_spi_top.v'
+Parsing design file 'soc/uncore/uart/uart_defines.v'
+Parsing design file 'soc/uncore/uart/raminfr.v'
+Parsing design file 'soc/uncore/uart/uart_receiver.v'
+Parsing design file 'soc/uncore/uart/uart_regs.v'
+Parsing design file 'soc/uncore/uart/uart_rfifo.v'
+Parsing design file 'soc/uncore/uart/uart_sync_flops.v'
+Parsing design file 'soc/uncore/uart/uart_tfifo.v'
+Parsing design file 'soc/uncore/uart/uart_top.v'
+Parsing design file 'soc/uncore/uart/uart_transmitter.v'
+Parsing design file 'soc/uncore/uart/uart_wb.v'
+Parsing design file 'soc/uncore/clint/clint_wb.sv'
+Parsing design file 'soc/uncore/clint/clint_top.sv'
+Parsing design file 'soc/uncore/ptc/ptc_defines.v'
+Parsing design file 'soc/uncore/ptc/ptc_top.v'
+Parsing design file 'soc/debug/dtm.sv'
+
+Note-[SV-LCM-PPWI] Package previously wildcard imported
+soc/debug/dtm.sv, 2
+$unit
+  Package 'debug_pkg' already wildcard imported. 
+  Ignoring debug_pkg::*
+  See the SystemVerilog LRM(1800-2005), section 19.2.1.
+
+Parsing design file 'soc/debug/dm.sv'
+
+Note-[SV-LCM-PPWI] Package previously wildcard imported
+soc/debug/dm.sv, 2
+$unit
+  Package 'debug_pkg' already wildcard imported. 
+  Ignoring debug_pkg::*
+  See the SystemVerilog LRM(1800-2005), section 19.2.1.
+
+Parsing design file 'soc/debug/debug_top.sv'
+
+Note-[SV-LCM-PPWI] Package previously wildcard imported
+soc/debug/debug_top.sv, 1
+$unit
+  Package 'debug_pkg' already wildcard imported. 
+  Ignoring debug_pkg::*
+  See the SystemVerilog LRM(1800-2005), section 19.2.1.
+
+Parsing design file 'soc/sram/tsmc_32k_rtl.v'
+Parsing design file 'soc/sram/tsmc_8k_rtl.v'
+Parsing design file 'soc/core/sram_wrapper.sv'
+Parsing design file 'soc/rom/tsmc_rom_1k_rtl.v'
+Parsing design file 'soc/core/data_mem.sv'
+Parsing design file 'soc/rv32i_soc.sv'
+Parsing design file 'pads/tpz018nv_270a/tpz018nv.v'
+Parsing design file 'pads/top_rv32i_soc.sv'
+Parsing design file 'tb/pkg.sv'
+Parsing design file 'tb/tracer_pkg.sv'
+Parsing design file 'tb/tracer.sv'
+Parsing design file 'tb/rv32i_soc_tb.sv'
+Top Level Modules:
+       n_bit_dec_with_en
+       n_bit_reg_wo_en
+       bidirec
+       sram_32k_wrapper
+       sram_8k_wrapper
+       tsmc_rom_1k
+       PCI33DGZ
+       PCI33SDGZ
+       PCI66DGZ
+       PCI66SDGZ
+       PDB02DGZ
+       PDB02SDGZ
+       PDB04DGZ
+       PDB04SDGZ
+       PDB08DGZ
+       PDB08SDGZ
+       PDB12DGZ
+       PDB12SDGZ
+       PDB16DGZ
+       PDB16SDGZ
+       PDB24DGZ
+       PDB24SDGZ
+       PDD02DGZ
+       PDD02SDGZ
+       PDD04DGZ
+       PDD04SDGZ
+       PDD08DGZ
+       PDD08SDGZ
+       PDD12DGZ
+       PDD12SDGZ
+       PDD16DGZ
+       PDD16SDGZ
+       PDD24SDGZ
+       PDDDGZ
+       PDDSDGZ
+       PDDW02DGZ
+       PDDW04DGZ
+       PDDW08DGZ
+       PDDW12DGZ
+       PDDW16DGZ
+       PDDW24DGZ
+       PDDWDGZ
+       PDIDGZ
+       PDISDGZ
+       PDO02CDG
+       PDO04CDG
+       PDO08CDG
+       PDO12CDG
+       PDO16CDG
+       PDO24CDG
+       PDT02DGZ
+       PDT04DGZ
+       PDT08DGZ
+       PDT12DGZ
+       PDT16DGZ
+       PDT24DGZ
+       PDU02DGZ
+       PDU02SDGZ
+       PDU04DGZ
+       PDU04SDGZ
+       PDU08DGZ
+       PDU08SDGZ
+       PDU12DGZ
+       PDU12SDGZ
+       PDU16DGZ
+       PDU16SDGZ
+       PDU24DGZ
+       PDU24SDGZ
+       PDUDGZ
+       PDUSDGZ
+       PDUW02DGZ
+       PDUW04DGZ
+       PDUW08DGZ
+       PDUW12DGZ
+       PDUW16DGZ
+       PDUW24DGZ
+       PDUWDGZ
+       PDXO01DG
+       PDXO02DG
+       PDXOE1DG
+       PDXOE2DG
+       PDXOE3DG
+       PRB08DGZ
+       PRB08SDGZ
+       PRB12DGZ
+       PRB12SDGZ
+       PRB16DGZ
+       PRB16SDGZ
+       PRB24DGZ
+       PRB24SDGZ
+       PRCUT
+       PRD08DGZ
+       PRD08SDGZ
+       PRD12DGZ
+       PRD12SDGZ
+       PRD16DGZ
+       PRD16SDGZ
+       PRD24DGZ
+       PRD24SDGZ
+       PRDW08DGZ
+       PRDW12DGZ
+       PRDW16DGZ
+       PRDW24DGZ
+       PRO08CDG
+       PRO12CDG
+       PRO16CDG
+       PRO24CDG
+       PRT08DGZ
+       PRT12DGZ
+       PRT16DGZ
+       PRT24DGZ
+       PRU08DGZ
+       PRU08SDGZ
+       PRU12DGZ
+       PRU12SDGZ
+       PRU16DGZ
+       PRU16SDGZ
+       PRU24DGZ
+       PRU24SDGZ
+       PRUW08DGZ
+       PRUW12DGZ
+       PRUW16DGZ
+       PRUW24DGZ
+       PVDD1ANA
+       PVDD1DGZ
+       PVDD2ANA
+       PVDD2DGZ
+       PVDD2POC
+       PVSS1ANA
+       PVSS1DGZ
+       PVSS2ANA
+       PVSS2DGZ
+       PVSS3DGZ
+       top_rv32i_soc
+       rv32i_soc_tb
+TimeScale is 1 ns / 1 ps
+
+Warning-[TFIPC] Too few instance port connections
+pads/top_rv32i_soc.sv, 56
+top_rv32i_soc, "PDXO03DG u_clk_pad( .XIN (CLK_PAD),  .XC (clk_internal));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+pads/top_rv32i_soc.sv, 221
+top_rv32i_soc, "rv32i_soc u_rv32i_soc( .clk (clk_internal),  .reset_n (reset_n_internal),  .o_flash_sclk (o_flash_sclk_internal),  .o_flash_cs_n (o_flash_cs_n_internal),  .o_flash_mosi (o_flash_mosi_internal),  .i_flash_miso (i_flash_miso_internal),  .o_uart_tx (o_uart_tx_internal),  .i_uart_rx (i_uart_rx_internal),  .i_gpio (i_gpio_internal),  .o_gpio (o_gpio_internal),  .en_gpio (en_gpio_internal),  .pwm_pad_o (pwm_pad_o_internal));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[SIOB] Select index out of bounds
+soc/uncore/gpio/gpio_top.sv, 193
+"rgpio_out[31:24]"
+  The select index is out of declared bounds : [23:0].
+  In module instance : gpio_module gpio_module 
+  In module : gpio_top.
+
+
+Warning-[SIOB] Select index out of bounds
+soc/uncore/gpio/gpio_top.sv, 199
+"rgpio_oe[31:24]"
+  The select index is out of declared bounds : [23:0].
+  In module instance : gpio_module gpio_module 
+  In module : gpio_top.
+
+
+Warning-[PCWM-W] Port connection width mismatch
+soc/rv32i_soc.sv, 631
+"ptc_top ptc_top_inst( .wb_clk_i (clk),  .wb_rst_i (wb_rst),  .wb_cyc_i (wb_m2s_ptc_cyc),  .wb_adr_i ({2'b0, wb_m2s_ptc_adr[5:2], 2'b0}),  .wb_dat_i (wb_m2s_ptc_dat),  .wb_sel_i (4'b1111),  .wb_we_i (wb_m2s_ptc_we),  .wb_stb_i (wb_m2s_ptc_stb),  .wb_dat_o (wb_s2m_ptc_dat),  .wb_ack_o (wb_s2m_ptc_ack),  .wb_err_o (wb_s2m_ptc_err),  .wb_inta_o (ptc_irq),  .gate_clk_pad_i (1'b0),  .capt_pad_i (1'b0),  .pwm_pad_o (pwm_pad_o),  .oen_padoen_o (pwm_padoen_o));"
+  The following 8-bit expression is connected to 16-bit port "wb_adr_i" of 
+  module "ptc_top", instance "ptc_top_inst".
+  Expression: {2'b0, wb_m2s_ptc_adr[5:2], 2'b0}
+  Instantiated module defined at: "soc/uncore/ptc/ptc_top.v", 68
+  Use +lint=PCWM for more details.
+
+
+Warning-[PCWM-W] Port connection width mismatch
+soc/rv32i_soc.sv, 631
+"ptc_top ptc_top_inst( .wb_clk_i (clk),  .wb_rst_i (wb_rst),  .wb_cyc_i (wb_m2s_ptc_cyc),  .wb_adr_i ({2'b0, wb_m2s_ptc_adr[5:2], 2'b0}),  .wb_dat_i (wb_m2s_ptc_dat),  .wb_sel_i (4'b1111),  .wb_we_i (wb_m2s_ptc_we),  .wb_stb_i (wb_m2s_ptc_stb),  .wb_dat_o (wb_s2m_ptc_dat),  .wb_ack_o (wb_s2m_ptc_ack),  .wb_err_o (wb_s2m_ptc_err),  .wb_inta_o (ptc_irq),  .gate_clk_pad_i (1'b0),  .capt_pad_i (1'b0),  .pwm_pad_o (pwm_pad_o),  .oen_padoen_o (pwm_padoen_o));"
+  The following 8-bit expression is connected to 16-bit port "wb_adr_i" of 
+  module "ptc_top", instance "ptc_top_inst".
+  Expression: {2'b0, wb_m2s_ptc_adr[5:2], 2'b0}
+  Instantiated module defined at: "soc/uncore/ptc/ptc_top.v", 68
+  Use +lint=PCWM for more details.
+
+Starting vcs inline pass...
+153 modules and 0 UDP read.
+	However, due to incremental compilation, no re-compilation is necessary.
+make[1]: Entering directory '/home/Nouf_Alsufyani/Core/riscv-dv/soc-rtl/src/csrc'
+make[1]: Leaving directory '/home/Nouf_Alsufyani/Core/riscv-dv/soc-rtl/src/csrc'
+make[1]: Entering directory '/home/Nouf_Alsufyani/Core/riscv-dv/soc-rtl/src/csrc'
+rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+if [ -x ../simv ]; then chmod a-x ../simv; fi
+g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir -Wl,-rpath=/mnt/NVME2/synopsys/vcs/W-2024.09-SP1/linux64/lib -L/mnt/NVME2/synopsys/vcs/W-2024.09-SP1/linux64/lib  -Wl,-rpath-link=./  /usr/lib64/libnuma.so.1   objs/amcQw_d.o   _4036236_archive_1.so _prev_archive_1.so   SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o            -lvirsim -lerrorinf -lsnpsmalloc -lvfs    -lvcsnew -lsimprofile -luclinative /mnt/NVME2/synopsys/vcs/W-2024.09-SP1/linux64/lib/vcs_tls.o   -Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive          /mnt/NVME2/synopsys/vcs/W-2024.09-SP1/linux64/lib/vcs_save_restore_new.o -ldl  -lc -lm -lpthread -ldl 
+../simv up to date
+make[1]: Leaving directory '/home/Nouf_Alsufyani/Core/riscv-dv/soc-rtl/src/csrc'
+CPU time: 146.052 seconds to compile + .703 seconds to elab + .973 seconds to link
+cp /home/Nouf_Alsufyani/Core/riscv-dv/out_2025-04-21/inst_conv.hex /home/Nouf_Alsufyani/Core/riscv-dv/soc-rtl/src/tb/inst_formatted.hex
+cp /home/Nouf_Alsufyani/Core/riscv-dv/out_2025-04-21/data_conv.hex /home/Nouf_Alsufyani/Core/riscv-dv/soc-rtl/src/tb/data_formatted.hex
+Running the VCS simulation to generate core.log ...
+cd /home/Nouf_Alsufyani/Core/riscv-dv/soc-rtl/src && \
+./simv
+Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detected on the machine. To enable $save functionality, ASLR will be switched off and simv re-executed.
+Please use '-no_save' simv switch to avoid re-execution or '-suppress=ASLR_DETECTED_INFO' to suppress this message.
+Chronologic VCS simulator copyright 1991-2024
+Contains Synopsys proprietary information.
+Compiler version W-2024.09-SP1_Full64; Runtime version W-2024.09-SP1_Full64;  Apr 21 10:48 2025
+
+Warning-[STASKW_CO1] Cannot open file
+  The file '/home/qamar/Desktop/RivRtos/src/tb/rom.hex' could not be opened. 
+  Permission denied.
+  Please ensure that the file exists with proper permissions.
+
+
+Warning-[STASKW_RMCOF] Cannot open file
+soc/rom/tsmc_rom_1k_rtl.v, 138
+  Cannot open file '/home/qamar/Desktop/RivRtos/src/tb/rom.hex' passed as 
+  argument to $readmem.
+  Please verify that the first argument to $readmem is a file that exists with
+  proper permissions.
+
+rv32i_soc_tb.tracer_inst.printbuffer_dumpline.unnamed$$_0: Writing execution trace to trace_core_00000000.log
+dmem[00] => 00000000 <=> f14022f3 <= imem[00] 
+dmem[01] => 00000000 <=> 00000313 <= imem[01] 
+dmem[02] => 00000000 <=> 00628263 <= imem[02] 
+dmem[03] => 00000000 <=> 00000a17 <= imem[03] 
+dmem[04] => 00000000 <=> 00ca0a13 <= imem[04] 
+dmem[05] => 00000000 <=> 000a0067 <= imem[05] 
+dmem[06] => 00000000 <=> 40000cb7 <= imem[06] 
+dmem[07] => 00000000 <=> 100c8c93 <= imem[07] 
+dmem[08] => 00000000 <=> 301c9073 <= imem[08] 
+dmem[09] => 00000000 <=> 0002c297 <= imem[09] 
+dmem[10] => 00000000 <=> cc028293 <= imem[10] 
+dmem[11] => 00000000 <=> 00011c97 <= imem[11] 
+dmem[12] => 00000000 <=> 394c8c93 <= imem[12] 
+dmem[13] => 00000000 <=> 000cec93 <= imem[13] 
+dmem[14] => 00000000 <=> 305c9073 <= imem[14] 
+dmem[15] => 00000000 <=> 00000c97 <= imem[15] 
+dmem[16] => 00000000 <=> 028c8c93 <= imem[16] 
+dmem[17] => 00000000 <=> 341c9073 <= imem[17] 
+dmem[18] => xxxxxxxx <=> 00000013 <= imem[18] 
+dmem[19] => xxxxxxxx <=> 00002cb7 <= imem[19] 
+dmem[20] => xxxxxxxx <=> 800c8c93 <= imem[20] 
+dmem[21] => xxxxxxxx <=> 300c9073 <= imem[21] 
+dmem[22] => xxxxxxxx <=> 00000c93 <= imem[22] 
+dmem[23] => xxxxxxxx <=> 304c9073 <= imem[23] 
+dmem[24] => xxxxxxxx <=> 30200073 <= imem[24] 
+dmem[25] => xxxxxxxx <=> 00000013 <= imem[25] 
+dmem[26] => xxxxxxxx <=> b6db80b7 <= imem[26] 
+dmem[27] => xxxxxxxx <=> 33b08093 <= imem[27] 
+dmem[28] => xxxxxxxx <=> b0579137 <= imem[28] 
+dmem[29] => xxxxxxxx <=> de610113 <= imem[29] 
+dmem[30] => xxxxxxxx <=> 210051b7 <= imem[30] 
+dmem[31] => xxxxxxxx <=> ea118193 <= imem[31] 
+dmem[32] => xxxxxxxx <=> 00000213 <= imem[32] 
+dmem[33] => xxxxxxxx <=> 80000337 <= imem[33] 
+dmem[34] => xxxxxxxx <=> 00000393 <= imem[34] 
+dmem[35] => xxxxxxxx <=> 4c96f437 <= imem[35] 
+dmem[36] => xxxxxxxx <=> fac40413 <= imem[36] 
+dmem[37] => xxxxxxxx <=> 80000537 <= imem[37] 
+dmem[38] => xxxxxxxx <=> 0ca335b7 <= imem[38] 
+dmem[39] => xxxxxxxx <=> a1458593 <= imem[39] 
+dmem[40] => xxxxxxxx <=> 00000613 <= imem[40] 
+dmem[41] => xxxxxxxx <=> 00000693 <= imem[41] 
+dmem[42] => xxxxxxxx <=> 80000737 <= imem[42] 
+dmem[43] => xxxxxxxx <=> 809697b7 <= imem[43] 
+dmem[44] => xxxxxxxx <=> 64278793 <= imem[44] 
+dmem[45] => xxxxxxxx <=> 00900813 <= imem[45] 
+dmem[46] => xxxxxxxx <=> f5ba28b7 <= imem[46] 
+dmem[47] => xxxxxxxx <=> 28688893 <= imem[47] 
+dmem[48] => xxxxxxxx <=> 00600913 <= imem[48] 
+dmem[49] => xxxxxxxx <=> 800009b7 <= imem[49] 
+dmem[50] => xxxxxxxx <=> 00000a13 <= imem[50] 
+dmem[51] => xxxxxxxx <=> 00000a93 <= imem[51] 
+dmem[52] => xxxxxxxx <=> 00500b13 <= imem[52] 
+dmem[53] => xxxxxxxx <=> 00400b93 <= imem[53] 
+dmem[54] => xxxxxxxx <=> ff0b8c37 <= imem[54] 
+dmem[55] => xxxxxxxx <=> 3bcc0c13 <= imem[55] 
+dmem[56] => xxxxxxxx <=> 00500c93 <= imem[56] 
+dmem[57] => xxxxxxxx <=> 00200d13 <= imem[57] 
+dmem[58] => xxxxxxxx <=> 00000d93 <= imem[58] 
+dmem[59] => xxxxxxxx <=> 00000e13 <= imem[59] 
+dmem[60] => xxxxxxxx <=> 272afeb7 <= imem[60] 
+dmem[61] => xxxxxxxx <=> b45e8e93 <= imem[61] 
+dmem[62] => xxxxxxxx <=> 00000f13 <= imem[62] 
+dmem[63] => xxxxxxxx <=> 39dc8fb7 <= imem[63] 
+dmem[64] => xxxxxxxx <=> 0a5f8f93 <= imem[64] 
+dmem[65] => xxxxxxxx <=> 00028497 <= imem[65] 
+dmem[66] => xxxxxxxx <=> d6048493 <= imem[66] 
+dmem[67] => xxxxxxxx <=> 00004597 <= imem[67] 
+dmem[68] => xxxxxxxx <=> e7c58593 <= imem[68] 
+dmem[69] => xxxxxxxx <=> ecc2a913 <= imem[69] 
+dmem[70] => xxxxxxxx <=> 00000013 <= imem[70] 
+dmem[71] => xxxxxxxx <=> 0ff0000f <= imem[71] 
+dmem[72] => xxxxxxxx <=> 00feeb33 <= imem[72] 
+dmem[73] => xxxxxxxx <=> 34007b73 <= imem[73] 
+dmem[74] => xxxxxxxx <=> 1b958593 <= imem[74] 
+dmem[75] => xxxxxxxx <=> 007d6333 <= imem[75] 
+dmem[76] => xxxxxxxx <=> 80cfae13 <= imem[76] 
+dmem[77] => xxxxxxxx <=> 49bf7713 <= imem[77] 
+dmem[78] => xxxxxxxx <=> 2d0b5d17 <= imem[78] 
+dmem[79] => xxxxxxxx <=> 001a5513 <= imem[79] 
+dmem[80] => xxxxxxxx <=> e4758267 <= imem[80] 
+dmem[81] => xxxxxxxx <=> 00012117 <= imem[81] 
+dmem[82] => xxxxxxxx <=> 09910113 <= imem[82] 
+dmem[83] => xxxxxxxx <=> 81c049b7 <= imem[83] 
+dmem[84] => xxxxxxxx <=> 00d10a23 <= imem[84] 
+dmem[85] => xxxxxxxx <=> fed15983 <= imem[85] 
+dmem[86] => xxxxxxxx <=> 00b995b3 <= imem[86] 
+dmem[87] => xxxxxxxx <=> 01f11983 <= imem[87] 
+dmem[88] => xxxxxxxx <=> fd3102a3 <= imem[88] 
+dmem[89] => xxxxxxxx <=> 003589b3 <= imem[89] 
+dmem[90] => xxxxxxxx <=> 00b67c33 <= imem[90] 
+dmem[91] => xxxxxxxx <=> 340069f3 <= imem[91] 
+dmem[92] => xxxxxxxx <=> 00dc21b3 <= imem[92] 
+dmem[93] => xxxxxxxx <=> 01312183 <= imem[93] 
+dmem[94] => xxxxxxxx <=> 0019d693 <= imem[94] 
+dmem[95] => xxxxxxxx <=> 03510603 <= imem[95] 
+dmem[96] => xxxxxxxx <=> 41358633 <= imem[96] 
+dmem[97] => xxxxxxxx <=> 01c14983 <= imem[97] 
+dmem[98] => xxxxxxxx <=> fe115c03 <= imem[98] 
+dmem[99] => xxxxxxxx <=> fcb10183 <= imem[99] 
+reg_file[00] =          x
+reg_file[01] = 3067839291
+reg_file[02] = 2958527974
+reg_file[03] = 553668257
+reg_file[04] = 2147483972
+reg_file[05] = 2147663076
+reg_file[06] = 002
+reg_file[07] = 000
+reg_file[08] = 1284960172
+reg_file[09] = 2147647064
+reg_file[10] = 000
+reg_file[11] = 2147500353
+reg_file[12] = 000
+reg_file[13] = 000
+reg_file[14] = 000
+reg_file[15] = 2157352514
+reg_file[16] = 009
+reg_file[17] = 4122616454
+reg_file[18] = 001
+reg_file[19] = 2147483648
+reg_file[20] = 000
+reg_file[21] = 000
+reg_file[22] = 000
+reg_file[23] = 004
+reg_file[24] = 4278944700
+reg_file[25] = 005
+reg_file[26] = 2903200056
+reg_file[27] = 009
+reg_file[28] = 000
+reg_file[29] = 657124165
+reg_file[30] = 000
+reg_file[31] = 970752165
+$finish called from file "tb/rv32i_soc_tb.sv", line 128.
+$finish at simulation time 499995.000 ns
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 499995000 ps
+CPU Time:      0.710 seconds;       Data structure size:   2.8Mb
+Mon Apr 21 10:48:28 2025
+cd /home/Nouf_Alsufyani/Core/riscv-dv
+python3 /home/Nouf_Alsufyani/Core/riscv-dv/scripts/core_log_to_trace_csv.py --log /home/Nouf_Alsufyani/Core/riscv-dv/soc-rtl/src/trace_core_*.log --csv /home/Nouf_Alsufyani/Core/riscv-dv/out_2025-04-21/core.csv
+python3 /home/Nouf_Alsufyani/Core/riscv-dv/scripts/instr_trace_compare.py --csv_file_1 /home/Nouf_Alsufyani/Core/riscv-dv/out_2025-04-21/spike.csv --csv_file_2 /home/Nouf_Alsufyani/Core/riscv-dv/out_2025-04-21/core.csv --csv_name_1 spike --csv_name_2 core
+spike : /home/Nouf_Alsufyani/Core/riscv-dv/out_2025-04-21/spike.csv
+core : /home/Nouf_Alsufyani/Core/riscv-dv/out_2025-04-21/core.csv
+[PASSED]: 59 matched
+

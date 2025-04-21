@@ -1,0 +1,211 @@
+python3 /home/Nouf_Alsufyani/Core/riscv-dv/scripts/spike_log_to_trace_csv.py --log /home/Nouf_Alsufyani/Core/riscv-dv/out_2025-04-21/spike_sim/riscv_jump_stress_test_0.log --csv /home/Nouf_Alsufyani/Core/riscv-dv/out_2025-04-21/spike.csv
+cd /home/Nouf_Alsufyani/Core/riscv-dv/soc-rtl/src && \
+vcs -full64 -f filelist.f -o simv
+                         Chronologic VCS (TM)
+       Version W-2024.09-SP1_Full64 -- Mon Apr 21 11:00:03 2025
+
+                    Copyright (c) 1991 - 2024 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+The design hasn't changed and need not be recompiled. 
+If you really want to, delete file /home/Nouf_Alsufyani/Core/riscv-dv/soc-rtl/src/simv.daidir/.vcs.timestamp and
+run VCS again.
+
+cp /home/Nouf_Alsufyani/Core/riscv-dv/out_2025-04-21/inst_conv.hex /home/Nouf_Alsufyani/Core/riscv-dv/soc-rtl/src/tb/inst_formatted.hex
+cp /home/Nouf_Alsufyani/Core/riscv-dv/out_2025-04-21/data_conv.hex /home/Nouf_Alsufyani/Core/riscv-dv/soc-rtl/src/tb/data_formatted.hex
+Running the VCS simulation to generate core.log ...
+cd /home/Nouf_Alsufyani/Core/riscv-dv/soc-rtl/src && \
+./simv
+Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detected on the machine. To enable $save functionality, ASLR will be switched off and simv re-executed.
+Please use '-no_save' simv switch to avoid re-execution or '-suppress=ASLR_DETECTED_INFO' to suppress this message.
+Chronologic VCS simulator copyright 1991-2024
+Contains Synopsys proprietary information.
+Compiler version W-2024.09-SP1_Full64; Runtime version W-2024.09-SP1_Full64;  Apr 21 11:00 2025
+
+Warning-[STASKW_CO1] Cannot open file
+  The file '/home/qamar/Desktop/RivRtos/src/tb/rom.hex' could not be opened. 
+  Permission denied.
+  Please ensure that the file exists with proper permissions.
+
+
+Warning-[STASKW_RMCOF] Cannot open file
+soc/rom/tsmc_rom_1k_rtl.v, 138
+  Cannot open file '/home/qamar/Desktop/RivRtos/src/tb/rom.hex' passed as 
+  argument to $readmem.
+  Please verify that the first argument to $readmem is a file that exists with
+  proper permissions.
+
+rv32i_soc_tb.tracer_inst.printbuffer_dumpline.unnamed$$_0: Writing execution trace to trace_core_00000000.log
+dmem[00] => 00000000 <=> f14022f3 <= imem[00] 
+dmem[01] => 00000000 <=> 00000313 <= imem[01] 
+dmem[02] => 00000000 <=> 00628263 <= imem[02] 
+dmem[03] => 00000000 <=> 00000297 <= imem[03] 
+dmem[04] => 00000000 <=> 00c28293 <= imem[04] 
+dmem[05] => 00000000 <=> 00028067 <= imem[05] 
+dmem[06] => 00000000 <=> 40000537 <= imem[06] 
+dmem[07] => 00000000 <=> 10050513 <= imem[07] 
+dmem[08] => 00000000 <=> 30151073 <= imem[08] 
+dmem[09] => 00000000 <=> 00023617 <= imem[09] 
+dmem[10] => 00000000 <=> cc060613 <= imem[10] 
+dmem[11] => 00000000 <=> 00008517 <= imem[11] 
+dmem[12] => 00000000 <=> c5450513 <= imem[12] 
+dmem[13] => 00000000 <=> 00156513 <= imem[13] 
+dmem[14] => 00000000 <=> 30551073 <= imem[14] 
+dmem[15] => 00000000 <=> 00000517 <= imem[15] 
+dmem[16] => 00000000 <=> 02850513 <= imem[16] 
+dmem[17] => 00000000 <=> 34151073 <= imem[17] 
+dmem[18] => xxxxxxxx <=> 00000013 <= imem[18] 
+dmem[19] => xxxxxxxx <=> 00002537 <= imem[19] 
+dmem[20] => xxxxxxxx <=> 80050513 <= imem[20] 
+dmem[21] => xxxxxxxx <=> 30051073 <= imem[21] 
+dmem[22] => xxxxxxxx <=> 00000513 <= imem[22] 
+dmem[23] => xxxxxxxx <=> 30451073 <= imem[23] 
+dmem[24] => xxxxxxxx <=> 30200073 <= imem[24] 
+dmem[25] => xxxxxxxx <=> 00100013 <= imem[25] 
+dmem[26] => xxxxxxxx <=> d64e30b7 <= imem[26] 
+dmem[27] => xxxxxxxx <=> 15f08093 <= imem[27] 
+dmem[28] => xxxxxxxx <=> f4cb5137 <= imem[28] 
+dmem[29] => xxxxxxxx <=> 8c810113 <= imem[29] 
+dmem[30] => xxxxxxxx <=> 00000193 <= imem[30] 
+dmem[31] => xxxxxxxx <=> 80000237 <= imem[31] 
+dmem[32] => xxxxxxxx <=> 800002b7 <= imem[32] 
+dmem[33] => xxxxxxxx <=> fa9b93b7 <= imem[33] 
+dmem[34] => xxxxxxxx <=> 7ce38393 <= imem[34] 
+dmem[35] => xxxxxxxx <=> 80000437 <= imem[35] 
+dmem[36] => xxxxxxxx <=> 800004b7 <= imem[36] 
+dmem[37] => xxxxxxxx <=> 00700513 <= imem[37] 
+dmem[38] => xxxxxxxx <=> f671c5b7 <= imem[38] 
+dmem[39] => xxxxxxxx <=> 0eb58593 <= imem[39] 
+dmem[40] => xxxxxxxx <=> 591986b7 <= imem[40] 
+dmem[41] => xxxxxxxx <=> 79168693 <= imem[41] 
+dmem[42] => xxxxxxxx <=> 28e59737 <= imem[42] 
+dmem[43] => xxxxxxxx <=> a3e70713 <= imem[43] 
+dmem[44] => xxxxxxxx <=> 800007b7 <= imem[44] 
+dmem[45] => xxxxxxxx <=> fd309837 <= imem[45] 
+dmem[46] => xxxxxxxx <=> e4980813 <= imem[46] 
+dmem[47] => xxxxxxxx <=> 800008b7 <= imem[47] 
+dmem[48] => xxxxxxxx <=> 32a5b937 <= imem[48] 
+dmem[49] => xxxxxxxx <=> 78290913 <= imem[49] 
+dmem[50] => xxxxxxxx <=> 00000993 <= imem[50] 
+dmem[51] => xxxxxxxx <=> 00600a13 <= imem[51] 
+dmem[52] => xxxxxxxx <=> 00000a93 <= imem[52] 
+dmem[53] => xxxxxxxx <=> 80000b37 <= imem[53] 
+dmem[54] => xxxxxxxx <=> 00000b93 <= imem[54] 
+dmem[55] => xxxxxxxx <=> 9fb9dc37 <= imem[55] 
+dmem[56] => xxxxxxxx <=> 170c0c13 <= imem[56] 
+dmem[57] => xxxxxxxx <=> 00000c93 <= imem[57] 
+dmem[58] => xxxxxxxx <=> 00000d13 <= imem[58] 
+dmem[59] => xxxxxxxx <=> 00400d93 <= imem[59] 
+dmem[60] => xxxxxxxx <=> 00b00e13 <= imem[60] 
+dmem[61] => xxxxxxxx <=> 00900e93 <= imem[61] 
+dmem[62] => xxxxxxxx <=> f3f0ff37 <= imem[62] 
+dmem[63] => xxxxxxxx <=> cf1f0f13 <= imem[63] 
+dmem[64] => xxxxxxxx <=> 9cc68fb7 <= imem[64] 
+dmem[65] => xxxxxxxx <=> d50f8f93 <= imem[65] 
+dmem[66] => xxxxxxxx <=> 0001f317 <= imem[66] 
+dmem[67] => xxxxxxxx <=> d5c30313 <= imem[67] 
+dmem[68] => xxxxxxxx <=> 020000ef <= imem[68] 
+dmem[69] => xxxxxxxx <=> 024000ef <= imem[69] 
+dmem[70] => xxxxxxxx <=> 050000ef <= imem[70] 
+dmem[71] => xxxxxxxx <=> 018000ef <= imem[71] 
+dmem[72] => xxxxxxxx <=> 008006ef <= imem[72] 
+dmem[73] => xxxxxxxx <=> 020000ef <= imem[73] 
+dmem[74] => xxxxxxxx <=> 004009ef <= imem[74] 
+dmem[75] => xxxxxxxx <=> 02800b6f <= imem[75] 
+dmem[76] => xxxxxxxx <=> fe5ff0ef <= imem[76] 
+dmem[77] => xxxxxxxx <=> 018000ef <= imem[77] 
+dmem[78] => xxxxxxxx <=> fe9ff0ef <= imem[78] 
+dmem[79] => xxxxxxxx <=> 0340016f <= imem[79] 
+dmem[80] => xxxxxxxx <=> 008000ef <= imem[80] 
+dmem[81] => xxxxxxxx <=> 018000ef <= imem[81] 
+dmem[82] => xxxxxxxx <=> 00800f6f <= imem[82] 
+dmem[83] => xxxxxxxx <=> 00c000ef <= imem[83] 
+dmem[84] => xxxxxxxx <=> 01c000ef <= imem[84] 
+dmem[85] => xxxxxxxx <=> 010000ef <= imem[85] 
+dmem[86] => xxxxxxxx <=> 008000ef <= imem[86] 
+dmem[87] => xxxxxxxx <=> fe1ff0ef <= imem[87] 
+dmem[88] => xxxxxxxx <=> fc5ff0ef <= imem[88] 
+dmem[89] => xxxxxxxx <=> fddff0ef <= imem[89] 
+dmem[90] => xxxxxxxx <=> fb5ff0ef <= imem[90] 
+dmem[91] => xxxxxxxx <=> fadff0ef <= imem[91] 
+dmem[92] => xxxxxxxx <=> 01b365b3 <= imem[92] 
+dmem[93] => xxxxxxxx <=> 064000ef <= imem[93] 
+dmem[94] => xxxxxxxx <=> 014005ef <= imem[94] 
+dmem[95] => xxxxxxxx <=> 04c000ef <= imem[95] 
+dmem[96] => xxxxxxxx <=> 0600026f <= imem[96] 
+dmem[97] => xxxxxxxx <=> 018000ef <= imem[97] 
+dmem[98] => xxxxxxxx <=> 024000ef <= imem[98] 
+dmem[99] => xxxxxxxx <=> 02c004ef <= imem[99] 
+reg_file[00] =          x
+reg_file[01] = 2147487140
+reg_file[02] = 5184
+reg_file[03] = 2056
+reg_file[04] = 4278191193
+reg_file[05] = 2147483648
+reg_file[06] = 2147610152
+reg_file[07] = 2147497873
+reg_file[08] = 2147485060
+reg_file[09] = 2671
+reg_file[10] = 76483516
+reg_file[11] = 1550601588
+reg_file[12] = 2147626212
+reg_file[13] = 26828800
+reg_file[14] = 000
+reg_file[15] = 76483516
+reg_file[16] = 001
+reg_file[17] = 001
+reg_file[18] = 4216241336
+reg_file[19] = 001
+reg_file[20] = 2236637184
+reg_file[21] = 000
+reg_file[22] = 001
+reg_file[23] = 384125952
+reg_file[24] = 000
+reg_file[25] = 32768
+reg_file[26] = 031
+reg_file[27] = 000
+reg_file[28] = 000
+reg_file[29] = 354942976
+reg_file[30] = 2669
+reg_file[31] = 2236638294
+$finish called from file "tb/rv32i_soc_tb.sv", line 128.
+$finish at simulation time 499995.000 ns
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 499995000 ps
+CPU Time:      0.970 seconds;       Data structure size:   2.8Mb
+Mon Apr 21 11:00:05 2025
+cd /home/Nouf_Alsufyani/Core/riscv-dv
+python3 /home/Nouf_Alsufyani/Core/riscv-dv/scripts/core_log_to_trace_csv.py --log /home/Nouf_Alsufyani/Core/riscv-dv/soc-rtl/src/trace_core_*.log --csv /home/Nouf_Alsufyani/Core/riscv-dv/out_2025-04-21/core.csv
+python3 /home/Nouf_Alsufyani/Core/riscv-dv/scripts/instr_trace_compare.py --csv_file_1 /home/Nouf_Alsufyani/Core/riscv-dv/out_2025-04-21/spike.csv --csv_file_2 /home/Nouf_Alsufyani/Core/riscv-dv/out_2025-04-21/core.csv --csv_name_1 spike --csv_name_2 core
+spike : /home/Nouf_Alsufyani/Core/riscv-dv/out_2025-04-21/spike.csv
+core : /home/Nouf_Alsufyani/Core/riscv-dv/out_2025-04-21/core.csv
+Mismatch[1]:
+spike[692] : pc[80000bc4] csrrc   s6, mscratch, t0: s6:00000000 c832_mscratch:00000000
+core[692] : pc[80000bc4] csrrc	x22,mscratch,x5: s6:80000a6d 
+Mismatch[2]:
+spike[700] : pc[80000c18] csrrci  a1, mscratch, 0: a1:00000000 
+core[700] : pc[80000c18] csrrci	x11,mscratch,0: a1:00000a6d 
+Mismatch[3]:
+spike[704] : pc[80000c34] sll     a3, a6, s6: a3:80000ccb 
+core[704] : pc[80000c34] sll	x13,x16,x22: a3:01996000 
+Mismatch[4]:
+spike[705] : pc[80000c38] csrrsi  t5, mscratch, 15: t5:00000000 c832_mscratch:0000000f
+core[705] : pc[80000c38] csrrsi	x30,mscratch,15: t5:00000a6d 
+Mismatch[5]:
+spike[708] : pc[80000c50] csrrwi  s1, mscratch, 31: s1:0000000f c832_mscratch:0000001f
+core[708] : pc[80000c50] csrrwi	x9,mscratch,31: s1:00000a6f 
+[FAILED]: 725 matched, 8 mismatch
+
