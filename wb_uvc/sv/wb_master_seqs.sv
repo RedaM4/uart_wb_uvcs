@@ -56,7 +56,10 @@ class wb_write_seq extends wb_master_sequence;
   // Sequence body definition
   virtual task body();
     `uvm_info(get_type_name(), "Writing data to wishbone on an address", UVM_LOW)
-      `uvm_do_with(req, {req.address == this.addr; req.data==this.data; req.M_STATE==WRITE;})
+      randomize();
+
+      `uvm_do_with(req, { req.M_STATE==WRITE;})
+     //`uvm_do(req);
   endtask
   
 endclass : wb_write_seq

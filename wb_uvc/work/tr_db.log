@@ -1,0 +1,4 @@
+  CREATE_STREAM @0 {NAME:wb_write_seq T:TVM SCOPE:uvm_test_top.testBench.env.master_agent.sequencer STREAM:1}
+BEGIN @0 {TXH:2 STREAM:1 NAME:wb_write_seq TIME=0  TYPE="Begin_No_Parent, Link" LABEL:"" DESC=""}
+BEGIN @2100 {TXH:3 STREAM:1 NAME:req TIME=0  TYPE="Begin_End, Link" LABEL:"" DESC=""}
+  LINK @2100 {TXH1:2 TXH2:3 RELATION=child}

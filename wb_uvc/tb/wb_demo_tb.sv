@@ -31,8 +31,8 @@ endfunction
 
 function void connect_phase(uvm_phase phase);
 super.connect_phase(phase);
-    env.master_agent.monitor.mon_ap.connect(scoreboard.master_imp);
-    env.slave_agent.monitor.mon_ap.connect(scoreboard.slave_imp);
+ //   env.master_agent.monitor.mon_ap.connect(scoreboard.master_imp);
+ //   env.slave_agent.monitor.mon_ap.connect(scoreboard.slave_imp);
     `uvm_info("CONNECT", "Scoreboard connected to both master and slave monitors", UVM_MEDIUM)
 endfunction
 

@@ -65,6 +65,7 @@ task run_phase(uvm_phase phase);
                                 repeat(3)
                                   @(negedge vif.clock);
                                 vif.ACK_I<=1'b1;
+
                             end
                         else if(vif.WE_O==1)
                             begin

@@ -22,7 +22,7 @@ super.build_phase(phase);
 testBench = wb_tb::type_id::create("testBench",this); 
 
 uvm_config_int::set(this,"testBench.env.master_agent","is_active",UVM_ACTIVE);
-uvm_config_int::set(this,"testBench.env.slave_agent","is_active",UVM_ACTIVE);
+uvm_config_int::set(this,"testBench.env.slave_agent","is_active",UVM_PASSIVE);
 
 uvm_config_int::set(this,"*","recording_detail",1);
 endfunction
@@ -78,7 +78,7 @@ endclass : configure_uart
 ////////////////////send random packet through wishbone
 class random_wb_packet extends wb_test;
 
-`uvm_component_utils(configure_uart);
+`uvm_component_utils(random_wb_packet);
 
 function new(string name = "random_wb_packet", uvm_component parent);
 super.new(name,parent);
@@ -299,7 +299,7 @@ endclass: uart_complete_test
 
 
 
-/*
+
 class short_yapp_tx_test extends yapp_tx_test;
 
 `uvm_component_utils(short_yapp_tx_test);

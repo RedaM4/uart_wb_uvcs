@@ -26,7 +26,7 @@ begin
 driver = wb_master_driver::type_id::create("driver",this);
 sequencer=wb_master_sequencer::type_id::create("sequencer",this);
 end
-monitor= wb_master_monitor::type_id::create("monitor",this); //need to create monitor
+//monitor= wb_master_monitor::type_id::create("monitor",this); //need to create monitor
 endfunction
 
 

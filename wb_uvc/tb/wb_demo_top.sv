@@ -33,7 +33,7 @@ initial begin
 wb_vif_config::set(null,"uvm_test_top.testBench.env.*","vif",wb_intif);
 
 
-    run_test("random_wb_packet");
+    run_test();
 // force hw_top.in0_clk = 0;
 // release hw_top.in0_clk;
 end

@@ -15,6 +15,8 @@ constraint master_state_bias {M_STATE dist {WRITE:=45,READ:=45,IDLE:=10,NULL:=0}
 
 function new (string name = "n_cpu_transaction");
   super.new(name);
+  `uvm_info("--SEQ ITEM--","INSIDE CONSTRUCTOR",UVM_HIGH)
+
 endfunction
 
 
