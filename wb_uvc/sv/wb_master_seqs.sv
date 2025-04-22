@@ -120,7 +120,7 @@ virtual task body();
 `uvm_do_with(wb_write, {wb_write.addr == addr_reciever_buff; wb_write.data==reciever_buff;}) //clear reciever buff
 `uvm_do_with(wb_write, {wb_write.addr == addr_int_ie       ; wb_write.data==int_ie;})        //clear Interrupt Enable
 `uvm_do_with(wb_write, {wb_write.addr == addr_fifo_ctrl    ; wb_write.data==fifo_ctrl;}) //configure FIFO Control
-`uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.data==lcd;}) //configure Line Control Register
+`uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.data==lcr;}) //configure Line Control Register
 `uvm_do_with(wb_write, {wb_write.addr == addr_modem_ctrl   ; wb_write.data==modem_ctrl;}) //configure modem control
 
 

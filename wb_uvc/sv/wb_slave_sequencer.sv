@@ -29,4 +29,4 @@ super.connect_phase(phase);
 endfunction
 
 
-endclass: slave_sequencer
+endclass: wb_slave_sequencer

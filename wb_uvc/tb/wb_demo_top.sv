@@ -20,20 +20,17 @@ clkgen clkgen (
 );
 
   initial begin
-    reset <= 1'b1;
-    @(negedge clk)
-      #1 reset <= 1'b1;
+    reset <= 1'b0;
     @(negedge clk)
       #1 reset <= 1'b0;
-  ens
+    @(negedge clk)
+      #1 reset <= 1'b1;
+  end
 
 wb_if wb_intif(clk, reset);
 
 initial begin
 wb_vif_config::set(null,"uvm_test_top.testBench.env.*","vif",wb_intif);
-
-//clock_and_reset_vif_config::set(null,"uvm_test_top.testBench.clk_n_rst.*","vif",hw_top.clk_n_rst_if);
-
 
 
     run_test("random_wb_packet");

@@ -7,7 +7,7 @@ class wb_master_driver extends uvm_driver #(n_cpu_transaction);
 
 n_cpu_transaction item;
 
-virtual interface wb_master_if vif;
+virtual interface wb_if vif;
 
 //logic [7:0] data_read;
 
@@ -51,7 +51,7 @@ task run_phase(uvm_phase phase);
 
   task drive();
     //@(posedge vif.reset);
-    @(negedge vif.reset);
+    @(posedge vif.reset);
     `uvm_info(get_type_name(), "Reset dropped", UVM_MEDIUM)
     forever begin
       seq_item_port.get_next_item(req);

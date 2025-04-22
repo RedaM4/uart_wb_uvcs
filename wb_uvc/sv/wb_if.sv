@@ -1,4 +1,3 @@
-//NEEDS A REALLY GOOD REVISION
 
 
 typedef enum bit [1:0] {WRITE, READ, IDLE, NULL} m_state_t;
@@ -23,7 +22,7 @@ import wb_pkg::*;
 
 
   task wb_reset();
-    @(posedge reset);
+    @(negedge reset);
     ADR_O       <=  'hz;
     DAT_I       <= 8'b0;
     DAT_O       <= 8'b0;
