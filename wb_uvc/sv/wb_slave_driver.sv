@@ -1,5 +1,3 @@
-//requires craaaazy revision
-
 
 class wb_slave_driver extends uvm_driver #(n_cpu_transaction);
 

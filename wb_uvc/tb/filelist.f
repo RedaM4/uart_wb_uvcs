@@ -2,6 +2,6 @@
 
 +incdir+../sv+../tb
 ../sv/wb_pkg.sv
-../sv/clkgen.sv
+../tb/clkgen.sv
 ../sv/wb_if.sv
-../sv/wb_demo_top.sv
+../tb/wb_demo_top.sv

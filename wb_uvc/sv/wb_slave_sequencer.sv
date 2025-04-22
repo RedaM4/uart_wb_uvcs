@@ -1,11 +1,11 @@
 //DONE
 
-class slave_sequencer extends uvm_sequencer #(n_cpu_transaction);
+class wb_slave_sequencer extends uvm_sequencer #(n_cpu_transaction);
 
-`uvm_component_utils(slave_sequencer);
+`uvm_component_utils(wb_slave_sequencer);
 
 
-function new(string name ="slave_sequencer", uvm_component parent);
+function new(string name ="wb_slave_sequencer", uvm_component parent);
 super.new(name,parent); 
 `uvm_info("--SEQUENCER_CLASS--","INSIDE CONSTRUCTOR",UVM_HIGH);
 endfunction
