@@ -3,9 +3,9 @@
 
 class wb_master_driver extends uvm_driver #(n_cpu_transaction);
 
-`uvm_component_utils(n_cpu_transaction);
+`uvm_component_utils(wb_master_driver);
 
-n_cpu_transaction item;
+n_cpu_transaction #(8) item;
 
 virtual interface wb_if vif;
 
@@ -25,7 +25,7 @@ endfunction
 function void build_phase(uvm_phase phase);
 super.build_phase(phase);
 `uvm_info("--DRIVER_CLASS--","INSIDE BUILD PHASE",UVM_HIGH);
-item = n_cpu_transaction::type_id::create("item");
+item = n_cpu_transaction#(8)::type_id::create("item");
 
 if(!(wb_vif_config::get(this,"","vif",vif)))begin
 `uvm_error("DRIVER CLASS", "Failed to get vif from config db");
