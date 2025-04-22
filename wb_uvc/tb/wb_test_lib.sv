@@ -22,7 +22,7 @@ super.build_phase(phase);
 testBench = wb_tb::type_id::create("testBench",this); 
 
 uvm_config_int::set(this,"testBench.env.master_agent","is_active",UVM_ACTIVE);
-uvm_config_int::set(this,"testBench.env.slave_agent","is_active",UVM_PASSIVE);
+uvm_config_int::set(this,"testBench.env.slave_agent","is_active",UVM_ACTIVE);
 
 uvm_config_int::set(this,"*","recording_detail",1);
 endfunction
@@ -91,7 +91,7 @@ super.build_phase(phase);
 
 uvm_config_wrapper::set(this, "testBench.env.master_agent.sequencer.run_phase",
                                 "default_sequence",
-                                wb_write_seq::get_type());  
+                                wb_random_packet::get_type());  
                                 
 
 endfunction

@@ -1,0 +1,9 @@
+{"vcs1":{"timestamp_begin":1745327634.094861867, "rt":17.10, "ut":17.51, "st":1.02}}
+{"vcselab":{"timestamp_begin":1745327651.429841064, "rt":0.72, "ut":0.46, "st":0.25}}
+{"link":{"timestamp_begin":1745327652.337602941, "rt":0.89, "ut":0.45, "st":0.44}}
+{"SNPS_VCS_INTERNAL_ROOT_START_TIME": 1745327632.852385858}
+{"VCS_COMP_START_TIME": 1745327632.852385858}
+{"VCS_COMP_END_TIME": 1745327653.514127142}
+{"VCS_USER_OPTIONS": "-full64 -ntb_opts -uvm -f ../tb/filelist.f -o sim_v1"}
+{"vcs1": {"peak_mem": 473264}}
+{"vcselab": {"peak_mem": 158288}}

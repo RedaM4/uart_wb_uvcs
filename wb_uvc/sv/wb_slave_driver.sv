@@ -9,7 +9,7 @@ virtual interface wb_if vif;
 
 //logic [31:0] data_read = 32'haaaaaaaa;
 
-int UART_RANGE_LOW  = 32;
+int UART_RANGE_LOW  = 31;
 int UART_RANGE_HIGH = 63;
 
 
@@ -55,7 +55,10 @@ task run_phase(uvm_phase phase);
     @(posedge vif.reset);
     `uvm_info(get_type_name(), "Reset dropped", UVM_MEDIUM)
     forever 
+
         begin
+                       
+
           if(vif.STB_O && vif.CYC_O)
             begin
                 if(vif.ADR_O>UART_RANGE_LOW && vif.ADR_O<UART_RANGE_HIGH)
@@ -76,7 +79,10 @@ task run_phase(uvm_phase phase);
                             end
                     end
             end
+            else 
+            @(posedge vif.clock);
         end
+        
 
 
   endtask : drive

@@ -136,7 +136,25 @@ endtask
 endclass : config_uart
 
 
+class wb_random_packet extends wb_master_sequence;
+  
+  // Required macro for sequences automation
+  `uvm_object_utils(wb_random_packet)
 
+  // Constructor
+  function new(string name="wb_random_packet");
+    super.new(name);
+  endfunction
+
+  // Sequence body definition
+  virtual task body();
+    `uvm_info(get_type_name(), "Writing data to wishbone on an address", UVM_LOW)
+      randomize();
+      `uvm_do_with(req, {req.M_STATE==WRITE;})
+     //`uvm_do(req);
+  endtask
+
+endclass : wb_random_packet
 /*
 class uart_send_data extends wb_master_sequence;
   

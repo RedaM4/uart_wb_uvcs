@@ -65,7 +65,6 @@ task run_phase(uvm_phase phase);
         
 
           vif.send_to_dut(req.address, req.data);
-          
           vif.STB_O<=1;
           vif.CYC_O<=1;
 
@@ -75,17 +74,17 @@ task run_phase(uvm_phase phase);
             vif.WE_O<= 1'b0;
           else
             `uvm_error("--INTERFACE--", "WB INTERFACE RECIEVED NULL MASTER STATE");
-        $display("HELL WORLD!!!!");
-        repeat(5)
-        @(negedge vif.clock);
-        //wait(vif.ACK_I)
+        //repeat(5)
+        //@(negedge vif.clock);
+        wait(vif.ACK_I)
           begin
             vif.STB_O<=1'b0;
             vif.CYC_O<=1'b0;
             vif.ACK_I<=1'b0;
             seq_item_port.item_done;
-          end
+                        $display("sdfsfsdfsafdsfdsafdsaf");
 
+          end
     end
   endtask : drive
 
