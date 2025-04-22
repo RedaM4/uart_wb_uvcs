@@ -51,14 +51,13 @@ class wb_write_seq extends wb_master_sequence;
   endfunction
 
   rand bit [31:0] addr;
-  rand bit [31:0] data;
+  rand bit [31:0] dataa;
 
   // Sequence body definition
   virtual task body();
     `uvm_info(get_type_name(), "Writing data to wishbone on an address", UVM_LOW)
-      randomize();
-
-      `uvm_do_with(req, { req.M_STATE==WRITE;})
+      //randomize();
+      `uvm_do_with(req, { req.address == addr; req.data== dataa; req.M_STATE==WRITE;})
      //`uvm_do(req);
   endtask
   
@@ -81,7 +80,7 @@ class wb_read_seq extends wb_master_sequence;
   // Sequence body definition
   virtual task body();
     `uvm_info(get_type_name(), "Reading from wishbone on an address", UVM_LOW)
-      `uvm_do_with(req, {req.address == this.addr; req.data==this.data; req.M_STATE==READ;})
+      `uvm_do_with(req, {req.address == addr; req.M_STATE==READ;})
   endtask
   
 endclass : wb_read_seq
@@ -120,16 +119,16 @@ endfunction
 
 virtual task body();
   `uvm_info(get_type_name(), "Sequence to Configure UART",UVM_LOW)
-`uvm_do_with(wb_write, {wb_write.addr == addr_reciever_buff; wb_write.data==reciever_buff;}) //clear reciever buff
-`uvm_do_with(wb_write, {wb_write.addr == addr_int_ie       ; wb_write.data==int_ie;})        //clear Interrupt Enable
-`uvm_do_with(wb_write, {wb_write.addr == addr_fifo_ctrl    ; wb_write.data==fifo_ctrl;}) //configure FIFO Control
-`uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.data==lcr;}) //configure Line Control Register
-`uvm_do_with(wb_write, {wb_write.addr == addr_modem_ctrl   ; wb_write.data==modem_ctrl;}) //configure modem control
+`uvm_do_with(wb_write, {wb_write.addr == addr_reciever_buff; wb_write.dataa==0;}) //clear reciever buff
+`uvm_do_with(wb_write, {wb_write.addr == addr_int_ie       ; wb_write.dataa==int_ie;})        //clear Interrupt Enable
+`uvm_do_with(wb_write, {wb_write.addr == addr_fifo_ctrl    ; wb_write.dataa==fifo_ctrl;}) //configure FIFO Control
+`uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.dataa==lcr;}) //configure Line Control Register
+`uvm_do_with(wb_write, {wb_write.addr == addr_modem_ctrl   ; wb_write.dataa==modem_ctrl;}) //configure modem control
 
 
-`uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.data== 8'b10001011;}) //enable DIVISOR 
-`uvm_do_with(wb_write, {wb_write.addr == addr_DL_B2        ; wb_write.data==DL_B2;}) //enable DIVISOR 
-`uvm_do_with(wb_write, {wb_write.addr == addr_DL_B1        ; wb_write.data==DL_B1;}) //enable DIVISOR 
+`uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.dataa== 8'b10001011;}) //enable DIVISOR 
+`uvm_do_with(wb_write, {wb_write.addr == addr_DL_B2        ; wb_write.dataa==DL_B2;}) //enable DIVISOR 
+`uvm_do_with(wb_write, {wb_write.addr == addr_DL_B1        ; wb_write.dataa==DL_B1;}) //enable DIVISOR 
 
 
 endtask

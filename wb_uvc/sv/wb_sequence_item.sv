@@ -9,7 +9,7 @@ rand bit [WIDTH-1:0] data;
 rand m_state_t M_STATE;
 
 
-constraint address_range  {address >31; address <64;}
+// constraint address_range  {address >31; address <64;}
 constraint master_state_bias {M_STATE dist {WRITE:=45,READ:=45,IDLE:=10,NULL:=0};}
 
 

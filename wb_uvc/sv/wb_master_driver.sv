@@ -57,12 +57,15 @@ task run_phase(uvm_phase phase);
 
       seq_item_port.get_next_item(req);
       req.print();
+            
+
 
       `uvm_info(get_type_name(), $sformatf("sending these information :\n%s", req.sprint()), UVM_HIGH)
 
         
 
           vif.send_to_dut(req.address, req.data);
+          
           vif.STB_O<=1;
           vif.CYC_O<=1;
 
@@ -72,9 +75,10 @@ task run_phase(uvm_phase phase);
             vif.WE_O<= 1'b0;
           else
             `uvm_error("--INTERFACE--", "WB INTERFACE RECIEVED NULL MASTER STATE");
-        
-
-        wait(vif.ACK_I)
+        $display("HELL WORLD!!!!");
+        repeat(5)
+        @(negedge vif.clock);
+        //wait(vif.ACK_I)
           begin
             vif.STB_O<=1'b0;
             vif.CYC_O<=1'b0;
