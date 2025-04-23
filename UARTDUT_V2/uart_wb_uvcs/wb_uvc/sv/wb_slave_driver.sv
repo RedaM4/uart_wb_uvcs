@@ -52,7 +52,7 @@ task run_phase(uvm_phase phase);
 
   task drive();
     //@(posedge vif.reset);
-    @(posedge vif.reset);
+    @(negedge vif.reset);
     `uvm_info(get_type_name(), "Reset dropped", UVM_MEDIUM)
     forever 
 

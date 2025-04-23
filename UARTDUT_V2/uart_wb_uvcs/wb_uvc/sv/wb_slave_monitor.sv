@@ -25,7 +25,7 @@ class wb_slave_monitor extends uvm_monitor;
 
   task monitor_reset();
     forever begin
-      @(negedge vif.reset);
+      @(posedge vif.reset);
       `uvm_info("SLAVE MONITOR", "Reset detected", UVM_MEDIUM)
     end
   endtask

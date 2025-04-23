@@ -22,7 +22,7 @@ import wb_pkg::*;
 
 
   task wb_reset();
-    @(negedge reset);
+    @(posedge reset);
     ADR_O       <=  'hz;
     DAT_I       <= 8'b0;
     DAT_O       <= 8'b0;

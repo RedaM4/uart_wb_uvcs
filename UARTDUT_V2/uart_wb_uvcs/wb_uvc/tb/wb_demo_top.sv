@@ -22,9 +22,9 @@ clkgen clkgen (
   initial begin
     reset <= 1'b0;
     @(negedge clk)
-      #1 reset <= 1'b0;
-    @(negedge clk)
       #1 reset <= 1'b1;
+    @(negedge clk)
+      #1 reset <= 1'b0;
   end
 
 wb_if wb_intif(clk, reset);
