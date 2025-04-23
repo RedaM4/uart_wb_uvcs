@@ -33,7 +33,7 @@ class wb_master_monitor extends uvm_monitor;
 
   task monitor_transactions();
     forever begin
-      
+
       @(posedge vif.clock);
       if (!(vif.STB_O && vif.CYC_O)) continue;
         
@@ -44,12 +44,14 @@ class wb_master_monitor extends uvm_monitor;
         trans.data = vif.DAT_O;
         `uvm_info("MONITOR", $sformatf("Write: Addr=0x%0h Data=0x%0h", 
                                       trans.address, trans.data), UVM_HIGH)
+
       end
       else begin
         wait(vif.ACK_I);
         trans.data = vif.DAT_I;
         `uvm_info("MONITOR", $sformatf("Read: Addr=0x%0h Data=0x%0h", 
                                       trans.address, trans.data), UVM_HIGH)
+
       end
       mon_ap.write(trans);
     end

@@ -51,12 +51,12 @@ task run_phase(uvm_phase phase);
 
   task drive();
     //@(posedge vif.reset);
-    @(negedge vif.reset);
+    @(posedge vif.reset);
     `uvm_info(get_type_name(), "Reset dropped", UVM_MEDIUM)
     forever begin
 
       seq_item_port.get_next_item(req);
-      req.print();
+      //req.print();
             
 
 
@@ -82,8 +82,16 @@ task run_phase(uvm_phase phase);
             vif.STB_O<=1'b0;
             vif.CYC_O<=1'b0;
             vif.ACK_I<=1'b0;
+
+
+                  if(req.M_STATE==READ)
+                  begin
+                    req.data=vif.DAT_I;
+                     //req.print();
+                  end
+                  req.print();
+
             seq_item_port.item_done;
-                        $display("sdfsfsdfsafdsfdsafdsaf");
 
           end
     end
@@ -98,4 +106,3 @@ task run_phase(uvm_phase phase);
 
 //*/
 endclass: wb_master_driver
-

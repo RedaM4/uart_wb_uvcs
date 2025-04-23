@@ -102,14 +102,14 @@ byte modem_ctrl =         8'b00000000; //Modem Control
 byte DL_B1 = 8'b01000101; //Divisor Latch 1
 byte DL_B2 = 8'b00000001; //Divisor Latch 2
 
-int addr_reciever_buff =  32'h00000020; //Reciever Buffer
-int addr_int_ie =         32'h00000021; //Interrupt Enable
-int addr_fifo_ctrl =      32'h00000022; //FIFO Control
-int addr_lcr =            32'h00000023;//Line Control Register
-int addr_modem_ctrl =     32'h00000024; //Modem Control
+int addr_reciever_buff =  32'h00000000; //Reciever Buffer
+int addr_int_ie =         32'h00000001; //Interrupt Enable
+int addr_fifo_ctrl =      32'h00000002; //FIFO Control
+int addr_lcr =            32'h00000003;//Line Control Register
+int addr_modem_ctrl =     32'h00000004; //Modem Control
 
-int addr_DL_B1 = 32'h00000020; //Divisor Latch 1
-int addr_DL_B2 = 32'h00000021; //Divisor Latch 2
+int addr_DL_B1 = 32'h00000000; //Divisor Latch 1
+int addr_DL_B2 = 32'h00000001; //Divisor Latch 2
 
 function new(string name="config_uart");
   super.new(name);
@@ -119,16 +119,17 @@ endfunction
 
 virtual task body();
   `uvm_info(get_type_name(), "Sequence to Configure UART",UVM_LOW)
-`uvm_do_with(wb_write, {wb_write.addr == addr_reciever_buff; wb_write.dataa==0;}) //clear reciever buff
-`uvm_do_with(wb_write, {wb_write.addr == addr_int_ie       ; wb_write.dataa==int_ie;})        //clear Interrupt Enable
-`uvm_do_with(wb_write, {wb_write.addr == addr_fifo_ctrl    ; wb_write.dataa==fifo_ctrl;}) //configure FIFO Control
-`uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.dataa==lcr;}) //configure Line Control Register
-`uvm_do_with(wb_write, {wb_write.addr == addr_modem_ctrl   ; wb_write.dataa==modem_ctrl;}) //configure modem control
+//`uvm_do_with(wb_write, {wb_write.addr == addr_reciever_buff; wb_write.dataa==0;}) //clear reciever buff
+//`uvm_do_with(wb_write, {wb_write.addr == addr_int_ie       ; wb_write.dataa==int_ie;})        //clear Interrupt Enable
+//`uvm_do_with(wb_write, {wb_write.addr == addr_fifo_ctrl    ; wb_write.dataa==fifo_ctrl;}) //configure FIFO Control
+//`uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.dataa==lcr;}) //configure Line Control Register
+//`uvm_do_with(wb_write, {wb_write.addr == addr_modem_ctrl   ; wb_write.dataa==modem_ctrl;}) //configure modem control
 
 
 `uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.dataa== 8'b10001011;}) //enable DIVISOR 
 `uvm_do_with(wb_write, {wb_write.addr == addr_DL_B2        ; wb_write.dataa==DL_B2;}) //enable DIVISOR 
 `uvm_do_with(wb_write, {wb_write.addr == addr_DL_B1        ; wb_write.dataa==DL_B1;}) //enable DIVISOR 
+`uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.dataa== 8'b00001011;}) //enable DIVISOR 
 
 
 endtask
@@ -155,6 +156,75 @@ class wb_random_packet extends wb_master_sequence;
   endtask
 
 endclass : wb_random_packet
+
+
+
+class uart_read_baudrate extends wb_master_sequence;
+
+`uvm_object_utils(uart_read_baudrate)
+
+wb_write_seq wb_write;
+wb_read_seq wb_read;
+
+int addr_lcr =            32'h00000003;//Line Control Register
+
+int addr_DL_B1 = 32'h00000000; //Divisor Latch 1
+int addr_DL_B2 = 32'h00000001; //Divisor Latch 2
+
+function new(string name="uart_read_baudrate");
+  super.new(name);
+  wb_read = wb_read_seq::type_id::create("wb_read");
+  wb_write = wb_write_seq::type_id::create("wb_write");
+
+endfunction
+
+virtual task body();
+  `uvm_info(get_type_name(), "Sequence to Configure UART",UVM_LOW)
+
+
+`uvm_do_with(wb_write, {wb_write.addr == addr_lcr           ; wb_write.dataa== 8'b10001011;}) //enable DIVISOR 
+`uvm_do_with(wb_read, {wb_read.addr == addr_DL_B2           ;}) //enable DIVISOR 
+`uvm_do_with(wb_read, {wb_read.addr == addr_DL_B1          ;}) //enable DIVISOR 
+
+
+endtask
+
+endclass : uart_read_baudrate
+
+
+
+class uart_configAndRead extends wb_master_sequence;
+
+`uvm_object_utils(uart_configAndRead)
+
+config_uart configure;
+uart_read_baudrate read;
+
+
+
+function new(string name="uart_read_baudrate");
+  super.new(name);
+  configure = config_uart::type_id::create("configure");
+  read = uart_read_baudrate::type_id::create("read");
+
+endfunction
+
+virtual task body();
+  `uvm_info(get_type_name(), "Sequence to Configure UART and read it",UVM_LOW)
+
+
+`uvm_do(configure);
+`uvm_do(read);
+
+
+endtask
+
+endclass : uart_configAndRead
+
+
+
+
+
 
 //-----------------------------------CONFG SEQ FROM WB -> UART -------------------------
 
@@ -209,7 +279,7 @@ Config_seq  conf_seq;
     // `uvm_do(conf_seq)
     for (int i = 0; i < 5; i++) begin
     `uvm_create(req)
-    req.address = 32'b0000_0000_0000_0000_000_0000_0000_0010;
+    req.address = 32'b00000000000000000000000000000000;
     req.M_STATE = WRITE;
     req.data = 8'd1;
     `uvm_send(req)

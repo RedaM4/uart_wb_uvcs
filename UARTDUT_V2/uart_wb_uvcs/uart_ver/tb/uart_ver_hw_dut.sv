@@ -21,6 +21,7 @@ wb_if in_wb(clock,reset);
     @(negedge clock)
       #1 reset <= 1'b0;
   end
+  
 
 // later we need it 
 //  wb_soc_top wb_top (
@@ -56,17 +57,17 @@ uart_top uart16550_0(// Wishbone slave interface
 
 
          // Outputs
-        //  .int_o     (),
+         .int_o     (),
          .stx_pad_o (in_uart.tx),
-        //  .rts_pad_o (),
-        //  .dtr_pad_o (),
+         .rts_pad_o (),
+         .dtr_pad_o (),
 
          // Inputs
-         .srx_pad_i (in_uart.rx)
-        //  .cts_pad_i (1'b0),
-        //  .dsr_pad_i (1'b0),
-        //  .ri_pad_i  (1'b0),
-        //  .dcd_pad_i (1'b0)
+         .srx_pad_i (in_uart.rx),
+         .cts_pad_i (1'b0),
+         .dsr_pad_i (1'b0),
+         .ri_pad_i  (1'b0),
+         .dcd_pad_i (1'b0)
          );
 
 // qb signal 
