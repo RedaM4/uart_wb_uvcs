@@ -6,6 +6,7 @@ class wb_scoreboard extends uvm_scoreboard;
   
   `uvm_analysis_imp_decl(_slave)
   uvm_analysis_imp_slave#(n_cpu_transaction, wb_scoreboard) slave_imp;
+  
 
   n_cpu_transaction master_queue[$];
   n_cpu_transaction slave_queue[$];
@@ -24,6 +25,8 @@ class wb_scoreboard extends uvm_scoreboard;
     super.build_phase(phase);
     master_imp = new("master_imp", this);
     slave_imp = new("slave_imp", this);
+
+
   endfunction
 
   function void write_master(n_cpu_transaction trans);

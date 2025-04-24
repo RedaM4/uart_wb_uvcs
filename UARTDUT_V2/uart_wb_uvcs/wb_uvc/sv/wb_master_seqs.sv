@@ -63,6 +63,43 @@ class wb_write_seq extends wb_master_sequence;
   
 endclass : wb_write_seq
 
+class wb_write_seq_uart extends wb_master_sequence;
+  
+  // Required macro for sequences automation
+  `uvm_object_utils(wb_write_seq_uart)
+
+  // Constructor
+  function new(string name="wb_write_seq_uart");
+    super.new(name);
+  endfunction
+
+  // Sequence body definition
+  virtual task body();
+    `uvm_info(get_type_name(), "Writing data to wishbone on an address", UVM_LOW)
+      //randomize();
+      `uvm_do_with(req, { req.address == 0; req.data== 8'hff; req.M_STATE==WRITE;})
+     //`uvm_do(req);
+  endtask
+  
+endclass : wb_write_seq_uart
+
+class dd extends wb_master_sequence;
+  
+  // Required macro for sequences automation
+  `uvm_object_utils(dd)
+
+  // Constructor
+  function new(string name="dd");
+    super.new(name);
+  endfunction
+
+  // Sequence body definition
+  virtual task body();
+    `uvm_info(get_type_name(), "Writing data to wishbone on an address", UVM_LOW)
+    #10_000_000;
+  endtask
+  
+endclass : dd
 
 
 class wb_read_seq extends wb_master_sequence;
@@ -166,7 +203,7 @@ class uart_read_baudrate extends wb_master_sequence;
 wb_write_seq wb_write;
 wb_read_seq wb_read;
 
-int addr_lcr =            32'h00000003;//Line Control Register
+int addr_lcr   = 32'h00000003;//Line Control Register
 
 int addr_DL_B1 = 32'h00000000; //Divisor Latch 1
 int addr_DL_B2 = 32'h00000001; //Divisor Latch 2
@@ -221,71 +258,37 @@ endtask
 
 endclass : uart_configAndRead
 
+class uart_configAndWrite extends wb_master_sequence;
+
+`uvm_object_utils(uart_configAndWrite)
+
+config_uart configure;
+dd daley;
+wb_write_seq_uart write;
 
 
+function new(string name="uart_configAndWrite");
+  super.new(name);
+  configure = config_uart::type_id::create("configure");
+  write = wb_write_seq_uart::type_id::create("write");
+  daley = dd::type_id::create("daley");
 
 
+endfunction
 
-//-----------------------------------CONFG SEQ FROM WB -> UART -------------------------
-
-class Config_seq extends wb_master_sequence;
-  `uvm_object_utils(Config_seq)
-  function new(string name="Config_seq");
-    super.new(name);
-  endfunction
-
-   task body();
-    `uvm_info(get_type_name(), "Executing Config_seq", UVM_LOW)
+virtual task body();
+  `uvm_info(get_type_name(), "Sequence to Configure UART and read it",UVM_LOW)
 
 
-    // Transmitter Holding Register (Write)
-    `uvm_do_with(req, { address == 32'b0000_0000_0000_0000; M_STATE == WRITE; data==8'd1;});
+`uvm_do(configure);
+`uvm_do(write);
+`uvm_do(daley);
 
-    // Interrupt Enable Register (Read + Write)
-    `uvm_do_with(req, { address == 32'b0000_0000_0000_0001; M_STATE == WRITE; data==8'd2;});
 
-    // FIFO Control Register (Write)
-    `uvm_do_with(req, { address == 32'b0000_0000_0000_0010; M_STATE == WRITE; data==8'd3;});
+endtask
 
-    // Modem Control Register (Write)
-    `uvm_do_with(req, { address == 32'b0000_0000_0000_0100; M_STATE == WRITE; data==8'd4;});
+endclass : uart_configAndWrite
 
-   // Line Control Register (Write + Read)
-  
-  //---------------------------------------------------------------------
-  // config
-    `uvm_do_with(req, { address == 32'b0000_0000_0000_0011; M_STATE == WRITE; data==8'b1000_1011;});// config
-  // MSB Ader1
-    `uvm_do_with(req, { address == 32'b0000_0000_0000_0001; M_STATE == WRITE; data==8'h01; });
-  // config
-    `uvm_do_with(req, { address == 32'b0000_0000_0000_0011; M_STATE == WRITE; data==8'b1000_1011; });// config
-  // LSB ader 0
-    `uvm_do_with(req, { address == 32'b0000_0000_0000_0000; M_STATE == WRITE; data==8'h46; });
-  //---------------------------------------------------------------------
-
-  endtask
-endclass
-
-class DataGen_seq extends wb_master_sequence;
-  `uvm_object_utils(DataGen_seq)
-Config_seq  conf_seq;
-  function new(string name = "DataGen_seq");
-    super.new(name);
-  endfunction
-
-   task body();
-    `uvm_info(get_type_name(), "Executing DataGen_seq", UVM_LOW)
-
-    // `uvm_do(conf_seq)
-    for (int i = 0; i < 5; i++) begin
-    `uvm_create(req)
-    req.address = 32'b00000000000000000000000000000000;
-    req.M_STATE = WRITE;
-    req.data = 8'd1;
-    `uvm_send(req)
-    end
-  endtask
-endclass
 /*
 class uart_send_data extends wb_master_sequence;
   

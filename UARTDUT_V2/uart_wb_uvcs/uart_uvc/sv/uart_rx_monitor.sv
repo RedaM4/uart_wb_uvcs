@@ -3,14 +3,14 @@ class uart_rx_monitor extends uvm_monitor;
    virtual uart_if vif;
      uart_packet pkt;
 
-//   uvm_analysis_port#(uart_packet) mon_ap;
+  uvm_analysis_port#(uart_packet) mon_ap_rx;
 
 //Constructor
   function new(string name = "uart_rx_monitor", uvm_component parent);
          super.new(name, parent);
  `uvm_info(get_type_name(), "Inside Constructor!", UVM_HIGH)
 
-  // mon_ap = new("mon_ap", this);
+  mon_ap_rx = new("mon_ap_rx", this);
   endfunction
 //build_phase
   function void build_phase(uvm_phase phase);
@@ -35,7 +35,7 @@ task run_phase(uvm_phase phase);
         //  @(posedge vif.clk);
         vif.tx_2_data(pkt.data);//reads tx
         `uvm_info("z Recived FROM RX MON RECEIVED", $sformatf("Received packet:\n%s", pkt.sprint()), UVM_HIGH)
-   
+          //  mon_ap_rx.write(pkt.data);
        end
 
 endtask

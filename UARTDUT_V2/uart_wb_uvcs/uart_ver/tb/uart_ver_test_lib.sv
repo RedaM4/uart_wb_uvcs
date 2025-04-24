@@ -17,7 +17,7 @@ uvm_config_int::set(this,"tb.wbenv.master_agent","is_active",UVM_ACTIVE);
 uvm_config_int::set(this,"tb.wbenv.slave_agent","is_active",UVM_PASSIVE);
 uvm_config_wrapper::set(this, "tb.wbenv.master_agent.sequencer.run_phase",
                                 "default_sequence",
-                            uart_configAndRead::get_type());
+                            uart_configAndWrite::get_type());
 
 
     // uvm_config_wrapper::set(this,"wbenv.master_agent.sequencer.run_phase","default_sequence",DataGen_seq::get_type());

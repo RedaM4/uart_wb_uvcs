@@ -22,10 +22,10 @@ endfunction
 
   function void connect_phase(uvm_phase phase);
       super.connect_phase(phase);  
-
-        `uvm_info(get_type_name(), "Inside Connect Phase!", UVM_HIGH)
-    // tx_agent.uart_tx_monitor.mon_port_tx.connect(scoreboard.uart_tx_imp);  
-    // rx_agent.uart_rx_monitor.mon_port_rx.connect(scoreboard.uart_rx_imp);  
+      `uvm_info(get_type_name(), "Inside Connect Phase!", UVM_HIGH)
+      
+        // tx_agent.mon.mon_ap_tx.connect(scoreboard.uart_tx_imp);
+        // rx_agent.mon.mon_ap_rx.connect(scoreboard.uart_rx_imp);
 
   endfunction
 endclass

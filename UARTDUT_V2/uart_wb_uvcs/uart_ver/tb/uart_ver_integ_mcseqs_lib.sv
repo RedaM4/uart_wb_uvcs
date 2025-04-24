@@ -52,8 +52,8 @@ class router_simple_mcseq extends base_seq;
 
   task body();
     `uvm_info(get_type_name(), "Starting UART Master Control Sequence", UVM_MEDIUM)
-    `uvm_do_on(DataGen, p_sequencer.wb_seqr)
-    `uvm_do_on(uartSeq, p_sequencer.wb_seqr)
+    // `uvm_do_on(DataGen, p_sequencer.wb_seqr)
+    // `uvm_do_on(uartSeq, p_sequencer.wb_seqr)
     `uvm_info(get_type_name(), "Finished UART Master Control Sequence", UVM_MEDIUM)
   endtask
 endclass 
