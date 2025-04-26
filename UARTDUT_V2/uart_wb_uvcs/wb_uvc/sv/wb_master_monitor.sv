@@ -61,7 +61,6 @@ class wb_master_monitor extends uvm_monitor;
           end
         end
         else begin
-          // Normal write to other addresses
           `uvm_info("MONITOR", $sformatf("Write: Addr=0x%0h Data=0x%0h", 
                                         trans.address, trans.data), UVM_HIGH)
           mon_ap.write(trans);
