@@ -46,17 +46,14 @@ for (int i = 0; i < 11; i++) begin
     $display("sent shift_reg: %b", shift_reg);  // Show the 8 bits of data
 
 endtask
-
-
   task rx_2_data(output bit [7:0] data);
     logic [10:0] shift_reg = 11'h0;  // 11 bits: start, 8 data, parity, stop
-    logic [10:0] sample_bits;
+    logic [9:0] sample_bits;
      int baud_limit = 0;
     int baud_counter = 0;
  logic expected_parity ;
     logic received_parity ;
-        int rxerror_counter=0 ; 
-
+    int rxerror_counter=0 ; 
     baud_limit = (CLOCK_FREQ / baud_rate) - 1;
 
 
@@ -65,51 +62,119 @@ endtask
 @(negedge rx);
     repeat (baud_limit / 2) @(negedge clk);  // center of first bit
 
-    for (int i = 0; i < 11; i++) begin
-        repeat ((CLOCK_FREQ / baud_rate) / 3) @(negedge clk);  
-        sample_bits[0] = rx;
-        repeat ((CLOCK_FREQ / baud_rate) / 3) @(negedge clk);
-        sample_bits[1] = rx;
-        repeat ((CLOCK_FREQ / baud_rate) / 3) @(negedge clk);
-        sample_bits[2] = rx;
-        // Majority voting logic for each bit
+
+for (int i =0 ;i<10 ;i++ ) begin
+
+    repeat (baud_limit ) @(negedge clk);  
+        sample_bits[i] = rx;
+
+end
+
+
+
+
+    // for (int i = 0; i < 11; i++) begin
+    //     repeat ((CLOCK_FREQ / baud_rate) ) @(negedge clk);  
+    //     sample_bits[0] = tx;
+    //     repeat ((CLOCK_FREQ / baud_rate) / 3) @(negedge clk);
+    //     sample_bits[1] = tx;
+    //     repeat ((CLOCK_FREQ / baud_rate) / 3) @(negedge clk);
+    //     sample_bits[2] = tx;
+    //     // Majority voting logic for each bit
      
-        shift_reg[i] = (sample_bits[0] & sample_bits[1]) | (sample_bits[1] & sample_bits[2]) | (sample_bits[0] & sample_bits[2]);
-    end
+    //     shift_reg[i] = (sample_bits[0] & sample_bits[1]) | (sample_bits[1] & sample_bits[2]) | (sample_bits[0] & sample_bits[2]);
+    // end
 
     // Reversed order (LSB first)
     
-    data = shift_reg[8:1];  // Extract the 8 data bits, LSB first
-//packet.parity_mode = txparity_mode ; 
-  expected_parity = parity_calc(data, txparity_mode);
-     received_parity = shift_reg[9];
+    data = sample_bits[7:0];  // Extract the 8 data bits, LSB first
 
-     if (expected_parity !== received_parity)begin
+  expected_parity = parity_calc(data, parity_mode);
+     received_parity = sample_bits[8];
+
+    if (expected_parity !== received_parity)begin
         rxerror_counter++ ; 
-        $display("❌RX Parity mismatch: expected %b, received %b, errors: %2d", expected_parity, received_parity,rxerror_counter );
+        $display("❌rX Parity mismatch: expected %b, received %b, errors: %2d", expected_parity, received_parity,rxerror_counter );
     end else begin 
-        $display("✅RX Parity OK, errors: %2d",rxerror_counter );
+        $display("✅rX Parity OK, errors: %2d",rxerror_counter );
 
     end
 
-
        // Display the entire received packet (including start, data, and stop bits)
-    $display("\n\nRXReceived Packet (stop bit +Parity bit  +Data bits  + Start bit):");
-    $display("Start Bit: %b", shift_reg[0]);  // Start bit (should be 0)
-    $display("Data Bits: %b", shift_reg[8:1]);  // Data bits (8 bits)
-    $display("Parity Bit: %b", shift_reg[9]);  // Parity bit (you can add parity check logic here)
-    $display("Stop Bit: %b", shift_reg[10]);  // Stop bit (should be 1)
-if (txparity_mode) begin
+    $display("\n\nTX Received Packet (stop bit +Parity bit  +Data bits  + Start bit):");
+    //$display("Start Bit: %b", sample_bits[0]);  // Start bit (should be 0)
+    $display("Data Bits: %b", sample_bits[7:0]);  // Data bits (8 bits)
+    $display("Parity Bit: %b", sample_bits[8]);  // Parity bit (you can add parity check logic here)
+    $display("Stop Bit: %b", sample_bits[9]);  // Stop bit (should be 1)
+if (parity_mode) begin
 $display("parity is even");
     
 end else
 $display("parity is odd");
-
     // Display the extracted data
-    $display("Extracted shift_reg: %b", shift_reg);  // Show the 8 bits of data
+    $display("Extracted shift_reg: %b", sample_bits);  // Show the 8 bits of data
 
 
 endtask
+
+//   task rx_2_data(output bit [7:0] data);
+//     logic [10:0] shift_reg = 11'h0;  // 11 bits: start, 8 data, parity, stop
+//     logic [10:0] sample_bits;
+//      int baud_limit = 0;
+//     int baud_counter = 0;
+//  logic expected_parity ;
+//     logic received_parity ;
+//         int rxerror_counter=0 ; 
+
+//     baud_limit = (CLOCK_FREQ / baud_rate) - 1;
+
+
+
+//     // wait(rx == 0);  // Wait for start bit (1)
+// @(negedge rx);
+//     repeat (baud_limit / 2) @(negedge clk);  // center of first bit
+
+  
+// for (int i =0 ;i<10 ;i++ ) begin
+
+//     repeat (baud_limit ) @(negedge clk);  
+//         sample_bits[i] = rx;
+
+// end
+
+//     // Reversed order (LSB first)
+    
+//     data = shift_reg[8:1];  // Extract the 8 data bits, LSB first
+// //packet.parity_mode = txparity_mode ; 
+//   expected_parity = parity_calc(data, txparity_mode);
+//      received_parity = shift_reg[9];
+
+//      if (expected_parity !== received_parity)begin
+//         rxerror_counter++ ; 
+//         $display("❌RX Parity mismatch: expected %b, received %b, errors: %2d", expected_parity, received_parity,rxerror_counter );
+//     end else begin 
+//         $display("✅RX Parity OK, errors: %2d",rxerror_counter );
+
+//     end
+
+
+//        // Display the entire received packet (including start, data, and stop bits)
+//     $display("\n\nRXReceived Packet (stop bit +Parity bit  +Data bits  + Start bit):");
+//     $display("Start Bit: %b", shift_reg[0]);  // Start bit (should be 0)
+//     $display("Data Bits: %b", shift_reg[8:1]);  // Data bits (8 bits)
+//     $display("Parity Bit: %b", shift_reg[9]);  // Parity bit (you can add parity check logic here)
+//     $display("Stop Bit: %b", shift_reg[10]);  // Stop bit (should be 1)
+// if (txparity_mode) begin
+// $display("parity is even");
+    
+// end else
+// $display("parity is odd");
+
+//     // Display the extracted data
+//     $display("Extracted shift_reg: %b", shift_reg);  // Show the 8 bits of data
+
+
+// endtask
 
 
 function logic parity_calc(input logic [7:0] data, input bit mode);

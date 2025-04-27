@@ -4,6 +4,8 @@ class wb_master_monitor extends uvm_monitor;
   `uvm_component_utils(wb_master_monitor)
 
   uvm_analysis_port #(n_cpu_transaction) mon_ap;
+    // uvm_analysis_port #(n_cpu_transaction) mon_ap_wb;
+
   virtual wb_if vif;
   n_cpu_transaction #(8) trans;
 
@@ -55,6 +57,8 @@ class wb_master_monitor extends uvm_monitor;
             `uvm_info("MONITOR", $sformatf("Write to LSR Allowed: Addr=0x%0h Data=0x%0h", 
                                           trans.address, trans.data), UVM_HIGH)
             mon_ap.write(trans);
+            // mon_ap_wb.write(trans);
+
           end
           else begin
             `uvm_info("MONITOR", "Write to LSR but THRE bit not set, ignoring.", UVM_LOW)
@@ -64,6 +68,8 @@ class wb_master_monitor extends uvm_monitor;
           `uvm_info("MONITOR", $sformatf("Write: Addr=0x%0h Data=0x%0h", 
                                         trans.address, trans.data), UVM_HIGH)
           mon_ap.write(trans);
+          // mon_ap_wb.write(trans);
+
         end
 
       end
@@ -75,6 +81,8 @@ class wb_master_monitor extends uvm_monitor;
             `uvm_info("MONITOR", $sformatf("Read from LSR Allowed: Addr=0x%0h Data=0x%0h", 
                                           trans.address, trans.data), UVM_HIGH)
             mon_ap.write(trans);
+            // mon_ap_wb.write(trans);
+
           end
           else begin
             `uvm_info("MONITOR", "Read from LSR but DR bit not set, ignoring.", UVM_LOW)
@@ -84,6 +92,7 @@ class wb_master_monitor extends uvm_monitor;
           `uvm_info("MONITOR", $sformatf("Read: Addr=0x%0h Data=0x%0h", 
                                         trans.address, trans.data), UVM_HIGH)
           mon_ap.write(trans);
+          // mon_ap_wb.write(trans);
         end
       end
 
