@@ -9,7 +9,7 @@ import clock_and_reset_pkg::*;
 
 // `include "../tb/uart_ver_integ_mcsequencer.sv"
 // `include "../tb/uart_ver_integ_mcseqs_lib.sv"
-
+`include "../sb/scb.sv"
 `include "../tb/uart_ver_tb.sv"
 `include "../tb/uart_ver_test_lib.sv"
 

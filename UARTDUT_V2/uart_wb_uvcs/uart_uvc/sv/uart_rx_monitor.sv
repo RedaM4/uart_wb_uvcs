@@ -35,7 +35,7 @@ task run_phase(uvm_phase phase);
         //  @(posedge vif.clk);
         vif.tx_2_data(pkt.data);//reads tx
         `uvm_info("z Recived FROM RX MON RECEIVED", $sformatf("Received packet:\n%s", pkt.sprint()), UVM_HIGH)
-          //  mon_ap_rx.write(pkt.data);
+           mon_ap_rx.write(pkt);
        end
 
 endtask
