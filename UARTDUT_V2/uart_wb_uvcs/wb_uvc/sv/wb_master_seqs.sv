@@ -77,7 +77,7 @@ class wb_write_seq_uart extends wb_master_sequence;
   virtual task body();
     `uvm_info(get_type_name(), "Writing data to wishbone on an address", UVM_LOW)
       //randomize();
-      `uvm_do_with(req, { req.address == 0; req.data== 8'hff; req.M_STATE==WRITE;})
+      `uvm_do_with(req, { req.address == 0; req.data== 8'hc4; req.M_STATE==WRITE;})
      //`uvm_do(req);
   endtask
   
@@ -121,6 +121,29 @@ class wb_read_seq extends wb_master_sequence;
   endtask
   
 endclass : wb_read_seq
+
+
+class wb_read_seq_uart_lsr extends wb_master_sequence;
+  
+  wb_read_seq read;
+  // Required macro for sequences automation
+  `uvm_object_utils(wb_read_seq_uart_lsr)
+
+  // Constructor
+  function new(string name="wb_read_seq_uart_lsr");
+    super.new(name);
+    read = wb_read_seq::type_id::create("read");
+  endfunction
+
+  // Sequence body definition
+  virtual task body();
+    `uvm_info(get_type_name(), "Reading uart LSR register", UVM_LOW)
+      `uvm_do_with(req, {req.address == 8'd5; req.M_STATE==READ;})
+  endtask
+  
+endclass : wb_read_seq_uart_lsr
+
+
 
 
 class config_uart extends wb_master_sequence;
@@ -229,7 +252,7 @@ endtask
 endclass : uart_read_baudrate
 
 
-
+/*
 class uart_configAndRead extends wb_master_sequence;
 
 `uvm_object_utils(uart_configAndRead)
@@ -257,8 +280,12 @@ virtual task body();
 endtask
 
 endclass : uart_configAndRead
+*/
+
+
 
 class uart_configAndWrite extends wb_master_sequence;
+
 
 `uvm_object_utils(uart_configAndWrite)
 
@@ -277,17 +304,70 @@ function new(string name="uart_configAndWrite");
 endfunction
 
 virtual task body();
-  `uvm_info(get_type_name(), "Sequence to Configure UART and read it",UVM_LOW)
+  `uvm_info(get_type_name(), "Sequence to Configure UART and write a packet",UVM_LOW)
 
 
 `uvm_do(configure);
 `uvm_do(write);
 `uvm_do(daley);
 
-
 endtask
 
 endclass : uart_configAndWrite
+
+
+
+class uart_configAndRead extends wb_master_sequence;
+
+`uvm_object_utils(uart_configAndRead)
+
+config_uart configure;
+dd daley;
+wb_read_seq_uart_lsr read;
+wb_read_seq read_data;
+wb_write_seq_uart write;
+
+
+ n_cpu_transaction req;
+ n_cpu_transaction rsp;
+
+  byte rdata;
+function new(string name="uart_configAndRead");
+  super.new(name);
+  configure = config_uart::type_id::create("configure");
+  //read = wb_read_seq_uart_lsr::type_id::create("read");
+  daley = dd::type_id::create("daley");
+req = n_cpu_transaction::type_id::create("req");
+read_data = wb_read_seq::type_id::create("read_data");
+  write = wb_write_seq_uart::type_id::create("write");
+
+endfunction
+
+virtual task body();
+  `uvm_info(get_type_name(), "Sequence to Configure UART and read from uart after lsr is written",UVM_LOW)
+`uvm_do(configure);
+
+    req.address       = 32'd5;   // Example fixed address
+    req.M_STATE = READ;               // 1 for write, 0 for read (example)
+
+rdata = 0;
+while(rdata[0]==0)begin
+wait_for_grant();
+send_request(req);
+wait_for_item_done();
+get_response(rsp);
+rdata = rsp.data[7:0];
+//$display("Reading first bit of lsr until it becomes 1");
+end
+`uvm_do(write);
+`uvm_do(daley);
+    //  `uvm_do_with(read_data, {read_data.addr == 8'd0;})
+endtask
+
+endclass : uart_configAndRead
+
+
+
 
 /*
 class uart_send_data extends wb_master_sequence;

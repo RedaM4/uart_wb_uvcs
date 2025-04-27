@@ -53,11 +53,12 @@ class uart_1_seq extends uart_tx_seqs;
     //sequence
     task body();
         `uvm_info(get_type_name(), "Executing uart_1_seq sequence", UVM_LOW)
-      `uvm_do_with(req, { req.data == 8'haa; req.parity_mode == 1; });
+        #500;
+      `uvm_do_with(req, { req.data == 8'h69; req.parity_mode == 1; });
           
        #5000;
       // `uvm_do_with(req, { req.data == 8'hff; req.parity_mode == 1; });
-      `uvm_do_with(req, { req.data == 8'hff; req.parity_mode == 1; });
+      //`uvm_do_with(req, { req.data == 8'hff; req.parity_mode == 1; });
 
     endtask
 endclass

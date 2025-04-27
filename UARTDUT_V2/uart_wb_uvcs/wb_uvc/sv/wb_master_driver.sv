@@ -9,6 +9,7 @@ n_cpu_transaction #(8) item;
 
 virtual interface wb_if vif;
 
+n_cpu_transaction rsp;
 //logic [7:0] data_read;
 
 function new(string name="wb_master_driver", uvm_component parent);
@@ -26,7 +27,7 @@ function void build_phase(uvm_phase phase);
 super.build_phase(phase);
 `uvm_info("--DRIVER_CLASS--","INSIDE BUILD PHASE",UVM_HIGH);
 item = n_cpu_transaction#(8)::type_id::create("item");
-
+// rsp = n_cpu_transaction#(8)::type_id::create("rsp");
 if(!(wb_vif_config::get(this,"","vif",vif)))begin
 `uvm_error("DRIVER CLASS", "Failed to get vif from config db");
 end
@@ -54,7 +55,6 @@ task run_phase(uvm_phase phase);
     @(posedge vif.reset);
     `uvm_info(get_type_name(), "Reset dropped", UVM_MEDIUM)
     forever begin
-
       seq_item_port.get_next_item(req);
       //req.print();
             
@@ -72,6 +72,7 @@ task run_phase(uvm_phase phase);
             vif.WE_O<= 1'b1;
           else if(req.M_STATE==READ)
             vif.WE_O<= 1'b0;
+            
           else
             `uvm_error("--INTERFACE--", "WB INTERFACE RECIEVED NULL MASTER STATE");
         //repeat(5)
@@ -82,16 +83,21 @@ task run_phase(uvm_phase phase);
             vif.STB_O<=1'b0;
             vif.CYC_O<=1'b0;
             vif.ACK_I<=1'b0;
-
-
+            rsp = req;
                   if(req.M_STATE==READ)
                   begin
+                    rsp.data=vif.DAT_I;
                     req.data=vif.DAT_I;
-                     //req.print();
+                    
                   end
-                  req.print();
 
-            seq_item_port.item_done;
+                  
+
+                  req.print(); 
+
+                  // `uvm_info(get_type_name(), $sformatf("sending these information :\n%s", req.sprint()), UVM_HIGH)
+
+            seq_item_port.item_done(rsp);
 
           end
     end

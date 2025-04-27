@@ -38,11 +38,11 @@ $dumpfile("test.vcd");
 $dumpvars();
 end
 
-//  initial begin
+  initial begin
 
-//     #7000;
-//  $finish;
-//  end
+    #2_000_000;
+  $finish;
+  end
 
 
 endmodule

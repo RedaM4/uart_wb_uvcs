@@ -15,9 +15,9 @@ function void build_phase(uvm_phase phase);
 
 uvm_config_int::set(this,"tb.wbenv.master_agent","is_active",UVM_ACTIVE);
 uvm_config_int::set(this,"tb.wbenv.slave_agent","is_active",UVM_PASSIVE);
-// uvm_config_wrapper::set(this, "tb.wbenv.master_agent.sequencer.run_phase",
-//                                 "default_sequence",
-//                             uart_configAndWrite::get_type());
+ uvm_config_wrapper::set(this, "tb.wbenv.master_agent.sequencer.run_phase",
+                                 "default_sequence",
+                            uart_configAndRead::get_type());
 
 
     uvm_config_wrapper::set(this,"tb.uartenv.tx_agent.seqr.run_phase", "default_sequence", uart_1_seq::get_type());
