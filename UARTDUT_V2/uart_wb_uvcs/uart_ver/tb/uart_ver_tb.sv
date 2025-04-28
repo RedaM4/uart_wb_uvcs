@@ -27,9 +27,9 @@ big_scoreboard scoreboard;
  function void connect_phase(uvm_phase phase);
     super.connect_phase(phase);
 
-    uartenv.tx_agent.mon.mon_ap_tx.connect(scoreboard.uart_tx_imp);
+    // uartenv.tx_agent.mon.mon_ap_tx.connect(scoreboard.uart_tx_imp);
     uartenv.rx_agent.mon.mon_ap_rx.connect(scoreboard.uart_rx_imp);
-    // wbenv.master_agent.monitor.mon_ap.connect(scoreboard.wb_master_imp);
+    wbenv.master_agent.monitor.mon_ap.connect(scoreboard.wb_master_imp);
     endfunction
 
 
