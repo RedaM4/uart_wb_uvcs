@@ -35,7 +35,7 @@ end
 
 
 initial begin
-$dumpfile("test.vcd");
+$dumpfile("simulation_waveforms.vcd");
 $dumpvars();
 end
 ////

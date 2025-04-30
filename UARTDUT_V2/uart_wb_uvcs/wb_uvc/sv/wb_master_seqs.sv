@@ -316,6 +316,39 @@ endtask
 endclass : uart_configAndWrite
 
 
+class uart_configAndWrite_5 extends wb_master_sequence;
+
+
+`uvm_object_utils(uart_configAndWrite_5)
+
+config_uart configure;
+dd daley;
+wb_write_seq_uart write;
+
+
+function new(string name="uart_configAndWrite_5");
+  super.new(name);
+  configure = config_uart::type_id::create("configure");
+  write = wb_write_seq_uart::type_id::create("write");
+  daley = dd::type_id::create("daley");
+
+
+endfunction
+
+virtual task body();
+  `uvm_info(get_type_name(), "Sequence to Configure UART and write a packet",UVM_LOW)
+
+repeat(5)begin
+
+`uvm_do(configure);
+`uvm_do(write);
+`uvm_do(daley);
+end
+endtask
+
+endclass : uart_configAndWrite_5
+
+
 
 class uart_configAndRead extends wb_master_sequence;
 
@@ -359,12 +392,66 @@ get_response(rsp);
 rdata = rsp.data[7:0];
 //$display("Reading first bit of lsr until it becomes 1");
 end
-`uvm_do(write);
+`uvm_do_with(read_data , {read_data.addr == 0'd0;});
 `uvm_do(daley);
     //  `uvm_do_with(read_data, {read_data.addr == 8'd0;})
 endtask
 
 endclass : uart_configAndRead
+
+
+class uart_configAndRead_5 extends wb_master_sequence;
+
+`uvm_object_utils(uart_configAndRead_5)
+
+config_uart configure;
+dd daley;
+wb_read_seq_uart_lsr read;
+wb_read_seq read_data;
+wb_write_seq_uart write;
+
+
+ n_cpu_transaction req;
+ n_cpu_transaction rsp;
+
+  byte rdata;
+function new(string name="uart_configAndRead_5");
+  super.new(name);
+  configure = config_uart::type_id::create("configure");
+  //read = wb_read_seq_uart_lsr::type_id::create("read");
+  daley = dd::type_id::create("daley");
+req = n_cpu_transaction::type_id::create("req");
+read_data = wb_read_seq::type_id::create("read_data");
+  write = wb_write_seq_uart::type_id::create("write");
+
+endfunction
+
+virtual task body();
+  `uvm_info(get_type_name(), "Sequence to Configure UART and read from uart after lsr is written",UVM_LOW)
+`uvm_do(configure);
+repeat(5)begin
+
+    req.address       = 32'd5;   // Example fixed address
+    req.M_STATE = READ;               // 1 for write, 0 for read (example)
+
+rdata = 0;
+while(rdata[0]==0)begin
+wait_for_grant();
+send_request(req);
+wait_for_item_done();
+get_response(rsp);
+rdata = rsp.data[7:0];
+//$display("Reading first bit of lsr until it becomes 1");
+end
+
+`uvm_do_with(read_data , {read_data.addr == 0'd0;});
+`uvm_do(daley);
+  
+end
+    //  `uvm_do_with(read_data, {read_data.addr == 8'd0;})
+endtask
+
+endclass : uart_configAndRead_5
 
 
 

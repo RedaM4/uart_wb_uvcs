@@ -54,10 +54,13 @@ class uart_1_seq extends uart_tx_seqs;
     task body();
         `uvm_info(get_type_name(), "Executing uart_1_seq sequence", UVM_LOW)
         #500;
-      `uvm_do_with(req, { req.data == 8'h69; req.parity_mode == 1; });
+        for (int i =0; i<10 ;i++ ) begin
           
+      `uvm_do_with(req, { req.data == 8'h69; req.parity_mode == 1; });
+        end
+
        #5000;
-      // `uvm_do_with(req, { req.data == 8'hff; req.parity_mode == 1; });
+      //`uvm_do_with(req, { req.data == 8'hff; req.parity_mode == 1; });
       //`uvm_do_with(req, { req.data == 8'hff; req.parity_mode == 1; });
 
     endtask
@@ -75,8 +78,9 @@ class uart_5_seq extends uart_tx_seqs;
     //sequence
     task body();
         `uvm_info(get_type_name(), "Executing uart_5_seq sequence", UVM_LOW)
+        
         for (bit [7:0] i =0 ;i<6 ;i++ ) begin
-      `uvm_do_with(req, { req.data == i; req.parity_mode == 1; });
+      `uvm_do_with(req, { req.data == 10; req.parity_mode == 1; });
           
         end 
 
