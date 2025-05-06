@@ -17,8 +17,8 @@ uvm_config_int::set(this,"tb.wbenv.master_agent","is_active",UVM_ACTIVE);
 uvm_config_int::set(this,"tb.wbenv.slave_agent","is_active",UVM_PASSIVE);
  uvm_config_wrapper::set(this, "tb.wbenv.master_agent.sequencer.run_phase",
                                  "default_sequence",
-                            uart_configAndWrite::get_type());
-    // uvm_config_wrapper::set(this,"tb.uartenv.tx_agent.seqr.run_phase", "default_sequence", uart_1_seq::get_type());
+                            uart_configAndRead_5::get_type());
+    uvm_config_wrapper::set(this,"tb.uartenv.tx_agent.seqr.run_phase", "default_sequence", uart_2_seq::get_type());
    uvm_config_wrapper::set(this, "*clk_rst*", "default_sequence", clk10_rst5_seq::get_type());
     `uvm_info(get_type_name(), "Inside Build phase", UVM_HIGH)
 

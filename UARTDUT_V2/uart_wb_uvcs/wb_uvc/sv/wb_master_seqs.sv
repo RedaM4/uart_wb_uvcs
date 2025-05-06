@@ -77,7 +77,9 @@ class wb_write_seq_uart extends wb_master_sequence;
   virtual task body();
     `uvm_info(get_type_name(), "Writing data to wishbone on an address", UVM_LOW)
       //randomize();
-      `uvm_do_with(req, { req.address == 0; req.data== 8'hc4; req.M_STATE==WRITE;})
+      // `uvm_do_with(req, { req.address == 0; req.data== 8'hc4; req.M_STATE==WRITE;})
+            `uvm_do_with(req, { req.address == 0;  req.M_STATE==WRITE;})
+
      //`uvm_do(req);
   endtask
   
@@ -445,7 +447,8 @@ rdata = rsp.data[7:0];
 end
 
 `uvm_do_with(read_data , {read_data.addr == 0'd0;});
-`uvm_do(daley);
+`uvm_do(daley)
+
   
 end
     //  `uvm_do_with(read_data, {read_data.addr == 8'd0;})

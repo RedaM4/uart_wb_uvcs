@@ -13,6 +13,7 @@ class uart_ver_ref;
 
   rand parity_mode_t parity_mode; // 1 = Even, 0 = Odd
   STATE mode;
+  logic [7:0] temp;
 
   logic [7:0] rx_queue[$];
   logic [7:0] tx_queue[$];
@@ -47,16 +48,21 @@ function update (bit [7:0] addr, bit [7:0] data, bit write);
     if (write) begin
         case (addr)
             8'h0: begin 
-              if(lcr[6]) begin
+              if(lcr[7]) begin
                 div_latch_lsb = data;
               end else begin
-                tx_queue.push_back(data);     
+                $display("before tx queue enters");
+                display_queues();
+                tx_queue.push_back(data);
+                $display("after tx queue enters");
+                display_queues();  
+                   
                 lsr[5] = 0;     
                 lsr[6] = 0; 
               end   
             end
             8'h1: begin 
-              if(lcr[6]) begin
+              if(lcr[7]) begin
                 div_latch_msb = data;
               end else begin
                 ier = data;     
@@ -72,15 +78,16 @@ function update (bit [7:0] addr, bit [7:0] data, bit write);
     end else begin
         case (addr)
             8'h0: begin 
-              if(lcr[6]) begin
+              if(lcr[7]) begin
                 div_latch_lsb = data;
-              end else begin
-                rx_queue.push_back(data);     
-                lsr[0] = 0;      
+              end 
+              else begin
+                if(rx_queue.size() > 0) lsr[0] = 0;      
+                else lsr[0] = 1;
               end   
             end
             8'h1: begin
-              if(lcr[6]) begin
+              if(lcr[7]) begin
                 div_latch_msb = data;
               end 
             end
@@ -104,7 +111,6 @@ endfunction
 
 
   function bit [7:0] read(bit [7:0] addr);
-  logic [7:0] temp;
     if (lcr[6] == 1) begin  // If DLAB is set
       case (addr)
         8'h0: return div_latch_lsb; // Divisor Latch Byte 1 (LSB)
@@ -115,21 +121,25 @@ endfunction
       display_regs();
     end else begin
       case (addr)
-        8'h0: if(mode == WRITE) begin 
-                   temp = tx_queue.pop_front();
-                  $display("1");
+        8'h0: begin
+         if(mode == WRITE) begin 
+                  $display("before  pop");
+                    display_queues();
+                    if(tx_queue.size() != 0)
+                   temp = tx_queue.pop_back();
+
+                  $display("after pop");
                     display_queues();
 
                   if(tx_queue.size() == 0) begin 
                       lsr[5] = 1; lsr[6] = 1; 
                   end 
-                  $display("2");
                     display_queues();
 
                   return temp;
         end else begin 
-            $display("3");
             display_queues();
+            if(rx_queue.size() != 0)
                temp = rx_queue.pop_front();
               if(rx_queue.size() == 0) begin 
                 lsr[0] = 1; 
@@ -139,6 +149,7 @@ endfunction
               $display("temp = %h", temp);
 
               return temp;
+        end
         end
         8'h1: return ier;           
         8'h2: if(mode == WRITE) return fcr;

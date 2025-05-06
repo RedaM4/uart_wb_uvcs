@@ -35,15 +35,15 @@ end
 
 
 initial begin
-$dumpfile("simulation_waveforms.vcd");
+$dumpfile("test.vcd");
 $dumpvars();
 end
-////
-//  initial begin
+//
+ initial begin
 
-//     #7000;
-//  $finish;
-//  end
+    #70000000;
+ $finish;
+ end
 
 
 endmodule
