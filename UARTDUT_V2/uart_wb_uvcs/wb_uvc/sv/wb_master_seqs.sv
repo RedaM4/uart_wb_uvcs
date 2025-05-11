@@ -1,5 +1,10 @@
-//need to figure out the sequences to be generated
+/*
+NOTES:
+-This file is under cleaning
 
+
+
+*/
 
 class wb_master_sequence extends uvm_sequence #(n_cpu_transaction);
   
@@ -42,56 +47,64 @@ endclass : wb_master_sequence
 
 class wb_write_seq extends wb_master_sequence;
   
-  // Required macro for sequences automation
   `uvm_object_utils(wb_write_seq)
 
-  // Constructor
   function new(string name="wb_write_seq");
     super.new(name);
   endfunction
 
-  rand bit [31:0] addr;
-  rand bit [31:0] dataa;
+  rand bit [31:0] Addr; //capital A btw
+  rand bit [31:0] Data; //capital D btw
 
-  // Sequence body definition
   virtual task body();
-    `uvm_info(get_type_name(), "Writing data to wishbone on an address", UVM_LOW)
-      //randomize();
-      `uvm_do_with(req, { req.address == addr; req.data== dataa; req.M_STATE==WRITE;})
-     //`uvm_do(req);
+      `uvm_do_with(req, { req.address == Addr; req.data== Data; req.M_STATE==WRITE;})
+          `uvm_info(get_type_name(), $sformatf("Master writing data (%b) through wishbone to address (%b)",Addr,Data), UVM_LOW)
   endtask
   
 endclass : wb_write_seq
 
+
+class wb_read_seq extends wb_master_sequence;
+  
+  `uvm_object_utils(wb_read_seq)
+
+  function new(string name="wb_read_seq");
+    super.new(name);
+  endfunction
+
+  rand bit [31:0] Addr;
+
+  virtual task body();
+      `uvm_do_with(req, {req.address == Addr; req.M_STATE==READ;})
+      `uvm_info(get_type_name(), $sformatf("Master reading data through wishbone from address (%b)",Addr), UVM_LOW)
+  endtask
+  
+endclass : wb_read_seq
+
+
 class wb_write_seq_uart extends wb_master_sequence;
   
-  // Required macro for sequences automation
   `uvm_object_utils(wb_write_seq_uart)
 
-  // Constructor
   function new(string name="wb_write_seq_uart");
     super.new(name);
   endfunction
 
-  // Sequence body definition
   virtual task body();
-    `uvm_info(get_type_name(), "Writing data to wishbone on an address", UVM_LOW)
-      //randomize();
-      // `uvm_do_with(req, { req.address == 0; req.data== 8'hc4; req.M_STATE==WRITE;})
+    `uvm_info(get_type_name(), "Writing data to through wishbone to uart address", UVM_LOW)
             `uvm_do_with(req, { req.address == 0;  req.M_STATE==WRITE;})
 
-     //`uvm_do(req);
   endtask
   
 endclass : wb_write_seq_uart
 
-class dd extends wb_master_sequence;
+class delay_sequence_10mil extends wb_master_sequence;
   
   // Required macro for sequences automation
-  `uvm_object_utils(dd)
+  `uvm_object_utils(delay_sequence_10mil)
 
   // Constructor
-  function new(string name="dd");
+  function new(string name="delay_sequence_10mil");
     super.new(name);
   endfunction
 
@@ -101,28 +114,9 @@ class dd extends wb_master_sequence;
     #10_000_000;
   endtask
   
-endclass : dd
+endclass : delay_sequence_10mil
 
 
-class wb_read_seq extends wb_master_sequence;
-  
-  // Required macro for sequences automation
-  `uvm_object_utils(wb_read_seq)
-
-  // Constructor
-  function new(string name="wb_read_seq");
-    super.new(name);
-  endfunction
-
-  rand bit [31:0] addr;
-
-  // Sequence body definition
-  virtual task body();
-    `uvm_info(get_type_name(), "Reading from wishbone on an address", UVM_LOW)
-      `uvm_do_with(req, {req.address == addr; req.M_STATE==READ;})
-  endtask
-  
-endclass : wb_read_seq
 
 
 class wb_read_seq_uart_lsr extends wb_master_sequence;
@@ -181,17 +175,17 @@ endfunction
 
 virtual task body();
   `uvm_info(get_type_name(), "Sequence to Configure UART",UVM_LOW)
-//`uvm_do_with(wb_write, {wb_write.addr == addr_reciever_buff; wb_write.dataa==0;}) //clear reciever buff
-//`uvm_do_with(wb_write, {wb_write.addr == addr_int_ie       ; wb_write.dataa==int_ie;})        //clear Interrupt Enable
-//`uvm_do_with(wb_write, {wb_write.addr == addr_fifo_ctrl    ; wb_write.dataa==fifo_ctrl;}) //configure FIFO Control
-//`uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.dataa==lcr;}) //configure Line Control Register
-//`uvm_do_with(wb_write, {wb_write.addr == addr_modem_ctrl   ; wb_write.dataa==modem_ctrl;}) //configure modem control
+//`uvm_do_with(wb_write, {wb_write.addr == addr_reciever_buff; wb_write.Data==0;}) //clear reciever buff
+//`uvm_do_with(wb_write, {wb_write.addr == addr_int_ie       ; wb_write.Data==int_ie;})        //clear Interrupt Enable
+//`uvm_do_with(wb_write, {wb_write.addr == addr_fifo_ctrl    ; wb_write.Data==fifo_ctrl;}) //configure FIFO Control
+//`uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.Data==lcr;}) //configure Line Control Register
+//`uvm_do_with(wb_write, {wb_write.addr == addr_modem_ctrl   ; wb_write.Data==modem_ctrl;}) //configure modem control
 
 
-`uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.dataa== 8'b10001011;}) //enable DIVISOR 
-`uvm_do_with(wb_write, {wb_write.addr == addr_DL_B2        ; wb_write.dataa==DL_B2;}) //enable DIVISOR 
-`uvm_do_with(wb_write, {wb_write.addr == addr_DL_B1        ; wb_write.dataa==DL_B1;}) //enable DIVISOR 
-`uvm_do_with(wb_write, {wb_write.addr == addr_lcr          ; wb_write.dataa== 8'b00001011;}) //enable DIVISOR 
+`uvm_do_with(wb_write, {wb_write.Addr == addr_lcr          ; wb_write.Data== 8'b10001011;}) //enable DIVISOR 
+`uvm_do_with(wb_write, {wb_write.Addr == addr_DL_B2        ; wb_write.Data==DL_B2;}) //enable DIVISOR 
+`uvm_do_with(wb_write, {wb_write.Addr == addr_DL_B1        ; wb_write.Data==DL_B1;}) //enable DIVISOR 
+`uvm_do_with(wb_write, {wb_write.Addr == addr_lcr          ; wb_write.Data== 8'b00001011;}) //enable DIVISOR 
 
 
 endtask
@@ -244,9 +238,9 @@ virtual task body();
   `uvm_info(get_type_name(), "Sequence to Configure UART",UVM_LOW)
 
 
-`uvm_do_with(wb_write, {wb_write.addr == addr_lcr           ; wb_write.dataa== 8'b10001011;}) //enable DIVISOR 
-`uvm_do_with(wb_read, {wb_read.addr == addr_DL_B2           ;}) //enable DIVISOR 
-`uvm_do_with(wb_read, {wb_read.addr == addr_DL_B1          ;}) //enable DIVISOR 
+`uvm_do_with(wb_write, {wb_write.Addr == addr_lcr           ; wb_write.Data== 8'b10001011;}) //enable DIVISOR 
+`uvm_do_with(wb_read, {wb_read.Addr == addr_DL_B2           ;}) //enable DIVISOR 
+`uvm_do_with(wb_read, {wb_read.Addr == addr_DL_B1          ;}) //enable DIVISOR 
 
 
 endtask
@@ -292,7 +286,7 @@ class uart_configAndWrite extends wb_master_sequence;
 `uvm_object_utils(uart_configAndWrite)
 
 config_uart configure;
-dd daley;
+delay_sequence_10mil daley;
 wb_write_seq_uart write;
 
 
@@ -300,7 +294,7 @@ function new(string name="uart_configAndWrite");
   super.new(name);
   configure = config_uart::type_id::create("configure");
   write = wb_write_seq_uart::type_id::create("write");
-  daley = dd::type_id::create("daley");
+  daley = delay_sequence_10mil::type_id::create("daley");
 
 
 endfunction
@@ -324,7 +318,7 @@ class uart_configAndWrite_5 extends wb_master_sequence;
 `uvm_object_utils(uart_configAndWrite_5)
 
 config_uart configure;
-dd daley;
+delay_sequence_10mil daley;
 wb_write_seq_uart write;
 
 
@@ -332,7 +326,7 @@ function new(string name="uart_configAndWrite_5");
   super.new(name);
   configure = config_uart::type_id::create("configure");
   write = wb_write_seq_uart::type_id::create("write");
-  daley = dd::type_id::create("daley");
+  daley = delay_sequence_10mil::type_id::create("daley");
 
 
 endfunction
@@ -357,7 +351,7 @@ class uart_configAndRead extends wb_master_sequence;
 `uvm_object_utils(uart_configAndRead)
 
 config_uart configure;
-dd daley;
+delay_sequence_10mil daley;
 wb_read_seq_uart_lsr read;
 wb_read_seq read_data;
 wb_write_seq_uart write;
@@ -371,7 +365,7 @@ function new(string name="uart_configAndRead");
   super.new(name);
   configure = config_uart::type_id::create("configure");
   //read = wb_read_seq_uart_lsr::type_id::create("read");
-  daley = dd::type_id::create("daley");
+  daley = delay_sequence_10mil::type_id::create("daley");
 req = n_cpu_transaction::type_id::create("req");
 read_data = wb_read_seq::type_id::create("read_data");
   write = wb_write_seq_uart::type_id::create("write");
@@ -394,7 +388,7 @@ get_response(rsp);
 rdata = rsp.data[7:0];
 //$display("Reading first bit of lsr until it becomes 1");
 end
-`uvm_do_with(read_data , {read_data.addr == 0'd0;});
+`uvm_do_with(read_data , {read_data.Addr == 0'd0;});
 `uvm_do(daley);
     //  `uvm_do_with(read_data, {read_data.addr == 8'd0;})
 endtask
@@ -407,7 +401,7 @@ class uart_configAndRead_5 extends wb_master_sequence;
 `uvm_object_utils(uart_configAndRead_5)
 
 config_uart configure;
-dd daley;
+delay_sequence_10mil daley;
 wb_read_seq_uart_lsr read;
 wb_read_seq read_data;
 wb_write_seq_uart write;
@@ -421,7 +415,7 @@ function new(string name="uart_configAndRead_5");
   super.new(name);
   configure = config_uart::type_id::create("configure");
   //read = wb_read_seq_uart_lsr::type_id::create("read");
-  daley = dd::type_id::create("daley");
+  daley = delay_sequence_10mil::type_id::create("daley");
 req = n_cpu_transaction::type_id::create("req");
 read_data = wb_read_seq::type_id::create("read_data");
   write = wb_write_seq_uart::type_id::create("write");
@@ -446,7 +440,7 @@ rdata = rsp.data[7:0];
 //$display("Reading first bit of lsr until it becomes 1");
 end
 
-`uvm_do_with(read_data , {read_data.addr == 0'd0;});
+`uvm_do_with(read_data , {read_data.Addr == 0'd0;});
 `uvm_do(daley)
 
   
@@ -458,139 +452,3 @@ endclass : uart_configAndRead_5
 
 
 
-
-/*
-class uart_send_data extends wb_master_sequence;
-  
-  // Required macro for sequences automation
-  `uvm_object_utils(wb_write_seq)
-
-  wb_write_seq wb_write;
-
-  // Constructor
-  function new(string name="wb_write_seq");
-    super.new(name);
-  endfunction
-
-  
-
-  // Sequence body definition
-  virtual task body();
-    `uvm_info(get_type_name(), "Executing 10 random uart calls", UVM_LOW)
-      `uvm_do_with(wb_write, wb_write.addr == 0; wb_write.data==0;)
-  endtask
-  
-endclass : wb_write_seq
-
-
-class uart_ten_random extends wb_master_sequence;
-  
-  // Required macro for sequences automation
-  `uvm_object_utils(uart_ten_random)
-
-  // Constructor
-  function new(string name="uart_ten_random");
-    super.new(name);
-  endfunction
-
-  // Sequence body definition
-  virtual task body();
-    `uvm_info(get_type_name(), "Executing 10 random uart calls", UVM_LOW)
-     repeat(10)
-      `uvm_do(req)
-  endtask
-  
-endclass : uart_ten_random
-
-
-
-
-class uart_five_write_five_read extends wb_master_sequence;
-  
-  // Required macro for sequences automation
-  `uvm_object_utils(uart_five_write_five_read)
-
-  // Constructor
-  function new(string name="uart_five_write_five_read");
-    super.new(name);
-  endfunction
-
-  // Sequence body definition
-  virtual task body();
-    `uvm_info(get_type_name(), "send 5 write signals to random addresses of uart, then send 5 read signals from random addresses of uart", UVM_LOW)
-     repeat(5)
-      `uvm_do_with(req, {M_STATE==WRITE;});
-    repeat(5)
-      `uvm_do_with(req, {M_STATE==READ;});
-  endtask
-  
-endclass : uart_five_write_five_read
-
-
-
-
-class uart_write_to_all_addresses extends wb_master_sequence;
-  
-  // Required macro for sequences automation
-  `uvm_object_utils(uart_write_to_all_addresses)
-
-  // Constructor
-  function new(string name="uart_write_to_all_addresses");
-    super.new(name);
-  endfunction
-
-  // Sequence body definition
-  virtual task body();
-    `uvm_info(get_type_name(), "sending write signal to all uart addresses from 32 to 63", UVM_LOW)
-    for(int i=32; i<64; i++)begin 
-      `uvm_do_with(req, {address==i;M_STATE==WRITE;});
-    end
-  endtask
-  
-endclass : uart_write_to_all_addresses
-
-
-
-
-class uart_read_from_all_addresses extends wb_master_sequence;
-  
-  // Required macro for sequences automation
-  `uvm_object_utils(uart_read_from_all_addresses)
-
-  // Constructor
-  function new(string name="uart_read_from_all_addresses");
-    super.new(name);
-  endfunction
-
-  // Sequence body definition
-  virtual task body();
-    `uvm_info(get_type_name(), "sending read signal to all uart addresses from 32 to 63", UVM_LOW)
-    for(int i=32; i<64; i++)begin 
-      `uvm_do_with(req, {address==i;M_STATE==READ;});
-    end
-  endtask
-  
-endclass : uart_read_from_all_addresses
-
-
-
-
-class uart_sit_idle_for_10 extends wb_master_sequence;
-  
-  // Required macro for sequences automation
-  `uvm_object_utils(uart_sit_idle_for_10)
-
-  // Constructor
-  function new(string name="uart_sit_idle_for_10");
-    super.new(name);
-  endfunction
-
-  // Sequence body definition
-  virtual task body();
-    `uvm_info(get_type_name(), "sitting IDLE, no read or write for 10 times", UVM_LOW)
-    repeat(10)
-      `uvm_do_with(req, {M_STATE==IDLE;});
-  endtask
-  
-endclass : uart_sit_idle_for_10
-*/
