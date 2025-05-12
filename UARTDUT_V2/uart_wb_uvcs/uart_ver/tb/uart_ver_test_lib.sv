@@ -12,18 +12,20 @@ class base_test extends uvm_test;
 function void build_phase(uvm_phase phase);
     super.build_phase(phase);
     tb = uart_ver_tb::type_id::create("tb",this);
+    `uvm_info(get_type_name(), "Inside Build phase", UVM_HIGH)
+
 
 uvm_config_int::set(this,"tb.wbenv.master_agent","is_active",UVM_ACTIVE);
 uvm_config_int::set(this,"tb.wbenv.slave_agent","is_active",UVM_PASSIVE);
- uvm_config_wrapper::set(this, "tb.wbenv.master_agent.sequencer.run_phase",
-                                 "default_sequence",
-                            uart_configAndRead_5::get_type());
-//    uvm_config_wrapper::set(this,"tb.uartenv.tx_agent.seqr.run_phase", "default_sequence", uart_2_seq::get_type());
-   uvm_config_wrapper::set(this, "*clk_rst*", "default_sequence", clk10_rst5_seq::get_type());
-    `uvm_info(get_type_name(), "Inside Build phase", UVM_HIGH)
-
 uvm_config_int::set( this, "*", "recording_detail",1);
 
+uvm_config_wrapper::set(this, "tb.wbenv.master_agent.sequencer.run_phase","default_sequence", uart_configAndRead_5::get_type());
+uvm_config_wrapper::set(this,"tb.uartenv.tx_agent.seqr.run_phase", "default_sequence", uart_5_seq::get_type());
+uvm_config_wrapper::set(this, "*clk_rst*", "default_sequence", clk10_rst5_seq::get_type());
+
+
+
+    
     endfunction  
 
 function void check_phase(uvm_phase phase);

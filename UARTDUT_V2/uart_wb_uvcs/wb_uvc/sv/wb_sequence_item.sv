@@ -22,7 +22,7 @@ endfunction
 
 `uvm_object_utils_begin(n_cpu_transaction)
 
-  `uvm_field_int( address , UVM_ALL_ON+ UVM_DEC );
+  `uvm_field_int( address , UVM_ALL_ON+ UVM_HEX );
   `uvm_field_int( data, UVM_ALL_ON + UVM_BIN);
   `uvm_field_enum( m_state_t, M_STATE, UVM_ALL_ON);
 
