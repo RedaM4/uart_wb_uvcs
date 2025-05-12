@@ -14,10 +14,10 @@
 
 +incdir+../../wb_soc_rtl/WishboneInterconnect
 ../../wb_soc_rtl/WishboneInterconnect/wb_intercon.sv
-###../../wb_soc_rtl/WishboneInterconnect/wb_mux.v
+../../wb_soc_rtl/WishboneInterconnect/wb_mux.v
 
-+incdir+../../wb_soc_rtl/WishboneInterconnect/wb_intercon_1.2.2-r1
-../../wb_soc_rtl/WishboneInterconnect/wb_intercon_1.2.2-r1/wb_mux.v
+##+incdir+../../wb_soc_rtl/WishboneInterconnect/wb_intercon_1.2.2-r1
+##../../wb_soc_rtl/WishboneInterconnect/wb_intercon_1.2.2-r1/wb_mux.v
 
 
 +incdir+../../wb_soc_rtl/spi
