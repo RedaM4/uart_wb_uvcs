@@ -19,12 +19,13 @@ LIST OF SEQUENCES TO USE:
 *-- uart_write_read_IER
 *-- uart_write_read_LCR
 *-- uart_configAndWrite
+*-- uart_configAndWrite_4800
+*-- uart_configAndWrite_1000000
 *-- uart_configAndWrite_5
 *-- uart_configAndRead
+*-- uart_configAndRead_4800
+*-- uart_configAndRead_1000000
 *-- uart_configAndRead_5
-*-- 
-*-- 
-*-- 
 */
 
 class wb_master_sequence extends uvm_sequence #(n_cpu_transaction);
@@ -75,7 +76,7 @@ class wb_write_seq extends wb_master_sequence;
   endfunction
 
   rand bit [31:0] Addr; //capital A btw
-  rand bit [31:0] Data; //capital D btw
+  rand bit [7:0] Data; //capital D btw
 
   virtual task body();
       `uvm_do_with(req, { req.address == Addr; req.data== Data; req.M_STATE==WRITE;})
@@ -388,13 +389,13 @@ class uart_configAndWrite extends wb_master_sequence;
 
 config_uart configure;
 delay_sequence_10mil daley;
-wb_write_seq_uart write;
+wb_write_seq write;
 
 
 function new(string name="uart_configAndWrite");
   super.new(name);
   configure = config_uart::type_id::create("configure");
-  write = wb_write_seq_uart::type_id::create("write");
+  write = wb_write_seq::type_id::create("write");
   daley = delay_sequence_10mil::type_id::create("daley");
 
 endfunction
@@ -404,7 +405,7 @@ virtual task body();
 
 
 `uvm_do(configure);
-`uvm_do(write);
+`uvm_do_with(write , {write.Addr==32'h0; write.Data==8'hAA;});
 `uvm_do(daley);
 
 endtask
@@ -417,13 +418,13 @@ class uart_configAndWrite_4800 extends wb_master_sequence;
 
 config_uart_4800 configure;
 delay_sequence_10mil daley;
-wb_write_seq_uart write;
+wb_write_seq write;
 
 
 function new(string name="uart_configAndWrite_4800");
   super.new(name);
   configure = config_uart_4800::type_id::create("configure");
-  write = wb_write_seq_uart::type_id::create("write");
+  write = wb_write_seq::type_id::create("write");
   daley = delay_sequence_10mil::type_id::create("daley");
 
 endfunction
@@ -433,7 +434,7 @@ virtual task body();
 
 
 `uvm_do(configure);
-`uvm_do(write);
+`uvm_do_with(write, {write.Addr==32'd0; write.Data==8'hAA;});
 `uvm_do(daley);
 
 endtask
@@ -446,13 +447,13 @@ class uart_configAndWrite_1000000 extends wb_master_sequence;
 
 config_uart_1000000 configure;
 delay_sequence_10mil daley;
-wb_write_seq_uart write;
+wb_write_seq write;
 
 
 function new(string name="uart_configAndWrite_1000000");
   super.new(name);
   configure = config_uart_1000000::type_id::create("configure");
-  write = wb_write_seq_uart::type_id::create("write");
+  write = wb_write_seq::type_id::create("write");
   daley = delay_sequence_10mil::type_id::create("daley");
 
 endfunction
@@ -462,7 +463,7 @@ virtual task body();
 
 
 `uvm_do(configure);
-`uvm_do(write);
+`uvm_do_with(write, {write.Addr==32'd0; write.Data==8'hAA;});
 `uvm_do(daley);
 
 endtask
